@@ -1,1 +1,1 @@
-cielo   sky heaven  ceiling
+cielo	sky	heaven	ceiling

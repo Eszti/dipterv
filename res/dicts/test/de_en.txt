@@ -1,4 +1,3 @@
-Kronleuchter    chandelier  luster
-Rüde    dog
-Hund    canine  dog hound
-Himmel  sky heaven
+Kronleuchter	chandelier	luster
+Hund	canine	dog	hound
+Himmel	sky	heaven
