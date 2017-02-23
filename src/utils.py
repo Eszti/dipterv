@@ -1,6 +1,7 @@
 from ConfigParser import ConfigParser
 import os
 import dictionary as dic
+import pydot
 
 def get_cfg(cfg_file):
     pwd = os.path.dirname(os.path.realpath(__file__))
@@ -37,3 +38,12 @@ def process_tsv_dict_file(filename):
 
 def create_dictionary_container(from_lang, to_langs, dict_folders):
     return dic.DictionaryContainer(from_lang, to_langs, dict_folders)
+
+def graph_to_pydot(G):
+    graph = pydot.Dot(graph_type='digraph')
+    for e, f, data in G.edges(data=True):
+        if 'weight' in data.keys():
+            graph.add_edge(pydot.Edge(e, f, label=data['weight']))
+        else:
+            graph.add_edge(pydot.Edge(e, f))
+    return graph

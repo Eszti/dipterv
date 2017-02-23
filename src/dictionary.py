@@ -43,6 +43,18 @@ class DictionarySource:
             new_dict = Dictionary(from_lang, to, dict_folder)
             self.dictionaries.append(new_dict)
 
+    def get(self, word):
+        trans = []
+        for dictionary in self.dictionaries:
+            trans.append(dictionary.get(word))
+        return trans
+
+    def get_rev(self, word):
+        trans_rev = []
+        for dictionary in self.dictionaries:
+            trans_rev.append(dictionary.get_rev(word))
+        return trans_rev
+
     def print_content(self):
         print "{0}".format(self.name)
         for dictionary in self.dictionaries:
@@ -55,6 +67,18 @@ class DictionaryContainer:
             logging.info('loading dictionary source: {0}'.format(dict_folder))
             new_ds = DictionarySource(from_lang, to_langs, dict_folder)
             self.dict_sources.append(new_ds)
+
+    def get(self, word):
+        trans = []
+        for dict_source in self.dict_sources:
+            trans.append(dict_source.get(word))
+        return trans
+
+    def get_rev(self, word):
+        trans_rev = []
+        for dict_source in self.dict_sources:
+            trans_rev.append(dict_source.get_rev(word))
+        return trans_rev
 
     def print_content(self):
         for dict_s in self.dict_sources:
