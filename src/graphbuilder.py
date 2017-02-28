@@ -17,6 +17,8 @@ class Graphbuilder():
 
     def build_graphs(self):
         rev_wordlist = set([word + '_rev' for word in self.wordlist])
+        if self.loglevel == "debug":
+            self.dictionary_container.print_content()
         A = nx.DiGraph()
         for dict_source in self.dictionary_container.dict_sources:
             for word in self.wordlist:
@@ -41,13 +43,12 @@ class Graphbuilder():
         C = B
         for word in self.wordlist:
             C = nx.contracted_nodes(C, word, word + '_rev')
-        print B.edges(data=True)
-        print C.edges(data=True)
         if self.loglevel == 'debug':
             self.print_graphs(A, B, C)
         else:
             self.print_graphs(A=None, B=None, C=C)
-        print rev_wordlist
+        print 'wordlist: {}'.format(self.wordlist)
+        print 'rev_wordlist: {}'.format(rev_wordlist)
 
     def print_graphs(self, A, B, C):
         time_str = time.strftime("%H%M")

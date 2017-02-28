@@ -33,7 +33,9 @@ def process_tsv_dict_file(filename):
             fields = line.strip().decode('utf-8').split('\t')
             w = fields[0]
             trans = fields[1:]
-            dictionary[w] = trans
+            if w not in dictionary.keys():
+                dictionary[w] = set()
+            dictionary[w] = dictionary[w].union(trans)
     return dictionary
 
 def create_dictionary_container(from_lang, to_langs, dict_folders):
