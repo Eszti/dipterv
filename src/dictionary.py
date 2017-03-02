@@ -21,10 +21,18 @@ class Dictionary:
             logging.error("could not process dictionary file: {0}".format(filename))
 
     def get(self, word):
-        return self.dict[word]
+        try:
+            return self.dict[word]
+        except:
+            logging.warning('OOV found: {}'.format(word))
+            return None
 
     def get_rev(self, word):
-        return self.rev_dict[word]
+        try:
+            return self.rev_dict[word]
+        except:
+            logging.warning('OOV found is rev_dict: {}'.format(word))
+            return None
 
     def print_content(self):
         print "\t{0}_{1}:".format(self.from_lang, self.to_lang)

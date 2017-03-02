@@ -24,6 +24,8 @@ class Graphbuilder():
             for word in self.wordlist:
                 for dictionary in dict_source.dictionaries:
                     trans = dictionary.get(word)
+                    if trans is None:
+                        continue
                     for t in trans:
                         A.add_edge(word, t)                     # add translation edges
                         rev_trans = dictionary.get_rev(t)
@@ -37,12 +39,14 @@ class Graphbuilder():
         B = nx.DiGraph()
         for word in self.wordlist:
             for rev_word in rev_wordlist:
-                if nx.has_path(A, word, rev_word):
-                    paths = [p for p in nx.all_shortest_paths(A, source=word, target=rev_word)]
-                    B.add_edge(word, rev_word, weight=len(paths))   # construct bipartite graphs
+                if A.has_node(word) and A.has_node(rev_word):
+                    if nx.has_path(A, word, rev_word):
+                        paths = [p for p in nx.all_shortest_paths(A, source=word, target=rev_word)]
+                        B.add_edge(word, rev_word, weight=len(paths))   # construct bipartite graphs
         C = B
         for word in self.wordlist:
-            C = nx.contracted_nodes(C, word, word + '_rev')
+            if C.has_node(word):
+                C = nx.contracted_nodes(C, word, word + '_rev')
         if self.loglevel == 'debug':
             self.print_graphs(A, B, C)
         else:
