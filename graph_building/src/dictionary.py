@@ -1,6 +1,9 @@
-import os
-import utils
 import logging
+
+import os
+
+import utils
+
 
 class Dictionary:
     def __init__(self, from_lang, to_lang, dict_folder):

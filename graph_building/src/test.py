@@ -1,4 +1,5 @@
 import networkx as nx
+
 import utils
 
 B = nx.DiGraph()

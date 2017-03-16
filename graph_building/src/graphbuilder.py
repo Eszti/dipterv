@@ -1,8 +1,11 @@
-import utils
-import os
 import sys
 import time
+
 import networkx as nx
+import os
+
+import utils
+
 
 class Graphbuilder():
     def __init__(self, cfg):
