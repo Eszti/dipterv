@@ -26,7 +26,7 @@ def execute_notebook(nbfile):
 execute_notebook("functions.ipynb")
 
 
-# Get Eglish embeddings
+# Load Eglish embeddings
 
 # In[16]:
 
@@ -38,7 +38,7 @@ en_swad, en_emb = get_embedding(en_swad_fn, en_embed_fn)
 # print(emb)
 
 
-# Get German embeddings
+# Load German embeddings
 
 # In[17]:
 
@@ -48,11 +48,15 @@ de_embed_fn = '/mnt/permanent/Language/Multi/FB/wiki.de/wiki.de.vec'
 de_swad, de_emb = get_embedding(de_swad_fn, de_embed_fn)
 
 
+# Check what the similar words are in English
+
 # In[19]:
 
 _, _, sims_en = get_corr(en_emb, en_swad)
 sims_en['dog']
 
+
+# Check what the similar words are in German
 
 # In[37]:
 
@@ -60,7 +64,7 @@ _, _, sims_de = get_corr(de_emb, de_swad)
 sims_de['hund']
 
 
-# Train
+# Train universal embedding based on English and German
 
 # In[39]:
 
@@ -80,7 +84,9 @@ corr_mx, sim_corr, sims_univ = get_corr(A, en_swad)
 corr_mx
 
 
-# In[44]:
+# Check what the similar words are in the universal embedding
 
-sims_univ['black']
+# In[46]:
+
+sims_univ['dog']
 
