@@ -1,4 +1,4 @@
-import embeddings
+import utils
 import logging
 import sys, time, os
 import numpy as np
@@ -22,16 +22,14 @@ def translate():
     swad_idx = []
     en_swad_fn = '/home/eszti/data/panlex_swadesh/swadesh{}/eng-000.txt'.format(num)
     en_embed_fn = '/mnt/permanent/Language/Multi/FB/wiki.en/wiki.en.vec'
-    en_swad, en_emb, en_nfi = embeddings.get_embedding(en_swad_fn, swad_idx, en_embed_fn)
+    en_swad, en_emb, en_nfi = utils.get_embedding(en_swad_fn, swad_idx, en_embed_fn)
 
     main_folder = '/home/eszti/data/embeddings/fb_trans/'
-    time_str = time.strftime("%H%M")
-    date_str = time.strftime("%Y%m%d")
-    trans_dir = os.path.join(main_folder, 'trans', '{0}_{1}'.format(date_str, time_str))
-    embed_dir = os.path.join(main_folder, 'embedding', '{0}_{1}'.format(date_str, time_str))
+    trans_dir = os.path.join(main_folder, 'trans')
+    embed_dir = os.path.join(main_folder, 'embedding')
 
-    os.makedirs(trans_dir)
-    os.makedirs(embed_dir)
+    utils.create_timestamped_dir(trans_dir)
+    utils.create_timestamped_dir(embed_dir)
 
     logging.info('making directory for translation matrices: {}'.format(trans_dir))
     logging.info('making directory for embeddings: {}'.format(embed_dir))
@@ -46,7 +44,11 @@ def translate():
         logging.info('swadesh file: {}'.format(swad_fn))
         logging.info('embedding file: {}'.format(embed_fn))
 
-        swad, emb, nfi = embeddings.get_embedding(swad_fn, swad_idx, embed_fn)
+        try:
+            swad, emb, nfi = utils.get_embedding(swad_fn, swad_idx, embed_fn)
+        except:
+            logging.warning('Skipping language {0}'.format(sil))
+            continue
 
         missing_words = [w for (i, w) in enumerate(en_swad) if i in nfi]
         logging.info('Missing words: {}'.format(missing_words))
@@ -58,7 +60,7 @@ def translate():
         W = np.ndarray(shape=(2, len(swad), emb.shape[1]), dtype=np.float32)
         W[0, :, :] = en_emb_fil
         W[1, :, :] = emb
-        T1, T, A = embeddings.train(W, num_steps=50000)
+        T1, T, A = utils.train(W, num_steps=50000)
 
         # Save translation matrix
         trans_fn = os.path.join(trans_dir, 'eng_{}.npy'.format(sil))

@@ -1,67 +1,68 @@
 from __future__ import print_function
 import numpy as np
-import tensorflow as tf
+import utils, json, os
+from os import listdir
+from os.path import isfile, join
+import logging
 
-def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True):
-    num_of_langs = W.shape[0]
-    num_of_words = W[0].shape[0]
-    dim_of_emb = W[0].shape[1]
 
-    # Init graphs
-    graph = tf.Graph()
-    with graph.as_default():
+def _load_nparr(embed_fn):
+    with open(embed_fn) as f:
+        emb = np.load(f)
+    return emb
 
-        # Input data.
-        tf_W = tf.constant(W)
-        if t1_identity:
-            tf_T1 = tf.constant(np.identity(dim_of_emb).astype(np.float32))  # T1 = identity
+def _save_nparr(embed_fn, emb):
+    with open(embed_fn, 'w') as f:
+        np.safe_eval(f, emb)
 
-        # Variables.
-        if not t1_identity:
-            tf_T1 = tf.Variable(tf.truncated_normal([dim_of_emb, dim_of_emb]))
-        tf_T = tf.Variable(tf.truncated_normal([num_of_langs - 1, dim_of_emb, dim_of_emb]))
-        tf_A = tf.Variable(tf.truncated_normal([num_of_words, dim_of_emb]))
+def _train_univ_embed(eng_fn, filenames):
+    lang_cnt = len(filenames)
 
-        # Training computation
-        loss = tf.norm(tf.matmul(tf_W[0], tf_T1) - tf_A)  # T1 may be constant
-        for i in range(1, num_of_langs):
-            loss += tf.norm(tf.matmul(tf_W[i], tf_T[i - 1]) - tf_A)
+    # Load English embedding
+    en_emb = _load_nparr(eng_fn)
 
-        # Optimizer.
-        # We are going to find the minimum of this loss using gradient descent.
-        optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
+    W = np.ndarray(shape=(lang_cnt, en_emb.shape[0], en_emb.shape[1]), dtype=np.float32)
+    W[0, :, :] = en_emb
+    i = 1
+    for fn in filenames:
+        if 'eng_eng' in fn:
+            continue
+        emb = _load_nparr(fn)
+        W[i, :, :] = emb
+        i += 1
+    T1, T, A = utils.train(W, num_steps=500000, verbose=True)
+    return T1, T, A
 
-    # Run training
-    with tf.Session(graph=graph) as session:
-        # This is a one-time operation which ensures the parameters get initialized as
-        # we described in the graph
-        tf.global_variables_initializer().run()
-        print('Initialized')
-        for step in range(num_steps):
-            # Run the computations
-            _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
-            if (step % 100 == 0):
-                print('Loss at step %d: %f' % (step, l))
 
-        # Print transformation matrices + universal embedding
-        print('\n')
-        print('Transform 1:')
-        print(T1)
-        for i in range(0, T.shape[0]):
-            print('Transform {}:'.format(i + 2))
-            print(T[i])
-        print('Universal embedding:')
-        print(A)
+def train_univ_embed():
+    # Config values
+    eng_fn = '/home/eszti/data/embeddings/fb_trans/embedding/20170402_1806/eng_eng.npy'
+    silcodes_fn = '/home/eszti/projects/dipterv/univ_embedding/res/swad_fb_110.json'
+    embed_dir = '/home/eszti/data/embeddings/fb_trans/embedding/20170402_1806'
+    output = '/home/eszti/projects/dipterv/univ_embedding/output'
 
-    # Print transformed embeddings
-    print('\n')
-    print('W1*T1:')
-    print(np.dot(W[0], T1))
-    for i in range(0, T.shape[0]):
-        print('W{0}*T{0}:'.format(i + 2))
-        print(np.dot(W[i + 1], T[i]))
+    # Load silcodes
+    with open(silcodes_fn) as f:
+        silcodes = json.load(f)
+    lang_cnt = len(silcodes)
 
-    return (T1, T, A)
+    # Get embedding filenames
+    embed_files = [os.path.join(embed_dir, f)
+                   for f in listdir(embed_dir) if isfile(join(embed_dir, f)) and f.endswith('.npy')]
+    embed_cnt = len(embed_files)
+    if lang_cnt != embed_cnt:
+        logging.warning('sil codes and embedding not equal: {0} != {1} number of embeddings are counted'
+                        .format(lang_cnt, embed_cnt))
+    # Train
+    T1, T, A = _train_univ_embed(eng_fn, embed_files)
+    # Save output
+    output_dir = utils.create_timestamped_dir(output)
+    T1_fn = os.path.join(output_dir, 'T1.npy')
+    T_fn = os.path.join(output_dir, 'T.npy')
+    A_fn = os.path.join(output_dir, 'A.npy')
+    _save_nparr(T1_fn, T1)
+    _save_nparr(T_fn, T)
+    _save_nparr(A_fn, A)
 
 
 def test():
@@ -70,10 +71,10 @@ def test():
     W = np.ndarray(shape=(2, 3, 2), dtype=np.float32)
     W[0, :, :] = W1
     W[1, :, :] = W2
-    T1, T, A = train(W)
+    T1, T, A = utils.train(W, learning_rate=0.1)
 
 def main():
-    test()
+    train_univ_embed()
 
 if __name__ == '__main__':
     main()

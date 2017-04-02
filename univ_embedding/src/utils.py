@@ -1,11 +1,18 @@
 from __future__ import print_function
 import numpy as np
+import logging, os, time
 import tensorflow as tf
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
 
+def create_timestamped_dir(root):
+    time_str = time.strftime("%H%M")
+    date_str = time.strftime("%Y%m%d")
+    ts_dir = os.path.join(root, '{0}_{1}'.format(date_str, time_str))
+    os.makedirs(ts_dir)
+    return ts_dir
 
-def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True):
+def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, verbose=False, debug=False):
     num_of_langs = W.shape[0]
     num_of_words = W[0].shape[0]
     dim_of_emb = W[0].shape[1]
@@ -43,9 +50,14 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True):
         for step in range(num_steps):
             # Run the computations
             _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
-            if (step % 100 == 0):
+            if verbose:
+                if (step % 100 == 0):
+                    print('Loss at step %d: %f' % (step, l))
+            elif (step % 10000 == 0):
                 print('Loss at step %d: %f' % (step, l))
+        print('Loss at the end: %f' % (l))
 
+    if debug:
         # Print transformation matrices + universal embedding
         print('\n')
         print('Transform 1:')
@@ -55,25 +67,21 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True):
             print(T[i])
         print('Universal embedding:')
         print(A)
-
-    # Print transformed embeddings
-    print('\n')
-    print('W1*T1:')
-    print(np.dot(W[0], T1))
-    for i in range(0, T.shape[0]):
-        print('W{0}*T{0}:'.format(i + 2))
-        print(np.dot(W[i + 1], T[i]))
+        # Print transformed embeddings
+        print('\n')
+        print('W1*T1:')
+        print(np.dot(W[0], T1))
+        for i in range(0, T.shape[0]):
+            print('W{0}*T{0}:'.format(i + 2))
+            print(np.dot(W[i + 1], T[i]))
 
     return (T1, T, A)
 
-
-def get_embedding(swadesh_file, swad_idx, embed_file):
-    # Read swadesh list
-    ls_swad = []
-    ls_swad_full = []
-    n_found_i = []
+def _read_swadesh(swadesh_file, swad_idx):
     with open(swadesh_file) as f:
         ls_swad = []
+        ls_swad_full = []
+        n_found_i = []
         lines = f.read().decode('utf-8').splitlines()
         for (i, line) in enumerate(lines):
             if i not in swad_idx:
@@ -92,6 +100,21 @@ def get_embedding(swadesh_file, swad_idx, embed_file):
 
     print('Not found list len: {0}'.format(len(n_found_i)))
     print('Valid swadesh len: {0}'.format(len(ls_swad)))
+    return ls_swad, ls_swad_full, n_found_i
+
+
+def get_embedding(swadesh_file, swad_idx, embed_file):
+    # Read swadesh list
+    try:
+        ls_swad, ls_swad_full, n_found_i = _read_swadesh(swadesh_file, swad_idx)
+    except:
+        logging.warning('{0} does not exist'.format(swadesh_file))
+        try:
+            swadesh_file2 = swadesh_file.replace('000', '001')
+            ls_swad, ls_swad_full, n_found_i = _read_swadesh(swadesh_file2, swad_idx)
+        except:
+            logging.warning('{0} does not exist EITHER'.format(swadesh_file2))
+            raise Exception('NOSwadesh')
 
     # Read embeddings
     words = []
@@ -170,8 +193,12 @@ def test():
     corr_mx, sim_corr, sims_univ = get_corr(A, en_swad)
     print(sims_univ['dog'])
 
+def test2():
+    root = '/home/eszti/projects/dipterv/univ_embedding/output'
+    create_timestamped_dir(root)
+
 def main():
-    test()
+    test2()
 
 if __name__ == '__main__':
     main()

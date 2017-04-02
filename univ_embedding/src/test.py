@@ -1,9 +1,5 @@
 import json
-from nbformat import current
-import logging
-import io, os, time, sys
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
 
 def get_embedding(swadesh_file, swad_idx, embed_file):
