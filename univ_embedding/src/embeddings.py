@@ -70,6 +70,7 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True):
 def get_embedding(swadesh_file, swad_idx, embed_file):
     # Read swadesh list
     ls_swad = []
+    ls_swad_full = []
     n_found_i = []
     with open(swadesh_file) as f:
         ls_swad = []
@@ -82,13 +83,20 @@ def get_embedding(swadesh_file, swad_idx, embed_file):
                     for word in words:
                         if ' ' not in word:
                             ls_swad.append(word.lower())
+                            ls_swad_full.append(word.lower())
                             found = True
+                            break
             if not found:
                 n_found_i.append(i)
+                ls_swad_full.append('NOT_FOUND')
+
+    print('Not found list len: {0}'.format(len(n_found_i)))
+    print('Valid swadesh len: {0}'.format(len(ls_swad)))
 
     # Read embeddings
     words = []
     embedding_raw = []
+    embed_found_i = []
     with open(embed_file) as f:
         i = 0
         for line in f:
@@ -97,13 +105,25 @@ def get_embedding(swadesh_file, swad_idx, embed_file):
                 continue
             fields = line.strip().decode('utf-8').split(' ')
             w = fields[0]
-            if w.lower() in ls_swad:
+            w = w.lower()
+            if w in ls_swad:
+                embed_found_i.append(ls_swad_full.index(w))
                 trans = fields[1:]
                 words.append(w)
                 embedding_raw.append(trans)
                 if i == len(ls_swad):
                     break
                 i += 1
+
+    # Delete not found embeddings from swadesh
+    # 1. calc not found indices
+    # 2. update not found index list
+    # 3. update swadesh list
+    n_found_i = np.sort(list(set(range(len(ls_swad_full))) - set(embed_found_i)))
+    ls_swad = np.delete(ls_swad_full, n_found_i)
+
+    print('Embeddings len: {0}'.format(len(embedding_raw)))
+    print('Not found: {0}\n{1}'.format(len(n_found_i), n_found_i))
 
     # Reorder embedding
     idx_arr = [words.index(w) for w in ls_swad]
