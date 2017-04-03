@@ -4,6 +4,28 @@ import logging, os, time
 import tensorflow as tf
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
+from ConfigParser import ConfigParser
+
+def get_cfg(cfg_file):
+    pwd = os.path.dirname(os.path.realpath(__file__))
+    cfg_files = [os.path.join(pwd, '../conf/default.cfg')]
+    not_found = [fn for fn in cfg_files if not os.path.exists(fn)]
+    if cfg_file is not None:
+        cfg_files.append(cfg_file)
+    if not_found:
+        raise Exception("cfg file(s) not found: {0}".format(not_found))
+    cfg = ConfigParser(os.environ)
+    cfg.read(cfg_files)
+    return cfg
+
+def load_nparr(embed_fn):
+    with open(embed_fn) as f:
+        emb = np.load(f)
+    return emb
+
+def save_nparr(embed_fn, emb):
+    with open(embed_fn, 'w') as f:
+        np.save(f, emb)
 
 def create_timestamped_dir(root):
     time_str = time.strftime("%H%M")
@@ -12,7 +34,8 @@ def create_timestamped_dir(root):
     os.makedirs(ts_dir)
     return ts_dir
 
-def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, verbose=False, debug=False):
+def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
+          verbose=False, output_dir=None, debug=False):
     num_of_langs = W.shape[0]
     num_of_words = W[0].shape[0]
     dim_of_emb = W[0].shape[1]
@@ -53,6 +76,14 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, verbose=False
             if verbose:
                 if (step % 100 == 0):
                     print('Loss at step %d: %f' % (step, l))
+                    if output_dir is not None:
+                        T1_fn = os.path.join(output_dir, 'T1_{}.npy'.format(step))
+                        T_fn = os.path.join(output_dir, 'T_{}.npy'.format(step))
+                        A_fn = os.path.join(output_dir, 'A_{}.npy'.format(step))
+                        save_nparr(T1_fn, T1)
+                        save_nparr(T_fn, T)
+                        save_nparr(A_fn, A)
+                        logging.info('T1, T, A is saved at step {}'.format(step))
             elif (step % 10000 == 0):
                 print('Loss at step %d: %f' % (step, l))
         print('Loss at the end: %f' % (l))
