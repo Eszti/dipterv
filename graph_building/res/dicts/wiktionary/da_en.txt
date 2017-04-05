@@ -1,241 +1,241 @@
-	bark afbarke
-	fire affyre
-	fire afskedige
-	close afslutte
-	night aften
-	ear aks
-	all al
-	all aldeles
-	drink alkohol
-	all alle
-	all alt
-	all alting
-	ash ask
-	ash aske
-	that at
-	abdomen bagkrop
-	hill bakke
-	bark bark
-	earth begrave
-	bone ben
-	foot betale
-	stand bevoksning
-	bite bid
-	bite bide
-	rock bjergart
-	leaf blad
-	go blive
-	blood blod
-	fire brand
-	breast bryst
-	abdomen bug
-	abdomen bughule
-	kill bytte
-	you Dem
-	this denne
-	that den
-	this dette
-	that det
-	you De
-	you dig
-	dead direkte
-	that disse
-	kill drab
-	drink drikke
-	drink drink
-	dull dum
-	you du
-	good dygtig
-	not ej
-	neck elske
-	you en
-	stand estrade
-	fat fed
-	fat fedt
-	good fin
-	fish fiske
-	fish fisk
-	feather fjer
-	distant fjern
-	wind fjert
-	fly flue
-	fly fly
-	fly flyve
-	foot fod
-	thin fortynde
-	new frisk
-	fire fritstille
-	cold fryse
-	bird fugl
-	full fuld
-	full fuldtonet
-	full fyldt
-	fire fyre
-	hide gemme
-	give give
-	good gode
-	good god
-	good godhed
-	good godt
-	dry gold
-	claw gribe
-	yellow gulne
-	yellow gul
-	fly gylp
-	tail hale
-	neck hals
-	path havegang
-	all hele
-	heart hjerte
-	heart hjerter
-	stand holdeplads
-	stand holde
-	horn horn
-	hot hot
-	head hoved
-	flesh hud
-	hide hud
-	human human
-	dog hund
-	female hunlig
-	what hvad
-	who hvem
-	all hver
-	white hvid
-	what hvilken
-	what hvilket
-	what hvilke
-	not ikke
-	fire ild
-	fire ildsted
-	you I
-	I jeg
-	you jer
-	earth jordart
-	earth jord
-	earth jorde
-	earth jordforbinde
-	earth jordforbindelse
-	dull kedelig
-	know kende
-	stand klare
-	claw klo
-	claw klosaks
-	bone knogle
-	cold kold
-	come komme
-	full komplet
-	short kort
-	short kortslutning
-	short kortslutte
-	claw kradse
-	flesh krop
-	salt krydre
-	cold kulde
-	know kunne
-	female kvinde
-	female kvindelig
-	long lang
-	short lav
-	liver lever
-	little lidt
-	dead lige
-	lie ligge
-	little lille
-	nose liste
-	close lukke
-	lie lyve
-	male mandlig
-	many mange
-	many mangen
-	you man
-	dull mat
-	human menneske
-	human menneskelig
-	mouth mund
-	night nat
-	name navngive
-	name navn
-	black neger
-	new ny
-	kill offer
-	fat opfede
-	flesh opfede
-	fire opvarme
-	worm orm
-	smoke os
-	night overnatning
-	fire ovn
-	path passage
-	go passe
-	eat plage
-	wind prut
-	rain regne
-	rain regn
-	rain regnvejr
-	stand rejse
-	path retning
-	claw rive
-	rock rock
-	root rod
-	round rund
-	smoke ryge
-	salt salte
-	salt saltholdig
-	salt salt
-	sand sandfarvet
-	sand sand
-	sand sandstrand
-	see se
-	sit sidde
-	say sige
-	hide skind
-	hide skjule
-	bark skrubbe
-	night skumring
-	cloud sky
-	snake slange
-	snake sno
-	wind sno
-	nose snude
-	nose snuse
-	sun sol
-	that som
-	who som
-	black sort
-	sleep sove
-	foot sparke
-	nose spids
-	drink spiritus
-	eat spise
-	stand stade
-	full stampe
-	stand standpunkt
-	stand stand
-	star star
-	see stift
-	stand stille
-	path sti
-	star stjerne
-	big stor
-	sand strand
-	good sund
-	go tage
-	tooth tand
-	stand tribune
-	nose tud
-	tongue tunge
-	stand udholde
-	mouth udmunding
-	single ugift
-	full valke
-	water vand
-	hot varm
-	path vej
-	know vide
-	full vid
-	stand vidneskranke
-	wind vikle
-	wind vind
-	hand viser
-	we vi
+afbarke	bark
+affyre	fire
+afskedige	fire
+afslutte	close
+aften	night
+aks	ear
+al	all
+aldeles	all
+alkohol	drink
+alle	all
+alt	all
+alting	all
+ask	ash
+aske	ash
+at	that
+bagkrop	abdomen
+bakke	hill
+bark	bark
+begrave	earth
+ben	bone
+betale	foot
+bevoksning	stand
+bid	bite
+bide	bite
+bjergart	rock
+blad	leaf
+blive	go
+blod	blood
+brand	fire
+bryst	breast
+bug	abdomen
+bughule	abdomen
+bytte	kill
+Dem	you
+denne	this
+den	that
+dette	this
+det	that
+De	you
+dig	you
+direkte	dead
+disse	that
+drab	kill
+drikke	drink
+drink	drink
+dum	dull
+du	you
+dygtig	good
+ej	not
+elske	neck
+en	you
+estrade	stand
+fed	fat
+fedt	fat
+fin	good
+fiske	fish
+fisk	fish
+fjer	feather
+fjern	distant
+fjert	wind
+flue	fly
+fly	fly
+flyve	fly
+fod	foot
+fortynde	thin
+frisk	new
+fritstille	fire
+fryse	cold
+fugl	bird
+fuld	full
+fuldtonet	full
+fyldt	full
+fyre	fire
+gemme	hide
+give	give
+gode	good
+god	good
+godhed	good
+godt	good
+gold	dry
+gribe	claw
+gulne	yellow
+gul	yellow
+gylp	fly
+hale	tail
+hals	neck
+havegang	path
+hele	all
+hjerte	heart
+hjerter	heart
+holdeplads	stand
+holde	stand
+horn	horn
+hot	hot
+hoved	head
+hud	flesh
+hud	hide
+human	human
+hund	dog
+hunlig	female
+hvad	what
+hvem	who
+hver	all
+hvid	white
+hvilken	what
+hvilket	what
+hvilke	what
+ikke	not
+ild	fire
+ildsted	fire
+I	you
+jeg	I
+jer	you
+jordart	earth
+jord	earth
+jorde	earth
+jordforbinde	earth
+jordforbindelse	earth
+kedelig	dull
+kende	know
+klare	stand
+klo	claw
+klosaks	claw
+knogle	bone
+kold	cold
+komme	come
+komplet	full
+kort	short
+kortslutning	short
+kortslutte	short
+kradse	claw
+krop	flesh
+krydre	salt
+kulde	cold
+kunne	know
+kvinde	female
+kvindelig	female
+lang	long
+lav	short
+lever	liver
+lidt	little
+lige	dead
+ligge	lie
+lille	little
+liste	nose
+lukke	close
+lyve	lie
+mandlig	male
+mange	many
+mangen	many
+man	you
+mat	dull
+menneske	human
+menneskelig	human
+mund	mouth
+nat	night
+navngive	name
+navn	name
+neger	black
+ny	new
+offer	kill
+opfede	fat
+opfede	flesh
+opvarme	fire
+orm	worm
+os	smoke
+overnatning	night
+ovn	fire
+passage	path
+passe	go
+plage	eat
+prut	wind
+regne	rain
+regn	rain
+regnvejr	rain
+rejse	stand
+retning	path
+rive	claw
+rock	rock
+rod	root
+rund	round
+ryge	smoke
+salte	salt
+saltholdig	salt
+salt	salt
+sandfarvet	sand
+sand	sand
+sandstrand	sand
+se	see
+sidde	sit
+sige	say
+skind	hide
+skjule	hide
+skrubbe	bark
+skumring	night
+sky	cloud
+slange	snake
+sno	snake
+sno	wind
+snude	nose
+snuse	nose
+sol	sun
+som	that
+som	who
+sort	black
+sove	sleep
+sparke	foot
+spids	nose
+spiritus	drink
+spise	eat
+stade	stand
+stampe	full
+standpunkt	stand
+stand	stand
+star	star
+stift	see
+stille	stand
+sti	path
+stjerne	star
+stor	big
+strand	sand
+sund	good
+tage	go
+tand	tooth
+tribune	stand
+tud	nose
+tunge	tongue
+udholde	stand
+udmunding	mouth
+ugift	single
+valke	full
+vand	water
+varm	hot
+vej	path
+vide	know
+vid	full
+vidneskranke	stand
+vikle	wind
+vind	wind
+viser	hand
+vi	we

@@ -30,7 +30,7 @@ def process_tsv_dict_file(filename):
     with open(filename) as f:
         lines = f.readlines()
         for line in lines:
-            fields = line.strip().decode('utf-8').split('\t')
+            fields = line.strip().decode('utf-8').split()
             w = fields[0]
             trans = fields[1:]
             if w not in dictionary.keys():
