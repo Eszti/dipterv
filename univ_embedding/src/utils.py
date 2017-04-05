@@ -5,6 +5,7 @@ import tensorflow as tf
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
 from ConfigParser import ConfigParser
+import config
 
 def get_cfg(cfg_file):
     pwd = os.path.dirname(os.path.realpath(__file__))
@@ -17,6 +18,12 @@ def get_cfg(cfg_file):
     cfg = ConfigParser(os.environ)
     cfg.read(cfg_files)
     return cfg
+
+def get_train_config(cfg):
+    return config.ConfigTrain(cfg)
+
+def get_translate_config(cfg):
+    return config.ConfigTranslate(cfg)
 
 def load_nparr(embed_fn):
     with open(embed_fn) as f:
@@ -34,8 +41,16 @@ def create_timestamped_dir(root):
     os.makedirs(ts_dir)
     return ts_dir
 
-def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
-          verbose=False, output_dir=None, debug=False):
+def _log_steps(l, step, starttime):
+    currtime = int(round(time.time()))
+    logging.info('Loss at step %d: %f (tiem: %d)' % (step, l, currtime - starttime))
+
+def train(W, starttime=None, learning_rate=0.01, num_steps=1001, t1_identity=True,
+          verbose=False, output_dir=None, debug=False, log_freq=None, end_cond=None):
+    if starttime is None:
+        starttime = int(round(time.time()))
+    if log_freq is None:
+        log_freq = num_steps
     num_of_langs = W.shape[0]
     num_of_words = W[0].shape[0]
     dim_of_emb = W[0].shape[1]
@@ -60,7 +75,7 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
         for i in range(1, num_of_langs):
             loss += tf.norm(tf.matmul(tf_W[i], tf_T[i - 1]) - tf_A)
 
-            # Optimizer.
+        # Optimizer.
         # We are going to find the minimum of this loss using gradient descent.
         optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
 
@@ -69,24 +84,33 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
         # This is a one-time operation which ensures the parameters get initialized as
         # we described in the graph
         tf.global_variables_initializer().run()
-        print('Initialized')
-        for step in range(num_steps):
+        if num_steps == 0 and end_cond is None:
+            logging.error('Num steps is set to 0 but no end condition is given, setting num_steps to 1000')
+            num_steps = 1000
+        logging.info('Training session is initialized, starting training...')
+        step = 0
+        l = float("inf")
+        while ((step < num_steps) and (num_steps != 0)) or ((num_steps == 0) and (end_cond < l)):
             # Run the computations
             _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
             if verbose:
                 if (step % 100 == 0):
-                    print('Loss at step %d: %f' % (step, l))
-                    if output_dir is not None:
-                        T1_fn = os.path.join(output_dir, 'T1_{}.npy'.format(step))
-                        T_fn = os.path.join(output_dir, 'T_{}.npy'.format(step))
-                        A_fn = os.path.join(output_dir, 'A_{}.npy'.format(step))
-                        save_nparr(T1_fn, T1)
-                        save_nparr(T_fn, T)
-                        save_nparr(A_fn, A)
-                        logging.info('T1, T, A is saved at step {}'.format(step))
+                    _log_steps(l, step, starttime)
             elif (step % 10000 == 0):
-                print('Loss at step %d: %f' % (step, l))
-        print('Loss at the end: %f' % (l))
+                    _log_steps(l, step, starttime)
+            if debug:
+                # Save data
+                if (output_dir is not None) and (step % log_freq == 0):
+                    T1_fn = os.path.join(output_dir, 'T1_{}.npy'.format(step))
+                    T_fn = os.path.join(output_dir, 'T_{}.npy'.format(step))
+                    A_fn = os.path.join(output_dir, 'A_{}.npy'.format(step))
+                    save_nparr(T1_fn, T1)
+                    save_nparr(T_fn, T)
+                    save_nparr(A_fn, A)
+                    logging.info('T1, T, A is saved at step {}'.format(step))
+            step += 1
+        logging.info('Finishing training...')
+        _log_steps(l, step, starttime)
 
     if debug:
         # Print transformation matrices + universal embedding
