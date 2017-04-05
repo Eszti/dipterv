@@ -34,7 +34,7 @@ class Dictionary:
         try:
             return self.rev_dict[word]
         except:
-            logging.warning('OOV found is rev_dict: {}'.format(word))
+            logging.warning('OOV found in rev_dict: {}'.format(word))
             return None
 
     def print_content(self):

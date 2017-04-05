@@ -3,9 +3,12 @@ import time
 
 import networkx as nx
 import os
-
+import logging
 import utils
 
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)s '
+                           '%(message)s', datefmt='%Y-%m-%d,%H:%M:%S')
 
 class Graphbuilder():
     def __init__(self, cfg):
@@ -17,10 +20,11 @@ class Graphbuilder():
         dict_folders = [os.path.join('res', 'dicts', dict_folder) for dict_folder in utils.text_to_list(dicts)]
         self.dictionary_container = utils.create_dictionary_container(from_lang, to_langs, dict_folders)
         self.loglevel = cfg.get(section, 'loglevel')
+        self.printgraph = cfg.getboolean('graphs', 'print')
 
     def build_graphs(self):
         rev_wordlist = set([word + '_rev' for word in self.wordlist])
-        if self.loglevel == "debug":
+        if self.loglevel == "info":
             self.dictionary_container.print_content()
         A = nx.DiGraph()
         for dict_source in self.dictionary_container.dict_sources:
@@ -50,12 +54,14 @@ class Graphbuilder():
         for word in self.wordlist:
             if C.has_node(word):
                 C = nx.contracted_nodes(C, word, word + '_rev')
+        if self.printgraph:
+            if self.loglevel == 'debug':
+                self.print_graphs(A, B, C)
+            else:
+                self.print_graphs(A=None, B=None, C=C)
         if self.loglevel == 'debug':
-            self.print_graphs(A, B, C)
-        else:
-            self.print_graphs(A=None, B=None, C=C)
-        print 'wordlist: {}'.format(self.wordlist)
-        print 'rev_wordlist: {}'.format(rev_wordlist)
+            print 'wordlist: {}'.format(self.wordlist)
+            print 'rev_wordlist: {}'.format(rev_wordlist)
 
     def print_graphs(self, A, B, C):
         time_str = time.strftime("%H%M")
