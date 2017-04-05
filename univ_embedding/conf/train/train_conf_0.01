@@ -1,7 +1,7 @@
 # Config file for default settings for train.py
 
 [general]
-output_dir: /home/eszti/projects/dipterv/univ_embedding/output
+output_dir: /home/eszti/projects/dipterv/univ_embedding/output/0.01
 
 [codes]
 silcodes_dir: /home/eszti/projects/dipterv/univ_embedding/res/
@@ -22,7 +22,7 @@ verbose: False
 log_freq: 1000000
 num_steps: 0
 end_cond: 10
-learning_rate: 1
+learning_rate: 0.01
 max_iter: 10000000
 
 
