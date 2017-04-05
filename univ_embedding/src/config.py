@@ -26,6 +26,7 @@ class BaseConfig:
         self.num_steps = cfg.getint(section, 'num_steps')
         self.learning_rate = cfg.getfloat(section, 'learning_rate')
         self.end_cond = cfg.getfloat(section, 'end_cond')
+        self.max_iter = cfg.getint(section, 'max_iter')
 
 class ConfigTrain(BaseConfig):
     def __init__(self, cfg):

@@ -24,7 +24,7 @@ def _train_univ_embed(embed_filenames, cfg_train, starttime):
         W[i, :, :] = emb
         i += 1
     T1, T, A = utils.train(W, starttime, num_steps=cfg_train.num_steps, verbose=cfg_train.verbose, output_dir=cfg_train.output_dir,
-                           log_freq=cfg_train.log_freq, end_cond=cfg_train.end_cond)
+                           log_freq=cfg_train.log_freq, end_cond=cfg_train.end_cond, max_iter=cfg_train.max_iter)
     return T1, T, A
 
 
@@ -47,6 +47,7 @@ def train_univ_embed(cfg, startime):
     logging.info('Number of steps: {}'.format(cfg_train.num_steps))
     logging.info('End condition: {}'.format(cfg_train.end_cond))
     logging.info('Learning rate: {}'.format(cfg_train.learning_rate))
+    logging.info('Max iter: {}'.format(cfg_train.max_iter))
 
     # Load silcodes
     logging.info('Reading silcodes...')

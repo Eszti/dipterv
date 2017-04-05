@@ -46,7 +46,7 @@ def _log_steps(l, step, starttime):
     logging.info('Loss at step %d: %f (tiem: %d)' % (step, l, currtime - starttime))
 
 def train(W, starttime=None, learning_rate=0.01, num_steps=1001, t1_identity=True,
-          verbose=False, output_dir=None, debug=False, log_freq=None, end_cond=None):
+          verbose=False, output_dir=None, debug=False, log_freq=None, end_cond=None, max_iter=None):
     if starttime is None:
         starttime = int(round(time.time()))
     if log_freq is None:
@@ -91,6 +91,8 @@ def train(W, starttime=None, learning_rate=0.01, num_steps=1001, t1_identity=Tru
         step = 0
         l = float("inf")
         while ((step < num_steps) and (num_steps != 0)) or ((num_steps == 0) and (end_cond < l)):
+            if (num_steps == 0) and max_iter is not None and step > max_iter:
+                break
             # Run the computations
             _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
             if verbose:
