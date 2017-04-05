@@ -78,7 +78,7 @@ def translate(cfg, starttime):
         W[1, :, :] = emb
         T1, T, A = utils.train(W, num_steps=cfg_trans.num_steps, learning_rate=cfg_trans.learning_rate,
                                verbose=cfg_trans.verbose, log_freq=cfg_trans.log_freq,
-                               end_cond=cfg_trans.end_cond)
+                               end_cond=cfg_trans.end_cond, max_iter=cfg_trans.max_iter)
 
         # Save translation matrix
         trans_fn = os.path.join(trans_dir, 'eng_{}.npy'.format(sil))
