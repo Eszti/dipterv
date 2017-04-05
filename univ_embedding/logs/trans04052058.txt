@@ -1,0 +1,2338 @@
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcublas.so.8.0 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcudnn.so.5 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcufft.so.8.0 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:135] successfully opened CUDA library libcurand.so.8.0 locally
+2017-04-05,20:58:50 INFO Config file: conf/default_translate.conf
+2017-04-05,20:58:50 INFO Output folder: /home/eszti/data/embeddings/fb_trans
+2017-04-05,20:58:50 INFO Silcodes file: /home/eszti/projects/dipterv/univ_embedding/res/swad_fb110.json
+2017-04-05,20:58:50 INFO Silcodes mapping: /home/eszti/projects/dipterv/univ_embedding/res/sil2fbcodes_new.json
+2017-04-05,20:58:50 INFO Embedding dir: /mnt/permanent/Language/Multi/FB
+2017-04-05,20:58:50 INFO English embedding file: /mnt/permanent/Language/Multi/FB/wiki.en/wiki.en.vec
+2017-04-05,20:58:50 INFO Swadesh dir: /home/eszti/data/panlex_swadesh/swadesh110
+2017-04-05,20:58:50 INFO Verbose: False
+2017-04-05,20:58:50 INFO Logging frequency: 10000
+2017-04-05,20:58:50 INFO Number of steps: 0
+2017-04-05,20:58:50 INFO End condition: 0.15
+2017-04-05,20:58:50 INFO Learning rate: 0.003
+2017-04-05,20:58:50 INFO Number of languages: 81
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 110
+Not found: 0
+[]
+2017-04-05,20:58:51 INFO making directory for translation matrices: /home/eszti/data/embeddings/fb_trans/trans/20170405_2058
+2017-04-05,20:58:51 INFO making directory for embeddings: /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058
+2017-04-05,20:58:51 INFO Translating TAT language...
+2017-04-05,20:58:51 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tat-000.txt
+2017-04-05,20:58:51 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.tt/wiki.tt.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 86
+Not found: 24
+[ 6  9 10 11 12 20 24 25 28 31 38 40 43 45 46 47 52 60 63 74 78 79 80 81]
+2017-04-05,20:58:53 INFO Missing words: [u'bite', u'bone', u'breast', u'burn', u'claw', u'ear', u'eye', u'fat', u'fish', u'full', u'hear', u'horn', u'knee', u'leaf', u'lie', u'liver', u'flesh', u'nose', u'human', u'hide', u'stand', u'star', u'rock', u'sun']
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:910] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: TITAN X (Pascal)
+major: 6 minor: 1 memoryClockRate (GHz) 1.531
+pciBusID 0000:01:00.0
+Total memory: 11.90GiB
+Free memory: 11.76GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,20:58:54 INFO Training session is initialized, starting training...
+2017-04-05,20:58:54 INFO Loss at step 0: 337.070618 (tiem: 1)
+2017-04-05,20:58:59 INFO Loss at step 10000: 196.211136 (tiem: 6)
+2017-04-05,20:59:03 INFO Loss at step 20000: 101.687241 (tiem: 11)
+2017-04-05,20:59:08 INFO Loss at step 30000: 60.962418 (tiem: 15)
+2017-04-05,20:59:12 INFO Loss at step 40000: 43.736755 (tiem: 20)
+2017-04-05,20:59:17 INFO Loss at step 50000: 33.427517 (tiem: 25)
+2017-04-05,20:59:22 INFO Loss at step 60000: 25.195662 (tiem: 29)
+2017-04-05,20:59:26 INFO Loss at step 70000: 18.242689 (tiem: 34)
+2017-04-05,20:59:31 INFO Loss at step 80000: 12.591428 (tiem: 39)
+2017-04-05,20:59:36 INFO Loss at step 90000: 8.148120 (tiem: 43)
+2017-04-05,20:59:40 INFO Loss at step 100000: 4.733263 (tiem: 48)
+2017-04-05,20:59:45 INFO Loss at step 110000: 2.161248 (tiem: 52)
+2017-04-05,20:59:50 INFO Loss at step 120000: 0.283732 (tiem: 57)
+2017-04-05,20:59:50 INFO Finishing training...
+2017-04-05,20:59:50 INFO Loss at step 120868: 0.149936 (tiem: 57)
+2017-04-05,20:59:50 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tat.npy
+2017-04-05,20:59:50 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tat.npy
+2017-04-05,20:59:50 INFO Translating SCO language...
+2017-04-05,20:59:50 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/sco-000.txt
+2017-04-05,20:59:50 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sco/wiki.sco.vec
+Not found list len: 8
+Valid swadesh len: 102
+Embeddings len: 79
+Not found: 31
+[  2   3   6   7   8  10  11  12  13  14  18  25  26  27  41  46  47  49
+  52  57  63  66  77  78  79  82  88  93  94 105 108]
+2017-04-05,20:59:51 INFO Missing words: [u'bark', u'abdomen', u'bite', u'black', u'blood', u'breast', u'burn', u'claw', u'cloud', u'cold', u'drink', u'fat', u'feather', u'fire', u'i', u'lie', u'liver', u'louse', u'flesh', u'neck', u'human', u'path', u'smoke', u'stand', u'star', u'swim', u'tooth', u'water', u'we', u'snake', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,20:59:51 INFO Training session is initialized, starting training...
+2017-04-05,20:59:51 INFO Loss at step 0: 327.777283 (tiem: 0)
+2017-04-05,20:59:56 INFO Loss at step 10000: 190.931702 (tiem: 4)
+2017-04-05,21:00:00 INFO Loss at step 20000: 99.046021 (tiem: 9)
+2017-04-05,21:00:05 INFO Loss at step 30000: 60.340202 (tiem: 13)
+2017-04-05,21:00:10 INFO Loss at step 40000: 41.947498 (tiem: 18)
+2017-04-05,21:00:14 INFO Loss at step 50000: 31.417307 (tiem: 23)
+2017-04-05,21:00:19 INFO Loss at step 60000: 21.962511 (tiem: 27)
+2017-04-05,21:00:23 INFO Loss at step 70000: 13.746605 (tiem: 32)
+2017-04-05,21:00:28 INFO Loss at step 80000: 6.869027 (tiem: 36)
+2017-04-05,21:00:32 INFO Loss at step 90000: 1.343768 (tiem: 41)
+2017-04-05,21:00:34 INFO Finishing training...
+2017-04-05,21:00:34 INFO Loss at step 92625: 0.149890 (tiem: 42)
+2017-04-05,21:00:34 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_sco.npy
+2017-04-05,21:00:34 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_sco.npy
+2017-04-05,21:00:34 INFO Translating TEL language...
+2017-04-05,21:00:34 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tel-000.txt
+2017-04-05,21:00:34 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.te/wiki.te.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 100
+Not found: 10
+[ 6 11 12 25 29 36 44 46 52 78]
+2017-04-05,21:00:38 INFO Missing words: [u'bite', u'burn', u'claw', u'fat', u'fly', u'hand', u'know', u'lie', u'flesh', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:00:38 INFO Training session is initialized, starting training...
+2017-04-05,21:00:38 INFO Loss at step 0: 366.512939 (tiem: 0)
+2017-04-05,21:00:42 INFO Loss at step 10000: 227.579285 (tiem: 5)
+2017-04-05,21:00:47 INFO Loss at step 20000: 126.148056 (tiem: 9)
+2017-04-05,21:00:52 INFO Loss at step 30000: 74.382408 (tiem: 14)
+2017-04-05,21:00:56 INFO Loss at step 40000: 53.104015 (tiem: 19)
+2017-04-05,21:01:01 INFO Loss at step 50000: 40.280582 (tiem: 23)
+2017-04-05,21:01:06 INFO Loss at step 60000: 30.870506 (tiem: 28)
+2017-04-05,21:01:10 INFO Loss at step 70000: 22.591101 (tiem: 33)
+2017-04-05,21:01:15 INFO Loss at step 80000: 15.486177 (tiem: 37)
+2017-04-05,21:01:20 INFO Loss at step 90000: 9.517008 (tiem: 42)
+2017-04-05,21:01:24 INFO Loss at step 100000: 4.576705 (tiem: 47)
+2017-04-05,21:01:29 INFO Loss at step 110000: 0.582425 (tiem: 51)
+2017-04-05,21:01:29 INFO Finishing training...
+2017-04-05,21:01:29 INFO Loss at step 111276: 0.149938 (tiem: 52)
+2017-04-05,21:01:29 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tel.npy
+2017-04-05,21:01:29 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tel.npy
+2017-04-05,21:01:29 INFO Translating SAN language...
+2017-04-05,21:01:29 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/san-000.txt
+2017-04-05,21:01:29 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sa/wiki.sa.vec
+2017-04-05,21:01:29 WARNING /home/eszti/data/panlex_swadesh/swadesh110/san-000.txt does not exist
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 2
+Not found: 108
+[  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+  73  74  75  76  77  78  80  81  82  83  84  85  86  87  88  89  90  91
+  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107 108 109]
+2017-04-05,21:01:30 INFO Missing words: [u'all', u'ash', u'bark', u'abdomen', u'big', u'bird', u'bite', u'black', u'blood', u'bone', u'breast', u'burn', u'claw', u'cloud', u'cold', u'come', u'dead', u'dog', u'dry', u'ear', u'earth', u'eat', u'egg', u'eye', u'fat', u'feather', u'fire', u'fish', u'fly', u'foot', u'full', u'give', u'good', u'green', u'hair', u'hand', u'head', u'hear', u'heart', u'horn', u'i', u'kill', u'knee', u'know', u'leaf', u'lie', u'liver', u'long', u'louse', u'male', u'many', u'flesh', u'moon', u'hill', u'mouth', u'name', u'neck', u'new', u'night', u'nose', u'not', u'adulterous', u'human', u'rain', u'red', u'path', u'root', u'round', u'sand', u'say', u'see', u'seed', u'sit', u'hide', u'sleep', u'little', u'smoke', u'stand', u'rock', u'sun', u'swim', u'tail', u'that', u'this', u'thou', u'tongue', u'tooth', u'tree', u'grind', u'go', u'hot', u'water', u'we', u'what', u'white', u'who', u'female', u'yellow', u'distant', u'dull', u'close', u'salt', u'short', u'snake', u'thin', u'wind', u'earthworm', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:01:30 INFO Training session is initialized, starting training...
+2017-04-05,21:01:30 INFO Loss at step 0: 51.351871 (tiem: 0)
+2017-04-05,21:01:35 INFO Loss at step 10000: 2.618780 (tiem: 4)
+2017-04-05,21:01:36 INFO Finishing training...
+2017-04-05,21:01:36 INFO Loss at step 13721: 0.149407 (tiem: 6)
+2017-04-05,21:01:36 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_san.npy
+2017-04-05,21:01:36 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_san.npy
+2017-04-05,21:01:36 INFO Translating RON language...
+2017-04-05,21:01:36 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ron-000.txt
+2017-04-05,21:01:36 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ro/wiki.ro.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 93
+Not found: 17
+[ 8 11 16 21 29 36 45 46 49 54 66 69 73 78 87 89 93]
+2017-04-05,21:01:43 INFO Missing words: [u'blood', u'burn', u'dead', u'earth', u'fly', u'hand', u'leaf', u'lie', u'louse', u'hill', u'path', u'sand', u'sit', u'stand', u'tongue', u'tree', u'water']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:01:43 INFO Training session is initialized, starting training...
+2017-04-05,21:01:43 INFO Loss at step 0: 355.948151 (tiem: 0)
+2017-04-05,21:01:47 INFO Loss at step 10000: 216.156799 (tiem: 5)
+2017-04-05,21:01:52 INFO Loss at step 20000: 117.431824 (tiem: 9)
+2017-04-05,21:01:57 INFO Loss at step 30000: 70.062714 (tiem: 14)
+2017-04-05,21:02:01 INFO Loss at step 40000: 50.148174 (tiem: 19)
+2017-04-05,21:02:06 INFO Loss at step 50000: 37.878357 (tiem: 23)
+2017-04-05,21:02:10 INFO Loss at step 60000: 28.628578 (tiem: 28)
+2017-04-05,21:02:15 INFO Loss at step 70000: 20.474178 (tiem: 33)
+2017-04-05,21:02:20 INFO Loss at step 80000: 13.488090 (tiem: 37)
+2017-04-05,21:02:24 INFO Loss at step 90000: 7.670358 (tiem: 42)
+2017-04-05,21:02:29 INFO Loss at step 100000: 2.943577 (tiem: 46)
+2017-04-05,21:02:32 INFO Finishing training...
+2017-04-05,21:02:32 INFO Loss at step 107356: 0.149727 (tiem: 50)
+2017-04-05,21:02:32 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ron.npy
+2017-04-05,21:02:32 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ron.npy
+2017-04-05,21:02:32 INFO Translating VIE language...
+2017-04-05,21:02:32 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/vie-000.txt
+2017-04-05,21:02:32 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.vi/wiki.vi.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 85
+Not found: 25
+[ 0 11 14 15 17 18 25 42 43 47 49 51 52 66 71 76 78 79 81 83 89 93 94 96 98]
+2017-04-05,21:02:38 INFO Missing words: [u'all', u'burn', u'cold', u'come', u'dog', u'drink', u'fat', u'kill', u'knee', u'liver', u'louse', u'many', u'flesh', u'path', u'see', u'little', u'stand', u'star', u'sun', u'tail', u'tree', u'water', u'we', u'white', u'female']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:02:38 INFO Training session is initialized, starting training...
+2017-04-05,21:02:38 INFO Loss at step 0: 339.274597 (tiem: 1)
+2017-04-05,21:02:43 INFO Loss at step 10000: 201.500519 (tiem: 5)
+2017-04-05,21:02:47 INFO Loss at step 20000: 107.247650 (tiem: 10)
+2017-04-05,21:02:52 INFO Loss at step 30000: 65.263283 (tiem: 14)
+2017-04-05,21:02:56 INFO Loss at step 40000: 46.092957 (tiem: 19)
+2017-04-05,21:03:01 INFO Loss at step 50000: 34.839951 (tiem: 24)
+2017-04-05,21:03:06 INFO Loss at step 60000: 25.378046 (tiem: 28)
+2017-04-05,21:03:10 INFO Loss at step 70000: 17.064163 (tiem: 33)
+2017-04-05,21:03:15 INFO Loss at step 80000: 10.031769 (tiem: 37)
+2017-04-05,21:03:20 INFO Loss at step 90000: 4.361987 (tiem: 42)
+2017-04-05,21:03:24 INFO Loss at step 100000: 0.246567 (tiem: 47)
+2017-04-05,21:03:24 INFO Finishing training...
+2017-04-05,21:03:24 INFO Loss at step 100330: 0.149876 (tiem: 47)
+2017-04-05,21:03:24 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_vie.npy
+2017-04-05,21:03:24 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_vie.npy
+2017-04-05,21:03:24 INFO Translating KAT language...
+2017-04-05,21:03:24 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/kat-000.txt
+2017-04-05,21:03:24 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ka/wiki.ka.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 102
+Not found: 8
+[ 11  12  25  36  46  52  78 106]
+2017-04-05,21:03:28 INFO Missing words: [u'burn', u'claw', u'fat', u'hand', u'lie', u'flesh', u'stand', u'thin']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:03:28 INFO Training session is initialized, starting training...
+2017-04-05,21:03:28 INFO Loss at step 0: 372.213623 (tiem: 0)
+2017-04-05,21:03:33 INFO Loss at step 10000: 230.801407 (tiem: 5)
+2017-04-05,21:03:37 INFO Loss at step 20000: 129.070587 (tiem: 10)
+2017-04-05,21:03:42 INFO Loss at step 30000: 76.523682 (tiem: 15)
+2017-04-05,21:03:47 INFO Loss at step 40000: 54.812256 (tiem: 19)
+2017-04-05,21:03:51 INFO Loss at step 50000: 41.531647 (tiem: 24)
+2017-04-05,21:03:56 INFO Loss at step 60000: 32.100388 (tiem: 29)
+2017-04-05,21:04:01 INFO Loss at step 70000: 23.794533 (tiem: 33)
+2017-04-05,21:04:05 INFO Loss at step 80000: 16.677250 (tiem: 38)
+2017-04-05,21:04:10 INFO Loss at step 90000: 10.739024 (tiem: 43)
+2017-04-05,21:04:15 INFO Loss at step 100000: 5.889820 (tiem: 47)
+2017-04-05,21:04:20 INFO Loss at step 110000: 2.007710 (tiem: 52)
+2017-04-05,21:04:22 INFO Finishing training...
+2017-04-05,21:04:22 INFO Loss at step 115892: 0.149881 (tiem: 55)
+2017-04-05,21:04:22 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_kat.npy
+2017-04-05,21:04:22 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_kat.npy
+2017-04-05,21:04:22 INFO Translating POR language...
+2017-04-05,21:04:22 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/por-000.txt
+2017-04-05,21:04:22 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.pt/wiki.pt.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 87
+Not found: 23
+[ 8 11 18 20 25 28 36 40 43 46 47 49 54 56 60 62 63 78 79 87 88 89 93]
+2017-04-05,21:04:33 INFO Missing words: [u'blood', u'burn', u'drink', u'ear', u'fat', u'fish', u'hand', u'horn', u'knee', u'lie', u'liver', u'louse', u'hill', u'name', u'nose', u'adulterous', u'human', u'stand', u'star', u'tongue', u'tooth', u'tree', u'water']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:04:33 INFO Training session is initialized, starting training...
+2017-04-05,21:04:33 INFO Loss at step 0: 341.362427 (tiem: 0)
+2017-04-05,21:04:38 INFO Loss at step 10000: 203.421600 (tiem: 4)
+2017-04-05,21:04:42 INFO Loss at step 20000: 108.104362 (tiem: 9)
+2017-04-05,21:04:47 INFO Loss at step 30000: 65.319328 (tiem: 13)
+2017-04-05,21:04:52 INFO Loss at step 40000: 46.588902 (tiem: 18)
+2017-04-05,21:04:56 INFO Loss at step 50000: 35.383301 (tiem: 23)
+2017-04-05,21:05:01 INFO Loss at step 60000: 26.334084 (tiem: 27)
+2017-04-05,21:05:05 INFO Loss at step 70000: 18.421688 (tiem: 32)
+2017-04-05,21:05:10 INFO Loss at step 80000: 11.698626 (tiem: 37)
+2017-04-05,21:05:15 INFO Loss at step 90000: 6.145184 (tiem: 41)
+2017-04-05,21:05:19 INFO Loss at step 100000: 1.692778 (tiem: 46)
+2017-04-05,21:05:21 INFO Finishing training...
+2017-04-05,21:05:21 INFO Loss at step 104232: 0.149813 (tiem: 48)
+2017-04-05,21:05:21 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_por.npy
+2017-04-05,21:05:21 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_por.npy
+2017-04-05,21:05:21 INFO Translating UZN language...
+2017-04-05,21:05:21 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/uzn-000.txt
+2017-04-05,21:05:21 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.uz/wiki.uz.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 86
+Not found: 24
+[ 6 10 11 12 22 24 25 29 38 42 43 44 46 47 52 54 59 70 73 75 78 82 89 91]
+2017-04-05,21:05:23 INFO Missing words: [u'bite', u'breast', u'burn', u'claw', u'eat', u'eye', u'fat', u'fly', u'hear', u'kill', u'knee', u'know', u'lie', u'liver', u'flesh', u'hill', u'night', u'say', u'sit', u'sleep', u'stand', u'swim', u'tree', u'go']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:05:23 INFO Training session is initialized, starting training...
+2017-04-05,21:05:23 INFO Loss at step 0: 340.157562 (tiem: 0)
+2017-04-05,21:05:28 INFO Loss at step 10000: 204.241394 (tiem: 4)
+2017-04-05,21:05:33 INFO Loss at step 20000: 108.756592 (tiem: 9)
+2017-04-05,21:05:37 INFO Loss at step 30000: 65.399582 (tiem: 14)
+2017-04-05,21:05:42 INFO Loss at step 40000: 45.369778 (tiem: 18)
+2017-04-05,21:05:46 INFO Loss at step 50000: 34.107304 (tiem: 23)
+2017-04-05,21:05:51 INFO Loss at step 60000: 24.326799 (tiem: 28)
+2017-04-05,21:05:56 INFO Loss at step 70000: 15.770757 (tiem: 32)
+2017-04-05,21:06:00 INFO Loss at step 80000: 8.572554 (tiem: 37)
+2017-04-05,21:06:05 INFO Loss at step 90000: 2.768682 (tiem: 41)
+2017-04-05,21:06:08 INFO Finishing training...
+2017-04-05,21:06:08 INFO Loss at step 95689: 0.149627 (tiem: 44)
+2017-04-05,21:06:08 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_uzn.npy
+2017-04-05,21:06:08 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_uzn.npy
+2017-04-05,21:06:08 INFO Translating ITA language...
+2017-04-05,21:06:08 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ita-000.txt
+2017-04-05,21:06:08 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.it/wiki.it.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 105
+Not found: 5
+[ 8 11 25 66 78]
+2017-04-05,21:06:24 INFO Missing words: [u'blood', u'burn', u'fat', u'path', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:06:24 INFO Training session is initialized, starting training...
+2017-04-05,21:06:24 INFO Loss at step 0: 376.512329 (tiem: 0)
+2017-04-05,21:06:28 INFO Loss at step 10000: 234.545105 (tiem: 5)
+2017-04-05,21:06:33 INFO Loss at step 20000: 131.795792 (tiem: 10)
+2017-04-05,21:06:38 INFO Loss at step 30000: 77.488647 (tiem: 14)
+2017-04-05,21:06:42 INFO Loss at step 40000: 55.774475 (tiem: 19)
+2017-04-05,21:06:47 INFO Loss at step 50000: 42.579086 (tiem: 24)
+2017-04-05,21:06:52 INFO Loss at step 60000: 33.505264 (tiem: 28)
+2017-04-05,21:06:56 INFO Loss at step 70000: 25.589884 (tiem: 33)
+2017-04-05,21:07:01 INFO Loss at step 80000: 18.858686 (tiem: 38)
+2017-04-05,21:07:06 INFO Loss at step 90000: 13.256569 (tiem: 42)
+2017-04-05,21:07:10 INFO Loss at step 100000: 8.648419 (tiem: 47)
+2017-04-05,21:07:15 INFO Loss at step 110000: 4.863419 (tiem: 52)
+2017-04-05,21:07:20 INFO Loss at step 120000: 1.760872 (tiem: 56)
+2017-04-05,21:07:23 INFO Finishing training...
+2017-04-05,21:07:23 INFO Loss at step 126275: 0.149792 (tiem: 59)
+2017-04-05,21:07:23 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ita.npy
+2017-04-05,21:07:23 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ita.npy
+2017-04-05,21:07:23 INFO Translating IND language...
+2017-04-05,21:07:23 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ind-000.txt
+2017-04-05,21:07:23 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.id/wiki.id.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 88
+Not found: 22
+[  2   9  10  14  19  20  34  39  46  48  52  56  60  63  64  66  74  82
+  91  98 100 106]
+2017-04-05,21:07:28 INFO Missing words: [u'bark', u'bone', u'breast', u'cold', u'dry', u'ear', u'green', u'heart', u'lie', u'long', u'flesh', u'name', u'nose', u'human', u'rain', u'path', u'hide', u'swim', u'go', u'female', u'distant', u'thin']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:07:28 INFO Training session is initialized, starting training...
+2017-04-05,21:07:28 INFO Loss at step 0: 344.050781 (tiem: 0)
+2017-04-05,21:07:33 INFO Loss at step 10000: 205.838470 (tiem: 4)
+2017-04-05,21:07:37 INFO Loss at step 20000: 109.600830 (tiem: 9)
+2017-04-05,21:07:42 INFO Loss at step 30000: 65.803085 (tiem: 13)
+2017-04-05,21:07:47 INFO Loss at step 40000: 46.400581 (tiem: 18)
+2017-04-05,21:07:51 INFO Loss at step 50000: 35.088142 (tiem: 23)
+2017-04-05,21:07:56 INFO Loss at step 60000: 25.705044 (tiem: 27)
+2017-04-05,21:08:00 INFO Loss at step 70000: 17.508474 (tiem: 32)
+2017-04-05,21:08:05 INFO Loss at step 80000: 10.601633 (tiem: 36)
+2017-04-05,21:08:10 INFO Loss at step 90000: 5.000792 (tiem: 41)
+2017-04-05,21:08:14 INFO Loss at step 100000: 0.642465 (tiem: 46)
+2017-04-05,21:08:15 INFO Finishing training...
+2017-04-05,21:08:15 INFO Loss at step 101375: 0.149963 (tiem: 46)
+2017-04-05,21:08:15 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ind.npy
+2017-04-05,21:08:15 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ind.npy
+2017-04-05,21:08:15 INFO Translating ARB language...
+2017-04-05,21:08:15 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/arb-000.txt
+2017-04-05,21:08:15 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ar/wiki.ar.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 88
+Not found: 22
+[  0   5  10  11  12  25  31  32  35  39  46  60  63  68  72  78  90  91
+ 102 105 106 109]
+2017-04-05,21:08:26 INFO Missing words: [u'all', u'bird', u'breast', u'burn', u'claw', u'fat', u'full', u'give', u'hair', u'heart', u'lie', u'nose', u'human', u'round', u'seed', u'stand', u'grind', u'go', u'close', u'snake', u'thin', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:08:26 INFO Training session is initialized, starting training...
+2017-04-05,21:08:26 INFO Loss at step 0: 345.641846 (tiem: 0)
+2017-04-05,21:08:30 INFO Loss at step 10000: 207.469818 (tiem: 5)
+2017-04-05,21:08:35 INFO Loss at step 20000: 110.442322 (tiem: 9)
+2017-04-05,21:08:39 INFO Loss at step 30000: 66.076385 (tiem: 14)
+2017-04-05,21:08:44 INFO Loss at step 40000: 46.444439 (tiem: 19)
+2017-04-05,21:08:49 INFO Loss at step 50000: 35.107685 (tiem: 23)
+2017-04-05,21:08:53 INFO Loss at step 60000: 25.683500 (tiem: 28)
+2017-04-05,21:08:58 INFO Loss at step 70000: 17.505558 (tiem: 32)
+2017-04-05,21:09:03 INFO Loss at step 80000: 10.701448 (tiem: 37)
+2017-04-05,21:09:07 INFO Loss at step 90000: 5.296293 (tiem: 42)
+2017-04-05,21:09:12 INFO Loss at step 100000: 1.222041 (tiem: 46)
+2017-04-05,21:09:13 INFO Finishing training...
+2017-04-05,21:09:13 INFO Loss at step 103408: 0.149834 (tiem: 48)
+2017-04-05,21:09:13 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_arb.npy
+2017-04-05,21:09:13 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_arb.npy
+2017-04-05,21:09:13 INFO Translating KHK language...
+2017-04-05,21:09:13 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/khk-000.txt
+2017-04-05,21:09:13 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.mn/wiki.mn.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 99
+Not found: 11
+[ 6 10 11 12 19 25 36 46 52 75 78]
+2017-04-05,21:09:14 INFO Missing words: [u'bite', u'breast', u'burn', u'claw', u'dry', u'fat', u'hand', u'lie', u'flesh', u'sleep', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:09:14 INFO Training session is initialized, starting training...
+2017-04-05,21:09:14 INFO Loss at step 0: 366.127136 (tiem: 0)
+2017-04-05,21:09:19 INFO Loss at step 10000: 226.765228 (tiem: 5)
+2017-04-05,21:09:24 INFO Loss at step 20000: 126.392120 (tiem: 9)
+2017-04-05,21:09:28 INFO Loss at step 30000: 75.248528 (tiem: 14)
+2017-04-05,21:09:33 INFO Loss at step 40000: 53.389065 (tiem: 19)
+2017-04-05,21:09:38 INFO Loss at step 50000: 40.233185 (tiem: 23)
+2017-04-05,21:09:42 INFO Loss at step 60000: 30.420780 (tiem: 28)
+2017-04-05,21:09:47 INFO Loss at step 70000: 21.760019 (tiem: 32)
+2017-04-05,21:09:52 INFO Loss at step 80000: 14.370824 (tiem: 37)
+2017-04-05,21:09:56 INFO Loss at step 90000: 8.278841 (tiem: 42)
+2017-04-05,21:10:01 INFO Loss at step 100000: 3.403168 (tiem: 46)
+2017-04-05,21:10:05 INFO Finishing training...
+2017-04-05,21:10:05 INFO Loss at step 108682: 0.149984 (tiem: 50)
+2017-04-05,21:10:05 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_khk.npy
+2017-04-05,21:10:05 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_khk.npy
+2017-04-05,21:10:05 INFO Translating NLD language...
+2017-04-05,21:10:05 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/nld-000.txt
+2017-04-05,21:10:05 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.nl/wiki.nl.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 99
+Not found: 11
+[11 15 18 25 38 47 63 74 78 93 94]
+2017-04-05,21:10:21 INFO Missing words: [u'burn', u'come', u'drink', u'fat', u'hear', u'liver', u'human', u'hide', u'stand', u'water', u'we']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:10:21 INFO Training session is initialized, starting training...
+2017-04-05,21:10:21 INFO Loss at step 0: 368.566833 (tiem: 0)
+2017-04-05,21:10:25 INFO Loss at step 10000: 226.505463 (tiem: 5)
+2017-04-05,21:10:30 INFO Loss at step 20000: 125.388901 (tiem: 9)
+2017-04-05,21:10:35 INFO Loss at step 30000: 74.244965 (tiem: 14)
+2017-04-05,21:10:39 INFO Loss at step 40000: 53.151733 (tiem: 19)
+2017-04-05,21:10:44 INFO Loss at step 50000: 40.387470 (tiem: 23)
+2017-04-05,21:10:49 INFO Loss at step 60000: 31.068153 (tiem: 28)
+2017-04-05,21:10:53 INFO Loss at step 70000: 22.927114 (tiem: 33)
+2017-04-05,21:10:58 INFO Loss at step 80000: 16.037464 (tiem: 37)
+2017-04-05,21:11:02 INFO Loss at step 90000: 10.376435 (tiem: 42)
+2017-04-05,21:11:07 INFO Loss at step 100000: 5.800090 (tiem: 47)
+2017-04-05,21:11:12 INFO Loss at step 110000: 2.105953 (tiem: 51)
+2017-04-05,21:11:15 INFO Finishing training...
+2017-04-05,21:11:15 INFO Loss at step 116452: 0.149867 (tiem: 54)
+2017-04-05,21:11:15 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_nld.npy
+2017-04-05,21:11:15 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_nld.npy
+2017-04-05,21:11:15 INFO Translating SPA language...
+2017-04-05,21:11:15 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/spa-000.txt
+2017-04-05,21:11:15 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.es/wiki.es.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 105
+Not found: 5
+[ 11  25  63  78 105]
+2017-04-05,21:11:33 INFO Missing words: [u'burn', u'fat', u'human', u'stand', u'snake']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:11:33 INFO Training session is initialized, starting training...
+2017-04-05,21:11:33 INFO Loss at step 0: 374.443695 (tiem: 0)
+2017-04-05,21:11:38 INFO Loss at step 10000: 232.646210 (tiem: 5)
+2017-04-05,21:11:42 INFO Loss at step 20000: 130.167542 (tiem: 10)
+2017-04-05,21:11:47 INFO Loss at step 30000: 76.552094 (tiem: 15)
+2017-04-05,21:11:52 INFO Loss at step 40000: 55.250740 (tiem: 19)
+2017-04-05,21:11:56 INFO Loss at step 50000: 42.208591 (tiem: 24)
+2017-04-05,21:12:01 INFO Loss at step 60000: 33.239319 (tiem: 29)
+2017-04-05,21:12:06 INFO Loss at step 70000: 25.414072 (tiem: 33)
+2017-04-05,21:12:11 INFO Loss at step 80000: 18.750340 (tiem: 38)
+2017-04-05,21:12:15 INFO Loss at step 90000: 13.183484 (tiem: 43)
+2017-04-05,21:12:20 INFO Loss at step 100000: 8.573553 (tiem: 47)
+2017-04-05,21:12:25 INFO Loss at step 110000: 4.759869 (tiem: 52)
+2017-04-05,21:12:29 INFO Loss at step 120000: 1.621285 (tiem: 57)
+2017-04-05,21:12:32 INFO Finishing training...
+2017-04-05,21:12:32 INFO Loss at step 125576: 0.149819 (tiem: 59)
+2017-04-05,21:12:32 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_spa.npy
+2017-04-05,21:12:32 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_spa.npy
+2017-04-05,21:12:32 INFO Translating MYA language...
+2017-04-05,21:12:32 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/mya-000.txt
+2017-04-05,21:12:32 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.my/wiki.my.vec
+Not found list len: 12
+Valid swadesh len: 98
+Embeddings len: 92
+Not found: 18
+[ 11  12  25  36  41  46  50  52  60  76  78  83  95  97  98 106 108 109]
+2017-04-05,21:12:34 INFO Missing words: [u'burn', u'claw', u'fat', u'hand', u'i', u'lie', u'male', u'flesh', u'nose', u'little', u'stand', u'tail', u'what', u'who', u'female', u'thin', u'earthworm', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:12:34 INFO Training session is initialized, starting training...
+2017-04-05,21:12:34 INFO Loss at step 0: 354.821472 (tiem: 0)
+2017-04-05,21:12:39 INFO Loss at step 10000: 213.165985 (tiem: 4)
+2017-04-05,21:12:43 INFO Loss at step 20000: 112.980103 (tiem: 9)
+2017-04-05,21:12:48 INFO Loss at step 30000: 64.940430 (tiem: 13)
+2017-04-05,21:12:53 INFO Loss at step 40000: 45.358727 (tiem: 18)
+2017-04-05,21:12:57 INFO Loss at step 50000: 34.624672 (tiem: 23)
+2017-04-05,21:13:02 INFO Loss at step 60000: 26.328888 (tiem: 27)
+2017-04-05,21:13:06 INFO Loss at step 70000: 19.680237 (tiem: 32)
+2017-04-05,21:13:11 INFO Loss at step 80000: 14.527458 (tiem: 37)
+2017-04-05,21:13:16 INFO Loss at step 90000: 10.539497 (tiem: 41)
+2017-04-05,21:13:20 INFO Loss at step 100000: 7.371314 (tiem: 46)
+2017-04-05,21:13:25 INFO Loss at step 110000: 4.769499 (tiem: 50)
+2017-04-05,21:13:30 INFO Loss at step 120000: 2.576710 (tiem: 55)
+2017-04-05,21:13:34 INFO Loss at step 130000: 0.722803 (tiem: 60)
+2017-04-05,21:13:36 INFO Finishing training...
+2017-04-05,21:13:36 INFO Loss at step 133631: 0.149861 (tiem: 61)
+2017-04-05,21:13:36 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_mya.npy
+2017-04-05,21:13:36 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_mya.npy
+2017-04-05,21:13:36 INFO Translating TGK language...
+2017-04-05,21:13:36 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tgk-000.txt
+2017-04-05,21:13:36 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.tg/wiki.tg.vec
+Not found list len: 11
+Valid swadesh len: 99
+Embeddings len: 96
+Not found: 14
+[ 2 11 12 25 29 36 46 49 52 60 72 78 82 91]
+2017-04-05,21:13:37 INFO Missing words: [u'bark', u'burn', u'claw', u'fat', u'fly', u'hand', u'lie', u'louse', u'flesh', u'nose', u'seed', u'stand', u'swim', u'go']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:13:37 INFO Training session is initialized, starting training...
+2017-04-05,21:13:37 INFO Loss at step 0: 358.357086 (tiem: 0)
+2017-04-05,21:13:42 INFO Loss at step 10000: 213.870819 (tiem: 4)
+2017-04-05,21:13:47 INFO Loss at step 20000: 115.112366 (tiem: 9)
+2017-04-05,21:13:51 INFO Loss at step 30000: 68.157600 (tiem: 14)
+2017-04-05,21:13:56 INFO Loss at step 40000: 49.584030 (tiem: 18)
+2017-04-05,21:14:00 INFO Loss at step 50000: 38.048077 (tiem: 23)
+2017-04-05,21:14:05 INFO Loss at step 60000: 29.708302 (tiem: 28)
+2017-04-05,21:14:10 INFO Loss at step 70000: 22.547985 (tiem: 32)
+2017-04-05,21:14:14 INFO Loss at step 80000: 16.565807 (tiem: 37)
+2017-04-05,21:14:19 INFO Loss at step 90000: 11.672832 (tiem: 41)
+2017-04-05,21:14:23 INFO Loss at step 100000: 7.712353 (tiem: 46)
+2017-04-05,21:14:28 INFO Loss at step 110000: 4.511616 (tiem: 51)
+2017-04-05,21:14:33 INFO Loss at step 120000: 1.928919 (tiem: 55)
+2017-04-05,21:14:37 INFO Finishing training...
+2017-04-05,21:14:37 INFO Loss at step 128700: 0.149999 (tiem: 59)
+2017-04-05,21:14:37 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tgk.npy
+2017-04-05,21:14:37 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tgk.npy
+2017-04-05,21:14:37 INFO Translating BRE language...
+2017-04-05,21:14:37 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/bre-000.txt
+2017-04-05,21:14:37 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.br/wiki.br.vec
+Not found list len: 5
+Valid swadesh len: 105
+Embeddings len: 67
+Not found: 43
+[  3   5   6  11  13  15  16  18  19  22  25  32  35  38  42  44  45  46
+  54  56  57  63  64  66  67  69  70  73  74  75  77  78  79  84  85  87
+  89  95  98 102 103 106 108]
+2017-04-05,21:14:39 INFO Missing words: [u'abdomen', u'bird', u'bite', u'burn', u'cloud', u'come', u'dead', u'drink', u'dry', u'eat', u'fat', u'give', u'hair', u'hear', u'kill', u'know', u'leaf', u'lie', u'hill', u'name', u'neck', u'human', u'rain', u'path', u'root', u'sand', u'say', u'sit', u'hide', u'sleep', u'smoke', u'stand', u'star', u'that', u'this', u'tongue', u'tree', u'what', u'female', u'close', u'salt', u'thin', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:14:39 INFO Training session is initialized, starting training...
+2017-04-05,21:14:39 INFO Loss at step 0: 299.729004 (tiem: 0)
+2017-04-05,21:14:43 INFO Loss at step 10000: 168.032913 (tiem: 5)
+2017-04-05,21:14:48 INFO Loss at step 20000: 83.167419 (tiem: 9)
+2017-04-05,21:14:53 INFO Loss at step 30000: 51.041649 (tiem: 14)
+2017-04-05,21:14:57 INFO Loss at step 40000: 35.031040 (tiem: 19)
+2017-04-05,21:15:02 INFO Loss at step 50000: 24.266413 (tiem: 23)
+2017-04-05,21:15:06 INFO Loss at step 60000: 14.652590 (tiem: 28)
+2017-04-05,21:15:11 INFO Loss at step 70000: 6.473789 (tiem: 32)
+2017-04-05,21:15:15 INFO Finishing training...
+2017-04-05,21:15:15 INFO Loss at step 79830: 0.149882 (tiem: 37)
+2017-04-05,21:15:15 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_bre.npy
+2017-04-05,21:15:15 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_bre.npy
+2017-04-05,21:15:15 INFO Translating CAT language...
+2017-04-05,21:15:15 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/cat-000.txt
+2017-04-05,21:15:15 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ca/wiki.ca.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 94
+Not found: 16
+[11 18 25 40 45 46 47 63 71 73 78 79 80 87 89 92]
+2017-04-05,21:15:25 INFO Missing words: [u'burn', u'drink', u'fat', u'horn', u'leaf', u'lie', u'liver', u'human', u'see', u'sit', u'stand', u'star', u'rock', u'tongue', u'tree', u'hot']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:15:25 INFO Training session is initialized, starting training...
+2017-04-05,21:15:25 INFO Loss at step 0: 356.017883 (tiem: 0)
+2017-04-05,21:15:29 INFO Loss at step 10000: 217.731110 (tiem: 5)
+2017-04-05,21:15:34 INFO Loss at step 20000: 118.590500 (tiem: 10)
+2017-04-05,21:15:39 INFO Loss at step 30000: 70.642471 (tiem: 14)
+2017-04-05,21:15:43 INFO Loss at step 40000: 50.407314 (tiem: 19)
+2017-04-05,21:15:48 INFO Loss at step 50000: 38.195011 (tiem: 23)
+2017-04-05,21:15:53 INFO Loss at step 60000: 28.893328 (tiem: 28)
+2017-04-05,21:15:57 INFO Loss at step 70000: 20.742138 (tiem: 33)
+2017-04-05,21:16:02 INFO Loss at step 80000: 13.794396 (tiem: 37)
+2017-04-05,21:16:06 INFO Loss at step 90000: 8.010797 (tiem: 42)
+2017-04-05,21:16:11 INFO Loss at step 100000: 3.263285 (tiem: 47)
+2017-04-05,21:16:15 INFO Finishing training...
+2017-04-05,21:16:15 INFO Loss at step 107969: 0.149945 (tiem: 50)
+2017-04-05,21:16:15 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_cat.npy
+2017-04-05,21:16:15 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_cat.npy
+2017-04-05,21:16:15 INFO Translating ALS language...
+2017-04-05,21:16:15 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/als-000.txt
+2017-04-05,21:16:15 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sq/wiki.sq.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 86
+Not found: 24
+[  2   6  10  16  28  31  36  38  45  47  56  59  60  62  66  70  71  74
+  78  79  82  87  88 108]
+2017-04-05,21:16:18 INFO Missing words: [u'bark', u'bite', u'breast', u'dead', u'fish', u'full', u'hand', u'hear', u'leaf', u'liver', u'name', u'night', u'nose', u'adulterous', u'path', u'say', u'see', u'hide', u'stand', u'star', u'swim', u'tongue', u'tooth', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:16:18 INFO Training session is initialized, starting training...
+2017-04-05,21:16:18 INFO Loss at step 0: 340.796204 (tiem: 0)
+2017-04-05,21:16:23 INFO Loss at step 10000: 203.382080 (tiem: 5)
+2017-04-05,21:16:27 INFO Loss at step 20000: 108.176331 (tiem: 10)
+2017-04-05,21:16:32 INFO Loss at step 30000: 65.336731 (tiem: 14)
+2017-04-05,21:16:36 INFO Loss at step 40000: 45.694557 (tiem: 19)
+2017-04-05,21:16:41 INFO Loss at step 50000: 34.535774 (tiem: 24)
+2017-04-05,21:16:46 INFO Loss at step 60000: 24.914886 (tiem: 28)
+2017-04-05,21:16:50 INFO Loss at step 70000: 16.500593 (tiem: 33)
+2017-04-05,21:16:55 INFO Loss at step 80000: 9.414401 (tiem: 37)
+2017-04-05,21:17:00 INFO Loss at step 90000: 3.691206 (tiem: 42)
+2017-04-05,21:17:03 INFO Finishing training...
+2017-04-05,21:17:03 INFO Loss at step 97963: 0.149911 (tiem: 46)
+2017-04-05,21:17:03 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_als.npy
+2017-04-05,21:17:03 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_als.npy
+2017-04-05,21:17:03 INFO Translating TGL language...
+2017-04-05,21:17:03 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tgl-000.txt
+2017-04-05,21:17:03 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.tl/wiki.tl.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 94
+Not found: 16
+[  2  15  19  20  38  42  46  56  60  63  70  77  82  88  89 101]
+2017-04-05,21:17:05 INFO Missing words: [u'bark', u'come', u'dry', u'ear', u'hear', u'kill', u'lie', u'name', u'nose', u'human', u'say', u'smoke', u'swim', u'tooth', u'tree', u'dull']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:17:05 INFO Training session is initialized, starting training...
+2017-04-05,21:17:05 INFO Loss at step 0: 355.179138 (tiem: 0)
+2017-04-05,21:17:10 INFO Loss at step 10000: 214.409637 (tiem: 4)
+2017-04-05,21:17:14 INFO Loss at step 20000: 116.582191 (tiem: 9)
+2017-04-05,21:17:19 INFO Loss at step 30000: 69.914856 (tiem: 13)
+2017-04-05,21:17:24 INFO Loss at step 40000: 49.912243 (tiem: 18)
+2017-04-05,21:17:28 INFO Loss at step 50000: 37.831608 (tiem: 23)
+2017-04-05,21:17:33 INFO Loss at step 60000: 28.518463 (tiem: 27)
+2017-04-05,21:17:37 INFO Loss at step 70000: 20.370613 (tiem: 32)
+2017-04-05,21:17:42 INFO Loss at step 80000: 13.475266 (tiem: 37)
+2017-04-05,21:17:47 INFO Loss at step 90000: 7.824032 (tiem: 41)
+2017-04-05,21:17:51 INFO Loss at step 100000: 3.300040 (tiem: 46)
+2017-04-05,21:17:55 INFO Finishing training...
+2017-04-05,21:17:55 INFO Loss at step 108902: 0.149907 (tiem: 50)
+2017-04-05,21:17:55 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tgl.npy
+2017-04-05,21:17:55 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tgl.npy
+2017-04-05,21:17:55 INFO Translating WRZ language...
+2017-04-05,21:17:55 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/wrz-000.txt
+2017-04-05,21:17:55 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.war/wiki.war.vec
+Not found list len: 16
+Valid swadesh len: 94
+Embeddings len: 11
+Not found: 99
+[  0   1   2   3   4   5   7   8   9  10  11  12  13  14  17  18  19  20
+  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  39
+  40  41  42  43  44  45  46  48  51  52  53  54  55  56  57  58  59  60
+  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79
+  81  82  83  84  85  86  88  89  90  92  93  94  95  96  97  98  99 100
+ 101 102 103 104 105 106 107 108 109]
+2017-04-05,21:18:00 INFO Missing words: [u'all', u'ash', u'bark', u'abdomen', u'big', u'bird', u'black', u'blood', u'bone', u'breast', u'burn', u'claw', u'cloud', u'cold', u'dog', u'drink', u'dry', u'ear', u'earth', u'eat', u'egg', u'eye', u'fat', u'feather', u'fire', u'fish', u'fly', u'foot', u'full', u'give', u'good', u'green', u'hair', u'hand', u'head', u'heart', u'horn', u'i', u'kill', u'knee', u'know', u'leaf', u'lie', u'long', u'many', u'flesh', u'moon', u'hill', u'mouth', u'name', u'neck', u'new', u'night', u'nose', u'adulterous', u'human', u'rain', u'red', u'path', u'root', u'round', u'sand', u'say', u'see', u'seed', u'sit', u'hide', u'sleep', u'little', u'smoke', u'stand', u'star', u'sun', u'swim', u'tail', u'that', u'this', u'thou', u'tooth', u'tree', u'grind', u'hot', u'water', u'we', u'what', u'white', u'who', u'female', u'yellow', u'distant', u'dull', u'close', u'salt', u'short', u'snake', u'thin', u'wind', u'earthworm', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:18:00 INFO Training session is initialized, starting training...
+2017-04-05,21:18:00 INFO Loss at step 0: 122.280365 (tiem: 0)
+2017-04-05,21:18:04 INFO Loss at step 10000: 27.424465 (tiem: 4)
+2017-04-05,21:18:08 INFO Loss at step 20000: 9.326247 (tiem: 9)
+2017-04-05,21:18:11 INFO Finishing training...
+2017-04-05,21:18:11 INFO Loss at step 27506: 0.149366 (tiem: 12)
+2017-04-05,21:18:11 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_wrz.npy
+2017-04-05,21:18:11 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_wrz.npy
+2017-04-05,21:18:11 INFO Translating FRA language...
+2017-04-05,21:18:11 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/fra-000.txt
+2017-04-05,21:18:11 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.fr/wiki.fr.vec
+Not found list len: 4
+Valid swadesh len: 106
+Embeddings len: 100
+Not found: 10
+[11 25 46 61 63 69 73 78 85 87]
+2017-04-05,21:18:32 INFO Missing words: [u'burn', u'fat', u'lie', u'not', u'human', u'sand', u'sit', u'stand', u'this', u'tongue']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:18:32 INFO Training session is initialized, starting training...
+2017-04-05,21:18:32 INFO Loss at step 0: 369.143005 (tiem: 0)
+2017-04-05,21:18:37 INFO Loss at step 10000: 225.865082 (tiem: 4)
+2017-04-05,21:18:41 INFO Loss at step 20000: 124.464645 (tiem: 9)
+2017-04-05,21:18:46 INFO Loss at step 30000: 73.340675 (tiem: 14)
+2017-04-05,21:18:51 INFO Loss at step 40000: 52.709530 (tiem: 18)
+2017-04-05,21:18:55 INFO Loss at step 50000: 40.030369 (tiem: 23)
+2017-04-05,21:19:00 INFO Loss at step 60000: 31.001232 (tiem: 28)
+2017-04-05,21:19:05 INFO Loss at step 70000: 23.110435 (tiem: 32)
+2017-04-05,21:19:09 INFO Loss at step 80000: 16.391497 (tiem: 37)
+2017-04-05,21:19:14 INFO Loss at step 90000: 10.796480 (tiem: 42)
+2017-04-05,21:19:19 INFO Loss at step 100000: 6.190697 (tiem: 46)
+2017-04-05,21:19:23 INFO Loss at step 110000: 2.392547 (tiem: 51)
+2017-04-05,21:19:27 INFO Finishing training...
+2017-04-05,21:19:27 INFO Loss at step 116986: 0.149732 (tiem: 54)
+2017-04-05,21:19:27 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_fra.npy
+2017-04-05,21:19:27 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_fra.npy
+2017-04-05,21:19:27 INFO Translating MKD language...
+2017-04-05,21:19:27 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/mkd-000.txt
+2017-04-05,21:19:27 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.mk/wiki.mk.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 103
+Not found: 7
+[11 12 25 36 46 52 78]
+2017-04-05,21:19:30 INFO Missing words: [u'burn', u'claw', u'fat', u'hand', u'lie', u'flesh', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:19:30 INFO Training session is initialized, starting training...
+2017-04-05,21:19:30 INFO Loss at step 0: 375.039368 (tiem: 0)
+2017-04-05,21:19:35 INFO Loss at step 10000: 233.601868 (tiem: 5)
+2017-04-05,21:19:39 INFO Loss at step 20000: 131.197998 (tiem: 10)
+2017-04-05,21:19:44 INFO Loss at step 30000: 77.922211 (tiem: 14)
+2017-04-05,21:19:49 INFO Loss at step 40000: 55.784157 (tiem: 19)
+2017-04-05,21:19:53 INFO Loss at step 50000: 42.053280 (tiem: 24)
+2017-04-05,21:19:58 INFO Loss at step 60000: 32.362492 (tiem: 28)
+2017-04-05,21:20:02 INFO Loss at step 70000: 23.725426 (tiem: 33)
+2017-04-05,21:20:07 INFO Loss at step 80000: 16.231859 (tiem: 38)
+2017-04-05,21:20:12 INFO Loss at step 90000: 9.911518 (tiem: 42)
+2017-04-05,21:20:16 INFO Loss at step 100000: 4.709381 (tiem: 47)
+2017-04-05,21:20:21 INFO Loss at step 110000: 0.542427 (tiem: 52)
+2017-04-05,21:20:22 INFO Finishing training...
+2017-04-05,21:20:22 INFO Loss at step 111112: 0.149926 (tiem: 52)
+2017-04-05,21:20:22 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_mkd.npy
+2017-04-05,21:20:22 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_mkd.npy
+2017-04-05,21:20:22 INFO Translating CHE language...
+2017-04-05,21:20:22 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/che-000.txt
+2017-04-05,21:20:22 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ce/wiki.ce.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 73
+Not found: 37
+[  3   6   8   9  10  11  12  15  16  17  26  28  29  40  42  43  46  47
+  49  52  57  64  65  67  69  70  73  74  75  79  80  82  84  95  99 103
+ 104]
+2017-04-05,21:20:23 INFO Missing words: [u'abdomen', u'bite', u'blood', u'bone', u'breast', u'burn', u'claw', u'come', u'dead', u'dog', u'feather', u'fish', u'fly', u'horn', u'kill', u'knee', u'lie', u'liver', u'louse', u'flesh', u'neck', u'rain', u'red', u'root', u'sand', u'say', u'sit', u'hide', u'sleep', u'star', u'rock', u'swim', u'that', u'what', u'yellow', u'salt', u'short']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:20:23 INFO Training session is initialized, starting training...
+2017-04-05,21:20:23 INFO Loss at step 0: 314.586731 (tiem: 0)
+2017-04-05,21:20:28 INFO Loss at step 10000: 172.935379 (tiem: 4)
+2017-04-05,21:20:32 INFO Loss at step 20000: 83.925117 (tiem: 9)
+2017-04-05,21:20:37 INFO Loss at step 30000: 50.990334 (tiem: 13)
+2017-04-05,21:20:41 INFO Loss at step 40000: 36.117409 (tiem: 18)
+2017-04-05,21:20:46 INFO Loss at step 50000: 27.461557 (tiem: 23)
+2017-04-05,21:20:51 INFO Loss at step 60000: 20.230471 (tiem: 27)
+2017-04-05,21:20:55 INFO Loss at step 70000: 14.429041 (tiem: 32)
+2017-04-05,21:21:00 INFO Loss at step 80000: 9.900711 (tiem: 36)
+2017-04-05,21:21:05 INFO Loss at step 90000: 6.390701 (tiem: 41)
+2017-04-05,21:21:09 INFO Loss at step 100000: 3.660283 (tiem: 46)
+2017-04-05,21:21:14 INFO Loss at step 110000: 1.534270 (tiem: 50)
+2017-04-05,21:21:18 INFO Finishing training...
+2017-04-05,21:21:18 INFO Loss at step 118347: 0.149887 (tiem: 54)
+2017-04-05,21:21:18 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_che.npy
+2017-04-05,21:21:18 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_che.npy
+2017-04-05,21:21:18 INFO Translating ELL language...
+2017-04-05,21:21:18 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ell-000.txt
+2017-04-05,21:21:18 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.el/wiki.el.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 107
+Not found: 3
+[ 6 46 82]
+2017-04-05,21:21:24 INFO Missing words: [u'bite', u'lie', u'swim']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:21:24 INFO Training session is initialized, starting training...
+2017-04-05,21:21:24 INFO Loss at step 0: 381.596405 (tiem: 0)
+2017-04-05,21:21:29 INFO Loss at step 10000: 236.197113 (tiem: 5)
+2017-04-05,21:21:33 INFO Loss at step 20000: 133.043976 (tiem: 10)
+2017-04-05,21:21:38 INFO Loss at step 30000: 78.014679 (tiem: 14)
+2017-04-05,21:21:43 INFO Loss at step 40000: 56.835266 (tiem: 19)
+2017-04-05,21:21:47 INFO Loss at step 50000: 43.401741 (tiem: 24)
+2017-04-05,21:21:52 INFO Loss at step 60000: 34.634731 (tiem: 28)
+2017-04-05,21:21:57 INFO Loss at step 70000: 26.877905 (tiem: 33)
+2017-04-05,21:22:01 INFO Loss at step 80000: 20.148077 (tiem: 38)
+2017-04-05,21:22:06 INFO Loss at step 90000: 14.414966 (tiem: 42)
+2017-04-05,21:22:11 INFO Loss at step 100000: 9.597190 (tiem: 47)
+2017-04-05,21:22:15 INFO Loss at step 110000: 5.582019 (tiem: 52)
+2017-04-05,21:22:20 INFO Loss at step 120000: 2.270752 (tiem: 56)
+2017-04-05,21:22:24 INFO Finishing training...
+2017-04-05,21:22:24 INFO Loss at step 127995: 0.149986 (tiem: 60)
+2017-04-05,21:22:24 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ell.npy
+2017-04-05,21:22:24 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ell.npy
+2017-04-05,21:22:24 INFO Translating MIN language...
+2017-04-05,21:22:24 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/min-000.txt
+2017-04-05,21:22:24 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.min/wiki.min.vec
+Not found list len: 19
+Valid swadesh len: 91
+Embeddings len: 48
+Not found: 62
+[  0   2   3   4   5   6   9  11  12  14  17  18  19  20  21  25  29  30
+  31  32  33  35  36  38  39  40  43  46  48  50  51  52  54  55  56  57
+  60  61  62  63  67  68  69  70  71  72  73  75  76  77  78  81  82  86
+  89  99 100 101 102 104 106 108]
+2017-04-05,21:22:25 INFO Missing words: [u'all', u'bark', u'abdomen', u'big', u'bird', u'bite', u'bone', u'burn', u'claw', u'cold', u'dog', u'drink', u'dry', u'ear', u'earth', u'fat', u'fly', u'foot', u'full', u'give', u'good', u'hair', u'hand', u'hear', u'heart', u'horn', u'knee', u'lie', u'long', u'male', u'many', u'flesh', u'hill', u'mouth', u'name', u'neck', u'nose', u'not', u'adulterous', u'human', u'root', u'round', u'sand', u'say', u'see', u'seed', u'sit', u'sleep', u'little', u'smoke', u'stand', u'sun', u'swim', u'thou', u'tree', u'yellow', u'distant', u'dull', u'close', u'short', u'thin', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:22:25 INFO Training session is initialized, starting training...
+2017-04-05,21:22:25 INFO Loss at step 0: 252.680939 (tiem: 0)
+2017-04-05,21:22:29 INFO Loss at step 10000: 118.083359 (tiem: 5)
+2017-04-05,21:22:34 INFO Loss at step 20000: 51.140099 (tiem: 9)
+2017-04-05,21:22:38 INFO Loss at step 30000: 33.119045 (tiem: 14)
+2017-04-05,21:22:43 INFO Loss at step 40000: 23.444923 (tiem: 18)
+2017-04-05,21:22:47 INFO Loss at step 50000: 16.273872 (tiem: 23)
+2017-04-05,21:22:52 INFO Loss at step 60000: 10.533938 (tiem: 27)
+2017-04-05,21:22:56 INFO Loss at step 70000: 6.045527 (tiem: 32)
+2017-04-05,21:23:01 INFO Loss at step 80000: 2.509239 (tiem: 36)
+2017-04-05,21:23:05 INFO Finishing training...
+2017-04-05,21:23:05 INFO Loss at step 88326: 0.149940 (tiem: 40)
+2017-04-05,21:23:05 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_min.npy
+2017-04-05,21:23:05 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_min.npy
+2017-04-05,21:23:05 INFO Translating HRV language...
+2017-04-05,21:23:05 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/hrv-000.txt
+2017-04-05,21:23:05 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.hr/wiki.hr.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 98
+Not found: 12
+[11 12 16 25 29 38 46 52 59 63 73 78]
+2017-04-05,21:23:13 INFO Missing words: [u'burn', u'claw', u'dead', u'fat', u'fly', u'hear', u'lie', u'flesh', u'night', u'human', u'sit', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:23:13 INFO Training session is initialized, starting training...
+2017-04-05,21:23:13 INFO Loss at step 0: 363.150024 (tiem: 1)
+2017-04-05,21:23:18 INFO Loss at step 10000: 221.965149 (tiem: 5)
+2017-04-05,21:23:22 INFO Loss at step 20000: 122.109818 (tiem: 10)
+2017-04-05,21:23:27 INFO Loss at step 30000: 72.823563 (tiem: 15)
+2017-04-05,21:23:32 INFO Loss at step 40000: 52.239136 (tiem: 19)
+2017-04-05,21:23:36 INFO Loss at step 50000: 39.542011 (tiem: 24)
+2017-04-05,21:23:41 INFO Loss at step 60000: 30.191370 (tiem: 29)
+2017-04-05,21:23:46 INFO Loss at step 70000: 21.933990 (tiem: 33)
+2017-04-05,21:23:50 INFO Loss at step 80000: 14.833658 (tiem: 38)
+2017-04-05,21:23:55 INFO Loss at step 90000: 8.875881 (tiem: 43)
+2017-04-05,21:24:00 INFO Loss at step 100000: 3.960245 (tiem: 47)
+2017-04-05,21:24:04 INFO Finishing training...
+2017-04-05,21:24:04 INFO Loss at step 109613: 0.149705 (tiem: 52)
+2017-04-05,21:24:04 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_hrv.npy
+2017-04-05,21:24:04 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_hrv.npy
+2017-04-05,21:24:04 INFO Translating SWE language...
+2017-04-05,21:24:04 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/swe-000.txt
+2017-04-05,21:24:04 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sv/wiki.sv.vec
+Not found list len: 5
+Valid swadesh len: 105
+Embeddings len: 90
+Not found: 20
+[11 17 20 24 25 31 36 47 56 63 74 78 79 84 85 87 88 89 90 93]
+2017-04-05,21:24:25 INFO Missing words: [u'burn', u'dog', u'ear', u'eye', u'fat', u'full', u'hand', u'liver', u'name', u'human', u'hide', u'stand', u'star', u'that', u'this', u'tongue', u'tooth', u'tree', u'grind', u'water']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:24:25 INFO Training session is initialized, starting training...
+2017-04-05,21:24:25 INFO Loss at step 0: 350.592773 (tiem: 0)
+2017-04-05,21:24:29 INFO Loss at step 10000: 209.337189 (tiem: 5)
+2017-04-05,21:24:34 INFO Loss at step 20000: 111.949760 (tiem: 10)
+2017-04-05,21:24:39 INFO Loss at step 30000: 66.901337 (tiem: 14)
+2017-04-05,21:24:43 INFO Loss at step 40000: 47.793251 (tiem: 19)
+2017-04-05,21:24:48 INFO Loss at step 50000: 36.131920 (tiem: 23)
+2017-04-05,21:24:53 INFO Loss at step 60000: 27.180998 (tiem: 28)
+2017-04-05,21:24:57 INFO Loss at step 70000: 19.381329 (tiem: 33)
+2017-04-05,21:25:02 INFO Loss at step 80000: 12.781666 (tiem: 37)
+2017-04-05,21:25:07 INFO Loss at step 90000: 7.349779 (tiem: 42)
+2017-04-05,21:25:11 INFO Loss at step 100000: 2.983801 (tiem: 47)
+2017-04-05,21:25:15 INFO Finishing training...
+2017-04-05,21:25:15 INFO Loss at step 108298: 0.149718 (tiem: 51)
+2017-04-05,21:25:15 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_swe.npy
+2017-04-05,21:25:15 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_swe.npy
+2017-04-05,21:25:15 INFO Translating UKR language...
+2017-04-05,21:25:15 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ukr-000.txt
+2017-04-05,21:25:15 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.uk/wiki.uk.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 98
+Not found: 12
+[ 3  6 11 12 25 36 44 46 50 52 75 78]
+2017-04-05,21:25:32 INFO Missing words: [u'abdomen', u'bite', u'burn', u'claw', u'fat', u'hand', u'know', u'lie', u'male', u'flesh', u'sleep', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:25:32 INFO Training session is initialized, starting training...
+2017-04-05,21:25:32 INFO Loss at step 0: 365.788818 (tiem: 0)
+2017-04-05,21:25:37 INFO Loss at step 10000: 223.287323 (tiem: 5)
+2017-04-05,21:25:41 INFO Loss at step 20000: 122.734055 (tiem: 10)
+2017-04-05,21:25:46 INFO Loss at step 30000: 72.666107 (tiem: 14)
+2017-04-05,21:25:51 INFO Loss at step 40000: 52.361275 (tiem: 19)
+2017-04-05,21:25:55 INFO Loss at step 50000: 39.806854 (tiem: 24)
+2017-04-05,21:26:00 INFO Loss at step 60000: 30.786169 (tiem: 28)
+2017-04-05,21:26:04 INFO Loss at step 70000: 22.872786 (tiem: 33)
+2017-04-05,21:26:09 INFO Loss at step 80000: 16.095985 (tiem: 38)
+2017-04-05,21:26:14 INFO Loss at step 90000: 10.412830 (tiem: 42)
+2017-04-05,21:26:18 INFO Loss at step 100000: 5.709341 (tiem: 47)
+2017-04-05,21:26:23 INFO Loss at step 110000: 1.856392 (tiem: 52)
+2017-04-05,21:26:26 INFO Finishing training...
+2017-04-05,21:26:26 INFO Loss at step 115291: 0.149874 (tiem: 54)
+2017-04-05,21:26:26 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ukr.npy
+2017-04-05,21:26:26 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ukr.npy
+2017-04-05,21:26:26 INFO Translating PES language...
+2017-04-05,21:26:26 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/pes-000.txt
+2017-04-05,21:26:26 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.fa/wiki.fa.vec
+Not found list len: 10
+Valid swadesh len: 100
+Embeddings len: 76
+Not found: 34
+[  1   2   7  11  12  14  19  25  27  32  33  36  46  52  53  64  65  66
+  69  70  72  73  78  79  81  82  91  92  93  99 102 103 107 109]
+2017-04-05,21:26:33 INFO Missing words: [u'ash', u'bark', u'black', u'burn', u'claw', u'cold', u'dry', u'fat', u'fire', u'give', u'good', u'hand', u'lie', u'flesh', u'moon', u'rain', u'red', u'path', u'sand', u'say', u'seed', u'sit', u'stand', u'star', u'sun', u'swim', u'go', u'hot', u'water', u'yellow', u'close', u'salt', u'wind', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:26:33 INFO Training session is initialized, starting training...
+2017-04-05,21:26:34 INFO Loss at step 0: 321.961670 (tiem: 0)
+2017-04-05,21:26:38 INFO Loss at step 10000: 184.482040 (tiem: 5)
+2017-04-05,21:26:43 INFO Loss at step 20000: 93.772560 (tiem: 9)
+2017-04-05,21:26:47 INFO Loss at step 30000: 57.381538 (tiem: 14)
+2017-04-05,21:26:52 INFO Loss at step 40000: 40.040825 (tiem: 18)
+2017-04-05,21:26:57 INFO Loss at step 50000: 30.071987 (tiem: 23)
+2017-04-05,21:27:01 INFO Loss at step 60000: 21.160820 (tiem: 28)
+2017-04-05,21:27:06 INFO Loss at step 70000: 13.412268 (tiem: 32)
+2017-04-05,21:27:10 INFO Loss at step 80000: 6.924323 (tiem: 37)
+2017-04-05,21:27:15 INFO Loss at step 90000: 1.858794 (tiem: 41)
+2017-04-05,21:27:17 INFO Finishing training...
+2017-04-05,21:27:17 INFO Loss at step 94700: 0.149811 (tiem: 44)
+2017-04-05,21:27:17 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_pes.npy
+2017-04-05,21:27:17 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_pes.npy
+2017-04-05,21:27:17 INFO Translating LIT language...
+2017-04-05,21:27:17 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/lit-000.txt
+2017-04-05,21:27:17 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.lt/wiki.lt.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 71
+Not found: 39
+[  0   2   5   8  10  11  15  22  23  28  29  30  32  34  35  38  39  42
+  49  53  58  63  65  66  67  69  70  71  73  76  77  78  79  82  85  87
+  97 101 107]
+2017-04-05,21:27:23 INFO Missing words: [u'all', u'bark', u'bird', u'blood', u'breast', u'burn', u'come', u'eat', u'egg', u'fish', u'fly', u'foot', u'give', u'green', u'hair', u'hear', u'heart', u'kill', u'louse', u'moon', u'new', u'human', u'red', u'path', u'root', u'sand', u'say', u'see', u'sit', u'little', u'smoke', u'stand', u'star', u'swim', u'this', u'tongue', u'who', u'dull', u'wind']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:27:23 INFO Training session is initialized, starting training...
+2017-04-05,21:27:23 INFO Loss at step 0: 308.888184 (tiem: 0)
+2017-04-05,21:27:28 INFO Loss at step 10000: 174.022186 (tiem: 5)
+2017-04-05,21:27:32 INFO Loss at step 20000: 86.591942 (tiem: 10)
+2017-04-05,21:27:37 INFO Loss at step 30000: 53.220390 (tiem: 14)
+2017-04-05,21:27:41 INFO Loss at step 40000: 37.006519 (tiem: 19)
+2017-04-05,21:27:46 INFO Loss at step 50000: 26.809258 (tiem: 24)
+2017-04-05,21:27:51 INFO Loss at step 60000: 17.753813 (tiem: 28)
+2017-04-05,21:27:55 INFO Loss at step 70000: 10.009432 (tiem: 33)
+2017-04-05,21:28:00 INFO Loss at step 80000: 3.721164 (tiem: 37)
+2017-04-05,21:28:03 INFO Finishing training...
+2017-04-05,21:28:03 INFO Loss at step 87372: 0.149912 (tiem: 41)
+2017-04-05,21:28:03 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_lit.npy
+2017-04-05,21:28:03 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_lit.npy
+2017-04-05,21:28:03 INFO Translating CYM language...
+2017-04-05,21:28:03 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/cym-000.txt
+2017-04-05,21:28:03 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.cy/wiki.cy.vec
+Not found list len: 5
+Valid swadesh len: 105
+Embeddings len: 53
+Not found: 57
+[  2   3   6   8   9  11  15  18  24  25  26  27  28  29  31  32  36  37
+  40  42  45  48  49  55  56  57  58  59  60  62  63  64  66  67  68  69
+  70  71  75  78  79  81  84  85  89  90  93  96  97  99 100 101 104 105
+ 106 108 109]
+2017-04-05,21:28:05 INFO Missing words: [u'bark', u'abdomen', u'bite', u'blood', u'bone', u'burn', u'come', u'drink', u'eye', u'fat', u'feather', u'fire', u'fish', u'fly', u'full', u'give', u'hand', u'head', u'horn', u'kill', u'leaf', u'long', u'louse', u'mouth', u'name', u'neck', u'new', u'night', u'nose', u'adulterous', u'human', u'rain', u'path', u'root', u'round', u'sand', u'say', u'see', u'sleep', u'stand', u'star', u'sun', u'that', u'this', u'tree', u'grind', u'water', u'white', u'who', u'yellow', u'distant', u'dull', u'short', u'snake', u'thin', u'earthworm', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:28:05 INFO Training session is initialized, starting training...
+2017-04-05,21:28:05 INFO Loss at step 0: 268.802155 (tiem: 0)
+2017-04-05,21:28:09 INFO Loss at step 10000: 139.137405 (tiem: 5)
+2017-04-05,21:28:14 INFO Loss at step 20000: 65.818016 (tiem: 9)
+2017-04-05,21:28:19 INFO Loss at step 30000: 40.069435 (tiem: 14)
+2017-04-05,21:28:23 INFO Loss at step 40000: 27.111877 (tiem: 19)
+2017-04-05,21:28:28 INFO Loss at step 50000: 16.363342 (tiem: 23)
+2017-04-05,21:28:32 INFO Loss at step 60000: 6.938821 (tiem: 28)
+2017-04-05,21:28:36 INFO Finishing training...
+2017-04-05,21:28:36 INFO Loss at step 68835: 0.149832 (tiem: 32)
+2017-04-05,21:28:36 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_cym.npy
+2017-04-05,21:28:36 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_cym.npy
+2017-04-05,21:28:36 INFO Translating CHV language...
+2017-04-05,21:28:36 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/chv-000.txt
+2017-04-05,21:28:36 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.cv/wiki.cv.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 58
+Not found: 52
+[ 2  6  8  9 10 11 12 15 16 17 18 20 24 25 27 28 31 34 35 36 38 40 41 43 45
+ 46 47 49 52 56 59 60 62 64 71 72 74 75 78 79 80 81 83 84 86 87 88 89 90 91
+ 93 94]
+2017-04-05,21:28:37 INFO Missing words: [u'bark', u'bite', u'blood', u'bone', u'breast', u'burn', u'claw', u'come', u'dead', u'dog', u'drink', u'ear', u'eye', u'fat', u'fire', u'fish', u'full', u'green', u'hair', u'hand', u'hear', u'horn', u'i', u'knee', u'leaf', u'lie', u'liver', u'louse', u'flesh', u'name', u'night', u'nose', u'adulterous', u'rain', u'see', u'seed', u'hide', u'sleep', u'stand', u'star', u'rock', u'sun', u'tail', u'that', u'thou', u'tongue', u'tooth', u'tree', u'grind', u'go', u'water', u'we']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:28:38 INFO Training session is initialized, starting training...
+2017-04-05,21:28:38 INFO Loss at step 0: 279.599915 (tiem: 0)
+2017-04-05,21:28:42 INFO Loss at step 10000: 144.548126 (tiem: 5)
+2017-04-05,21:28:47 INFO Loss at step 20000: 65.843803 (tiem: 9)
+2017-04-05,21:28:51 INFO Loss at step 30000: 40.597054 (tiem: 14)
+2017-04-05,21:28:56 INFO Loss at step 40000: 28.322464 (tiem: 18)
+2017-04-05,21:29:00 INFO Loss at step 50000: 19.744583 (tiem: 23)
+2017-04-05,21:29:05 INFO Loss at step 60000: 12.837068 (tiem: 27)
+2017-04-05,21:29:10 INFO Loss at step 70000: 7.529712 (tiem: 32)
+2017-04-05,21:29:14 INFO Loss at step 80000: 3.508805 (tiem: 37)
+2017-04-05,21:29:19 INFO Loss at step 90000: 0.496872 (tiem: 41)
+2017-04-05,21:29:19 INFO Finishing training...
+2017-04-05,21:29:19 INFO Loss at step 91416: 0.149878 (tiem: 42)
+2017-04-05,21:29:19 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_chv.npy
+2017-04-05,21:29:19 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_chv.npy
+2017-04-05,21:29:19 INFO Translating FRY language...
+2017-04-05,21:29:19 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/fry-000.txt
+2017-04-05,21:29:19 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.fy/wiki.fy.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 84
+Not found: 26
+[ 9 10 11 12 15 18 25 40 43 45 46 49 52 54 56 60 62 63 66 78 80 81 87 90 93
+ 94]
+2017-04-05,21:29:21 INFO Missing words: [u'bone', u'breast', u'burn', u'claw', u'come', u'drink', u'fat', u'horn', u'knee', u'leaf', u'lie', u'louse', u'flesh', u'hill', u'name', u'nose', u'adulterous', u'human', u'path', u'stand', u'rock', u'sun', u'tongue', u'grind', u'water', u'we']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:29:21 INFO Training session is initialized, starting training...
+2017-04-05,21:29:21 INFO Loss at step 0: 336.106995 (tiem: 0)
+2017-04-05,21:29:26 INFO Loss at step 10000: 200.702271 (tiem: 4)
+2017-04-05,21:29:30 INFO Loss at step 20000: 106.577850 (tiem: 9)
+2017-04-05,21:29:35 INFO Loss at step 30000: 64.482559 (tiem: 14)
+2017-04-05,21:29:40 INFO Loss at step 40000: 44.801060 (tiem: 18)
+2017-04-05,21:29:44 INFO Loss at step 50000: 33.635487 (tiem: 23)
+2017-04-05,21:29:49 INFO Loss at step 60000: 23.960571 (tiem: 27)
+2017-04-05,21:29:54 INFO Loss at step 70000: 15.487013 (tiem: 32)
+2017-04-05,21:29:58 INFO Loss at step 80000: 8.342131 (tiem: 37)
+2017-04-05,21:30:03 INFO Loss at step 90000: 2.576405 (tiem: 41)
+2017-04-05,21:30:05 INFO Finishing training...
+2017-04-05,21:30:05 INFO Loss at step 95283: 0.149987 (tiem: 44)
+2017-04-05,21:30:05 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_fry.npy
+2017-04-05,21:30:05 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_fry.npy
+2017-04-05,21:30:05 INFO Translating KOR language...
+2017-04-05,21:30:05 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/kor-000.txt
+2017-04-05,21:30:05 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ko/wiki.ko.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 95
+Not found: 15
+[ 11  12  25  36  46  52  58  61  78  82  84  85  88  90 109]
+2017-04-05,21:30:21 INFO Missing words: [u'burn', u'claw', u'fat', u'hand', u'lie', u'flesh', u'new', u'not', u'stand', u'swim', u'that', u'this', u'tooth', u'grind', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:30:21 INFO Training session is initialized, starting training...
+2017-04-05,21:30:21 INFO Loss at step 0: 360.018799 (tiem: 0)
+2017-04-05,21:30:26 INFO Loss at step 10000: 212.717316 (tiem: 5)
+2017-04-05,21:30:31 INFO Loss at step 20000: 112.460503 (tiem: 9)
+2017-04-05,21:30:35 INFO Loss at step 30000: 65.448853 (tiem: 14)
+2017-04-05,21:30:40 INFO Loss at step 40000: 48.548904 (tiem: 18)
+2017-04-05,21:30:45 INFO Loss at step 50000: 37.663208 (tiem: 23)
+2017-04-05,21:30:49 INFO Loss at step 60000: 30.241108 (tiem: 28)
+2017-04-05,21:30:54 INFO Loss at step 70000: 23.818317 (tiem: 32)
+2017-04-05,21:30:59 INFO Loss at step 80000: 18.309355 (tiem: 37)
+2017-04-05,21:31:03 INFO Loss at step 90000: 13.601369 (tiem: 42)
+2017-04-05,21:31:08 INFO Loss at step 100000: 9.574586 (tiem: 46)
+2017-04-05,21:31:12 INFO Loss at step 110000: 6.121342 (tiem: 51)
+2017-04-05,21:31:17 INFO Loss at step 120000: 3.157552 (tiem: 55)
+2017-04-05,21:31:22 INFO Loss at step 130000: 0.639548 (tiem: 60)
+2017-04-05,21:31:23 INFO Finishing training...
+2017-04-05,21:31:23 INFO Loss at step 132209: 0.149906 (tiem: 61)
+2017-04-05,21:31:23 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_kor.npy
+2017-04-05,21:31:23 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_kor.npy
+2017-04-05,21:31:23 INFO Translating FIN language...
+2017-04-05,21:31:23 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/fin-000.txt
+2017-04-05,21:31:23 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.fi/wiki.fi.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 103
+Not found: 7
+[11 12 25 26 36 46 78]
+2017-04-05,21:31:36 INFO Missing words: [u'burn', u'claw', u'fat', u'feather', u'hand', u'lie', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:31:36 INFO Training session is initialized, starting training...
+2017-04-05,21:31:36 INFO Loss at step 0: 376.787354 (tiem: 0)
+2017-04-05,21:31:41 INFO Loss at step 10000: 232.724258 (tiem: 4)
+2017-04-05,21:31:46 INFO Loss at step 20000: 129.522766 (tiem: 9)
+2017-04-05,21:31:50 INFO Loss at step 30000: 75.640213 (tiem: 14)
+2017-04-05,21:31:55 INFO Loss at step 40000: 54.310783 (tiem: 18)
+2017-04-05,21:32:00 INFO Loss at step 50000: 41.374096 (tiem: 23)
+2017-04-05,21:32:04 INFO Loss at step 60000: 32.428200 (tiem: 28)
+2017-04-05,21:32:09 INFO Loss at step 70000: 24.637205 (tiem: 32)
+2017-04-05,21:32:14 INFO Loss at step 80000: 18.001070 (tiem: 37)
+2017-04-05,21:32:18 INFO Loss at step 90000: 12.443950 (tiem: 42)
+2017-04-05,21:32:23 INFO Loss at step 100000: 7.831497 (tiem: 46)
+2017-04-05,21:32:28 INFO Loss at step 110000: 4.017022 (tiem: 51)
+2017-04-05,21:32:32 INFO Loss at step 120000: 0.890080 (tiem: 56)
+2017-04-05,21:32:34 INFO Finishing training...
+2017-04-05,21:32:34 INFO Loss at step 122763: 0.149984 (tiem: 57)
+2017-04-05,21:32:34 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_fin.npy
+2017-04-05,21:32:34 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_fin.npy
+2017-04-05,21:32:34 INFO Translating TUR language...
+2017-04-05,21:32:34 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tur-000.txt
+2017-04-05,21:32:34 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.tr/wiki.tr.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 103
+Not found: 7
+[ 6 11 12 21 63 78 93]
+2017-04-05,21:32:41 INFO Missing words: [u'bite', u'burn', u'claw', u'earth', u'human', u'stand', u'water']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:32:41 INFO Training session is initialized, starting training...
+2017-04-05,21:32:41 INFO Loss at step 0: 373.731293 (tiem: 0)
+2017-04-05,21:32:46 INFO Loss at step 10000: 233.875610 (tiem: 5)
+2017-04-05,21:32:51 INFO Loss at step 20000: 131.613739 (tiem: 9)
+2017-04-05,21:32:55 INFO Loss at step 30000: 77.766159 (tiem: 14)
+2017-04-05,21:33:00 INFO Loss at step 40000: 55.304531 (tiem: 19)
+2017-04-05,21:33:05 INFO Loss at step 50000: 41.790234 (tiem: 23)
+2017-04-05,21:33:09 INFO Loss at step 60000: 32.131020 (tiem: 28)
+2017-04-05,21:33:14 INFO Loss at step 70000: 23.623451 (tiem: 33)
+2017-04-05,21:33:19 INFO Loss at step 80000: 16.343412 (tiem: 37)
+2017-04-05,21:33:23 INFO Loss at step 90000: 10.277023 (tiem: 42)
+2017-04-05,21:33:28 INFO Loss at step 100000: 5.304770 (tiem: 46)
+2017-04-05,21:33:33 INFO Loss at step 110000: 1.275852 (tiem: 51)
+2017-04-05,21:33:34 INFO Finishing training...
+2017-04-05,21:33:34 INFO Loss at step 113331: 0.149824 (tiem: 53)
+2017-04-05,21:33:34 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tur.npy
+2017-04-05,21:33:34 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tur.npy
+2017-04-05,21:33:34 INFO Translating EUS language...
+2017-04-05,21:33:34 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/eus-000.txt
+2017-04-05,21:33:34 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.eu/wiki.eu.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 90
+Not found: 20
+[ 1  7 11 16 17 23 25 35 39 46 57 59 67 74 76 78 80 82 87 99]
+2017-04-05,21:33:39 INFO Missing words: [u'ash', u'black', u'burn', u'dead', u'dog', u'egg', u'fat', u'hair', u'heart', u'lie', u'neck', u'night', u'root', u'hide', u'little', u'stand', u'rock', u'swim', u'tongue', u'yellow']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:33:39 INFO Training session is initialized, starting training...
+2017-04-05,21:33:39 INFO Loss at step 0: 349.102539 (tiem: 0)
+2017-04-05,21:33:44 INFO Loss at step 10000: 210.936829 (tiem: 5)
+2017-04-05,21:33:48 INFO Loss at step 20000: 113.038139 (tiem: 10)
+2017-04-05,21:33:53 INFO Loss at step 30000: 67.362656 (tiem: 14)
+2017-04-05,21:33:57 INFO Loss at step 40000: 47.301296 (tiem: 19)
+2017-04-05,21:34:02 INFO Loss at step 50000: 35.642529 (tiem: 24)
+2017-04-05,21:34:07 INFO Loss at step 60000: 26.088226 (tiem: 28)
+2017-04-05,21:34:11 INFO Loss at step 70000: 17.748859 (tiem: 33)
+2017-04-05,21:34:16 INFO Loss at step 80000: 10.742971 (tiem: 38)
+2017-04-05,21:34:21 INFO Loss at step 90000: 5.084486 (tiem: 42)
+2017-04-05,21:34:25 INFO Loss at step 100000: 0.728150 (tiem: 47)
+2017-04-05,21:34:26 INFO Finishing training...
+2017-04-05,21:34:26 INFO Loss at step 101687: 0.149745 (tiem: 48)
+2017-04-05,21:34:26 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_eus.npy
+2017-04-05,21:34:26 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_eus.npy
+2017-04-05,21:34:26 INFO Translating TAM language...
+2017-04-05,21:34:26 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tam-000.txt
+2017-04-05,21:34:26 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ta/wiki.ta.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 99
+Not found: 11
+[ 11  12  25  36  39  46  52  78  82  92 106]
+2017-04-05,21:34:31 INFO Missing words: [u'burn', u'claw', u'fat', u'hand', u'heart', u'lie', u'flesh', u'stand', u'swim', u'hot', u'thin']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:34:31 INFO Training session is initialized, starting training...
+2017-04-05,21:34:31 INFO Loss at step 0: 365.634277 (tiem: 0)
+2017-04-05,21:34:36 INFO Loss at step 10000: 225.079224 (tiem: 4)
+2017-04-05,21:34:40 INFO Loss at step 20000: 124.240601 (tiem: 9)
+2017-04-05,21:34:45 INFO Loss at step 30000: 73.491013 (tiem: 14)
+2017-04-05,21:34:50 INFO Loss at step 40000: 52.169662 (tiem: 18)
+2017-04-05,21:34:54 INFO Loss at step 50000: 39.546009 (tiem: 23)
+2017-04-05,21:34:59 INFO Loss at step 60000: 30.096794 (tiem: 28)
+2017-04-05,21:35:04 INFO Loss at step 70000: 21.868160 (tiem: 32)
+2017-04-05,21:35:09 INFO Loss at step 80000: 14.921318 (tiem: 37)
+2017-04-05,21:35:13 INFO Loss at step 90000: 9.217837 (tiem: 42)
+2017-04-05,21:35:18 INFO Loss at step 100000: 4.627335 (tiem: 46)
+2017-04-05,21:35:23 INFO Loss at step 110000: 1.006280 (tiem: 51)
+2017-04-05,21:35:24 INFO Finishing training...
+2017-04-05,21:35:24 INFO Loss at step 112868: 0.149762 (tiem: 52)
+2017-04-05,21:35:24 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tam.npy
+2017-04-05,21:35:24 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tam.npy
+2017-04-05,21:35:24 INFO Translating JPN language...
+2017-04-05,21:35:24 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/jpn-000.txt
+2017-04-05,21:35:24 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ja/wiki.ja.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 104
+Not found: 6
+[11 25 62 75 78 94]
+2017-04-05,21:35:34 INFO Missing words: [u'burn', u'fat', u'adulterous', u'sleep', u'stand', u'we']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:35:34 INFO Training session is initialized, starting training...
+2017-04-05,21:35:34 INFO Loss at step 0: 370.805328 (tiem: 0)
+2017-04-05,21:35:38 INFO Loss at step 10000: 191.799469 (tiem: 5)
+2017-04-05,21:35:43 INFO Loss at step 20000: 73.557884 (tiem: 9)
+2017-04-05,21:35:47 INFO Loss at step 30000: 10.950108 (tiem: 14)
+2017-04-05,21:35:52 INFO Loss at step 40000: 10.817317 (tiem: 19)
+2017-04-05,21:35:57 INFO Loss at step 50000: 10.701565 (tiem: 23)
+2017-04-05,21:36:01 INFO Loss at step 60000: 10.589811 (tiem: 28)
+2017-04-05,21:36:06 INFO Loss at step 70000: 10.481876 (tiem: 33)
+2017-04-05,21:36:11 INFO Loss at step 80000: 10.377651 (tiem: 37)
+2017-04-05,21:36:15 INFO Loss at step 90000: 10.276964 (tiem: 42)
+2017-04-05,21:36:20 INFO Loss at step 100000: 10.179644 (tiem: 46)
+2017-04-05,21:36:25 INFO Loss at step 110000: 10.085556 (tiem: 51)
+2017-04-05,21:36:29 INFO Loss at step 120000: 9.994555 (tiem: 56)
+2017-04-05,21:36:34 INFO Loss at step 130000: 9.906515 (tiem: 60)
+2017-04-05,21:36:39 INFO Loss at step 140000: 9.821288 (tiem: 65)
+2017-04-05,21:36:43 INFO Loss at step 150000: 9.738745 (tiem: 70)
+2017-04-05,21:36:48 INFO Loss at step 160000: 9.658747 (tiem: 74)
+2017-04-05,21:36:52 INFO Loss at step 170000: 9.581218 (tiem: 79)
+2017-04-05,21:36:57 INFO Loss at step 180000: 9.506007 (tiem: 84)
+2017-04-05,21:37:02 INFO Loss at step 190000: 9.433000 (tiem: 88)
+2017-04-05,21:37:06 INFO Loss at step 200000: 9.362097 (tiem: 93)
+2017-04-05,21:37:11 INFO Loss at step 210000: 9.293186 (tiem: 97)
+2017-04-05,21:37:16 INFO Loss at step 220000: 9.226204 (tiem: 102)
+2017-04-05,21:37:20 INFO Loss at step 230000: 9.161034 (tiem: 107)
+2017-04-05,21:37:25 INFO Loss at step 240000: 9.097593 (tiem: 111)
+2017-04-05,21:37:30 INFO Loss at step 250000: 9.035799 (tiem: 116)
+2017-04-05,21:37:34 INFO Loss at step 260000: 8.975585 (tiem: 121)
+2017-04-05,21:37:39 INFO Loss at step 270000: 8.916879 (tiem: 125)
+2017-04-05,21:37:43 INFO Loss at step 280000: 8.859593 (tiem: 130)
+2017-04-05,21:37:48 INFO Loss at step 290000: 8.803663 (tiem: 135)
+2017-04-05,21:37:53 INFO Loss at step 300000: 8.749019 (tiem: 139)
+2017-04-05,21:37:57 INFO Loss at step 310000: 8.695610 (tiem: 144)
+2017-04-05,21:38:02 INFO Loss at step 320000: 8.643378 (tiem: 148)
+2017-04-05,21:38:07 INFO Loss at step 330000: 8.592283 (tiem: 153)
+2017-04-05,21:38:11 INFO Loss at step 340000: 8.542266 (tiem: 158)
+2017-04-05,21:38:16 INFO Loss at step 350000: 8.493273 (tiem: 162)
+2017-04-05,21:38:21 INFO Loss at step 360000: 8.445270 (tiem: 167)
+2017-04-05,21:38:25 INFO Loss at step 370000: 8.398207 (tiem: 172)
+2017-04-05,21:38:30 INFO Loss at step 380000: 8.352036 (tiem: 176)
+2017-04-05,21:38:34 INFO Loss at step 390000: 8.306729 (tiem: 181)
+2017-04-05,21:38:39 INFO Loss at step 400000: 8.262257 (tiem: 186)
+2017-04-05,21:38:44 INFO Loss at step 410000: 8.218587 (tiem: 190)
+2017-04-05,21:38:48 INFO Loss at step 420000: 8.175686 (tiem: 195)
+2017-04-05,21:38:53 INFO Loss at step 430000: 8.133518 (tiem: 199)
+2017-04-05,21:38:58 INFO Loss at step 440000: 8.092061 (tiem: 204)
+2017-04-05,21:39:02 INFO Loss at step 450000: 8.051277 (tiem: 209)
+2017-04-05,21:39:07 INFO Loss at step 460000: 8.011132 (tiem: 213)
+2017-04-05,21:39:12 INFO Loss at step 470000: 7.971620 (tiem: 218)
+2017-04-05,21:39:16 INFO Loss at step 480000: 7.932715 (tiem: 223)
+2017-04-05,21:39:21 INFO Loss at step 490000: 7.894390 (tiem: 227)
+2017-04-05,21:39:25 INFO Loss at step 500000: 7.856614 (tiem: 232)
+2017-04-05,21:39:30 INFO Loss at step 510000: 7.819369 (tiem: 237)
+2017-04-05,21:39:35 INFO Loss at step 520000: 7.782650 (tiem: 241)
+2017-04-05,21:39:39 INFO Loss at step 530000: 7.746436 (tiem: 246)
+2017-04-05,21:39:44 INFO Loss at step 540000: 7.710716 (tiem: 250)
+2017-04-05,21:39:49 INFO Loss at step 550000: 7.675481 (tiem: 255)
+2017-04-05,21:39:53 INFO Loss at step 560000: 7.640711 (tiem: 260)
+2017-04-05,21:39:58 INFO Loss at step 570000: 7.606392 (tiem: 264)
+2017-04-05,21:40:03 INFO Loss at step 580000: 7.572510 (tiem: 269)
+2017-04-05,21:40:07 INFO Loss at step 590000: 7.539048 (tiem: 274)
+2017-04-05,21:40:12 INFO Loss at step 600000: 7.505989 (tiem: 278)
+2017-04-05,21:40:16 INFO Loss at step 610000: 7.473324 (tiem: 283)
+2017-04-05,21:40:21 INFO Loss at step 620000: 7.441049 (tiem: 288)
+2017-04-05,21:40:26 INFO Loss at step 630000: 7.409146 (tiem: 292)
+2017-04-05,21:40:30 INFO Loss at step 640000: 7.377601 (tiem: 297)
+2017-04-05,21:40:35 INFO Loss at step 650000: 7.346400 (tiem: 301)
+2017-04-05,21:40:40 INFO Loss at step 660000: 7.315544 (tiem: 306)
+2017-04-05,21:40:44 INFO Loss at step 670000: 7.285020 (tiem: 311)
+2017-04-05,21:40:49 INFO Loss at step 680000: 7.254825 (tiem: 315)
+2017-04-05,21:40:54 INFO Loss at step 690000: 7.224948 (tiem: 320)
+2017-04-05,21:40:58 INFO Loss at step 700000: 7.195382 (tiem: 325)
+2017-04-05,21:41:03 INFO Loss at step 710000: 7.166120 (tiem: 329)
+2017-04-05,21:41:07 INFO Loss at step 720000: 7.137152 (tiem: 334)
+2017-04-05,21:41:12 INFO Loss at step 730000: 7.108472 (tiem: 339)
+2017-04-05,21:41:17 INFO Loss at step 740000: 7.080073 (tiem: 343)
+2017-04-05,21:41:21 INFO Loss at step 750000: 7.051947 (tiem: 348)
+2017-04-05,21:41:26 INFO Loss at step 760000: 7.024089 (tiem: 353)
+2017-04-05,21:41:31 INFO Loss at step 770000: 6.996490 (tiem: 357)
+2017-04-05,21:41:35 INFO Loss at step 780000: 6.969150 (tiem: 362)
+2017-04-05,21:41:40 INFO Loss at step 790000: 6.942060 (tiem: 366)
+2017-04-05,21:41:45 INFO Loss at step 800000: 6.915217 (tiem: 371)
+2017-04-05,21:41:49 INFO Loss at step 810000: 6.888614 (tiem: 376)
+2017-04-05,21:41:54 INFO Loss at step 820000: 6.862244 (tiem: 380)
+2017-04-05,21:41:58 INFO Loss at step 830000: 6.836108 (tiem: 385)
+2017-04-05,21:42:03 INFO Loss at step 840000: 6.810201 (tiem: 390)
+2017-04-05,21:42:08 INFO Loss at step 850000: 6.784513 (tiem: 394)
+2017-04-05,21:42:12 INFO Loss at step 860000: 6.759042 (tiem: 399)
+2017-04-05,21:42:17 INFO Loss at step 870000: 6.733785 (tiem: 404)
+2017-04-05,21:42:22 INFO Loss at step 880000: 6.708738 (tiem: 408)
+2017-04-05,21:42:26 INFO Loss at step 890000: 6.683897 (tiem: 413)
+2017-04-05,21:42:31 INFO Loss at step 900000: 6.659257 (tiem: 417)
+2017-04-05,21:42:36 INFO Loss at step 910000: 6.634820 (tiem: 422)
+2017-04-05,21:42:40 INFO Loss at step 920000: 6.610579 (tiem: 427)
+2017-04-05,21:42:45 INFO Loss at step 930000: 6.586529 (tiem: 431)
+2017-04-05,21:42:49 INFO Loss at step 940000: 6.562664 (tiem: 436)
+2017-04-05,21:42:54 INFO Loss at step 950000: 6.538983 (tiem: 441)
+2017-04-05,21:42:59 INFO Loss at step 960000: 6.515483 (tiem: 445)
+2017-04-05,21:43:03 INFO Loss at step 970000: 6.492160 (tiem: 450)
+2017-04-05,21:43:08 INFO Loss at step 980000: 6.469011 (tiem: 455)
+2017-04-05,21:43:13 INFO Loss at step 990000: 6.446033 (tiem: 459)
+2017-04-05,21:43:17 INFO Loss at step 1000000: 6.423222 (tiem: 464)
+2017-04-05,21:43:17 INFO Finishing training...
+2017-04-05,21:43:17 INFO Loss at step 1000001: 6.423222 (tiem: 464)
+2017-04-05,21:43:17 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_jpn.npy
+2017-04-05,21:43:17 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_jpn.npy
+2017-04-05,21:43:17 INFO Translating PLT language...
+2017-04-05,21:43:17 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/plt-000.txt
+2017-04-05,21:43:17 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.mg/wiki.mg.vec
+Not found list len: 2
+Valid swadesh len: 108
+Embeddings len: 68
+Not found: 42
+[  0   1   2   4   6  10  11  12  14  18  20  22  25  28  29  34  38  40
+  42  43  44  46  52  54  57  67  70  71  73  75  77  78  81  82  84  86
+  87  91  92 101 106 108]
+2017-04-05,21:43:18 INFO Missing words: [u'all', u'ash', u'bark', u'big', u'bite', u'breast', u'burn', u'claw', u'cold', u'drink', u'ear', u'eat', u'fat', u'fish', u'fly', u'green', u'hear', u'horn', u'kill', u'knee', u'know', u'lie', u'flesh', u'hill', u'neck', u'root', u'say', u'see', u'sit', u'sleep', u'smoke', u'stand', u'sun', u'swim', u'that', u'thou', u'tongue', u'go', u'hot', u'dull', u'thin', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:43:18 INFO Training session is initialized, starting training...
+2017-04-05,21:43:18 INFO Loss at step 0: 302.118073 (tiem: 0)
+2017-04-05,21:43:23 INFO Loss at step 10000: 159.449249 (tiem: 5)
+2017-04-05,21:43:28 INFO Loss at step 20000: 73.349945 (tiem: 9)
+2017-04-05,21:43:32 INFO Loss at step 30000: 45.449612 (tiem: 14)
+2017-04-05,21:43:37 INFO Loss at step 40000: 32.718090 (tiem: 18)
+2017-04-05,21:43:42 INFO Loss at step 50000: 25.219751 (tiem: 23)
+2017-04-05,21:43:46 INFO Loss at step 60000: 19.054741 (tiem: 28)
+2017-04-05,21:43:51 INFO Loss at step 70000: 14.136149 (tiem: 32)
+2017-04-05,21:43:55 INFO Loss at step 80000: 10.275002 (tiem: 37)
+2017-04-05,21:44:00 INFO Loss at step 90000: 7.248196 (tiem: 42)
+2017-04-05,21:44:05 INFO Loss at step 100000: 4.865792 (tiem: 46)
+2017-04-05,21:44:09 INFO Loss at step 110000: 3.005324 (tiem: 51)
+2017-04-05,21:44:14 INFO Loss at step 120000: 1.625383 (tiem: 55)
+2017-04-05,21:44:19 INFO Loss at step 130000: 0.716969 (tiem: 60)
+2017-04-05,21:44:23 INFO Finishing training...
+2017-04-05,21:44:23 INFO Loss at step 139445: 0.149990 (tiem: 64)
+2017-04-05,21:44:23 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_plt.npy
+2017-04-05,21:44:23 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_plt.npy
+2017-04-05,21:44:23 INFO Translating CEB language...
+2017-04-05,21:44:23 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ceb-000.txt
+2017-04-05,21:44:23 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ceb/wiki.ceb.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 77
+Not found: 33
+[  1   2   6  10  11  12  13  15  20  25  26  35  38  42  43  46  52  55
+  57  58  59  68  69  70  73  75  78  82  83  88  91  92 101]
+2017-04-05,21:44:36 INFO Missing words: [u'ash', u'bark', u'bite', u'breast', u'burn', u'claw', u'cloud', u'come', u'ear', u'fat', u'feather', u'hair', u'hear', u'kill', u'knee', u'lie', u'flesh', u'mouth', u'neck', u'new', u'night', u'round', u'sand', u'say', u'sit', u'sleep', u'stand', u'swim', u'tail', u'tooth', u'go', u'hot', u'dull']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:44:36 INFO Training session is initialized, starting training...
+2017-04-05,21:44:36 INFO Loss at step 0: 321.929810 (tiem: 0)
+2017-04-05,21:44:40 INFO Loss at step 10000: 180.512024 (tiem: 5)
+2017-04-05,21:44:45 INFO Loss at step 20000: 90.047958 (tiem: 9)
+2017-04-05,21:44:49 INFO Loss at step 30000: 55.027889 (tiem: 14)
+2017-04-05,21:44:54 INFO Loss at step 40000: 39.164593 (tiem: 19)
+2017-04-05,21:44:59 INFO Loss at step 50000: 29.911289 (tiem: 23)
+2017-04-05,21:45:03 INFO Loss at step 60000: 22.026569 (tiem: 28)
+2017-04-05,21:45:08 INFO Loss at step 70000: 15.418111 (tiem: 32)
+2017-04-05,21:45:13 INFO Loss at step 80000: 10.095860 (tiem: 37)
+2017-04-05,21:45:17 INFO Loss at step 90000: 6.020728 (tiem: 42)
+2017-04-05,21:45:22 INFO Loss at step 100000: 3.219182 (tiem: 46)
+2017-04-05,21:45:26 INFO Loss at step 110000: 1.732513 (tiem: 51)
+2017-04-05,21:45:31 INFO Loss at step 120000: 0.998368 (tiem: 56)
+2017-04-05,21:45:36 INFO Loss at step 130000: 0.472241 (tiem: 60)
+2017-04-05,21:45:39 INFO Finishing training...
+2017-04-05,21:45:39 INFO Loss at step 136953: 0.149972 (tiem: 63)
+2017-04-05,21:45:39 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ceb.npy
+2017-04-05,21:45:39 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ceb.npy
+2017-04-05,21:45:39 INFO Translating AST language...
+2017-04-05,21:45:39 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ast-000.txt
+2017-04-05,21:45:39 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ast/wiki.ast.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 97
+Not found: 13
+[10 11 12 25 29 43 46 52 59 60 63 78 93]
+2017-04-05,21:45:41 INFO Missing words: [u'breast', u'burn', u'claw', u'fat', u'fly', u'knee', u'lie', u'flesh', u'night', u'nose', u'human', u'stand', u'water']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:45:41 INFO Training session is initialized, starting training...
+2017-04-05,21:45:41 INFO Loss at step 0: 360.454773 (tiem: 0)
+2017-04-05,21:45:46 INFO Loss at step 10000: 222.841064 (tiem: 5)
+2017-04-05,21:45:51 INFO Loss at step 20000: 123.166153 (tiem: 9)
+2017-04-05,21:45:55 INFO Loss at step 30000: 73.518845 (tiem: 14)
+2017-04-05,21:46:00 INFO Loss at step 40000: 52.290802 (tiem: 19)
+2017-04-05,21:46:05 INFO Loss at step 50000: 39.430313 (tiem: 23)
+2017-04-05,21:46:09 INFO Loss at step 60000: 29.733463 (tiem: 28)
+2017-04-05,21:46:14 INFO Loss at step 70000: 21.151390 (tiem: 33)
+2017-04-05,21:46:19 INFO Loss at step 80000: 13.792231 (tiem: 37)
+2017-04-05,21:46:23 INFO Loss at step 90000: 7.687652 (tiem: 42)
+2017-04-05,21:46:28 INFO Loss at step 100000: 2.764723 (tiem: 47)
+2017-04-05,21:46:31 INFO Finishing training...
+2017-04-05,21:46:31 INFO Loss at step 106544: 0.149849 (tiem: 50)
+2017-04-05,21:46:31 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ast.npy
+2017-04-05,21:46:31 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ast.npy
+2017-04-05,21:46:31 INFO Translating KIR language...
+2017-04-05,21:46:31 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/kir-000.txt
+2017-04-05,21:46:31 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ky/wiki.ky.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 97
+Not found: 13
+[ 6 11 12 18 22 25 36 46 52 78 82 86 91]
+2017-04-05,21:46:34 INFO Missing words: [u'bite', u'burn', u'claw', u'drink', u'eat', u'fat', u'hand', u'lie', u'flesh', u'stand', u'swim', u'thou', u'go']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:46:34 INFO Training session is initialized, starting training...
+2017-04-05,21:46:34 INFO Loss at step 0: 364.729492 (tiem: 0)
+2017-04-05,21:46:38 INFO Loss at step 10000: 227.541412 (tiem: 5)
+2017-04-05,21:46:43 INFO Loss at step 20000: 127.031311 (tiem: 9)
+2017-04-05,21:46:48 INFO Loss at step 30000: 75.779137 (tiem: 14)
+2017-04-05,21:46:52 INFO Loss at step 40000: 53.324978 (tiem: 19)
+2017-04-05,21:46:57 INFO Loss at step 50000: 40.111259 (tiem: 23)
+2017-04-05,21:47:01 INFO Loss at step 60000: 29.945759 (tiem: 28)
+2017-04-05,21:47:06 INFO Loss at step 70000: 20.933456 (tiem: 33)
+2017-04-05,21:47:11 INFO Loss at step 80000: 13.213182 (tiem: 37)
+2017-04-05,21:47:15 INFO Loss at step 90000: 6.833134 (tiem: 42)
+2017-04-05,21:47:20 INFO Loss at step 100000: 1.731495 (tiem: 47)
+2017-04-05,21:47:22 INFO Finishing training...
+2017-04-05,21:47:22 INFO Loss at step 103757: 0.149722 (tiem: 48)
+2017-04-05,21:47:22 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_kir.npy
+2017-04-05,21:47:22 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_kir.npy
+2017-04-05,21:47:22 INFO Translating DAN language...
+2017-04-05,21:47:22 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/dan-000.txt
+2017-04-05,21:47:22 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.da/wiki.da.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 87
+Not found: 23
+[ 8 15 16 17 18 24 27 28 31 36 40 43 45 58 60 62 63 66 74 87 88 89 93]
+2017-04-05,21:47:28 INFO Missing words: [u'blood', u'come', u'dead', u'dog', u'drink', u'eye', u'fire', u'fish', u'full', u'hand', u'horn', u'knee', u'leaf', u'new', u'nose', u'adulterous', u'human', u'path', u'hide', u'tongue', u'tooth', u'tree', u'water']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:47:28 INFO Training session is initialized, starting training...
+2017-04-05,21:47:28 INFO Loss at step 0: 340.142029 (tiem: 0)
+2017-04-05,21:47:33 INFO Loss at step 10000: 203.441254 (tiem: 4)
+2017-04-05,21:47:37 INFO Loss at step 20000: 108.286224 (tiem: 9)
+2017-04-05,21:47:42 INFO Loss at step 30000: 65.419960 (tiem: 13)
+2017-04-05,21:47:46 INFO Loss at step 40000: 46.120640 (tiem: 18)
+2017-04-05,21:47:51 INFO Loss at step 50000: 34.951626 (tiem: 23)
+2017-04-05,21:47:56 INFO Loss at step 60000: 25.541935 (tiem: 27)
+2017-04-05,21:48:00 INFO Loss at step 70000: 17.283499 (tiem: 32)
+2017-04-05,21:48:05 INFO Loss at step 80000: 10.238811 (tiem: 36)
+2017-04-05,21:48:09 INFO Loss at step 90000: 4.403328 (tiem: 41)
+2017-04-05,21:48:14 INFO Finishing training...
+2017-04-05,21:48:14 INFO Loss at step 99193: 0.149734 (tiem: 45)
+2017-04-05,21:48:14 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_dan.npy
+2017-04-05,21:48:14 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_dan.npy
+2017-04-05,21:48:14 INFO Translating SLK language...
+2017-04-05,21:48:14 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/slk-000.txt
+2017-04-05,21:48:14 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sk/wiki.sk.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 97
+Not found: 13
+[10 11 12 25 27 31 38 46 47 52 71 78 80]
+2017-04-05,21:48:20 INFO Missing words: [u'breast', u'burn', u'claw', u'fat', u'fire', u'full', u'hear', u'lie', u'liver', u'flesh', u'see', u'stand', u'rock']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:48:20 INFO Training session is initialized, starting training...
+2017-04-05,21:48:20 INFO Loss at step 0: 361.815918 (tiem: 0)
+2017-04-05,21:48:24 INFO Loss at step 10000: 223.005768 (tiem: 5)
+2017-04-05,21:48:29 INFO Loss at step 20000: 122.908890 (tiem: 10)
+2017-04-05,21:48:34 INFO Loss at step 30000: 72.997993 (tiem: 14)
+2017-04-05,21:48:38 INFO Loss at step 40000: 52.147778 (tiem: 19)
+2017-04-05,21:48:43 INFO Loss at step 50000: 39.588959 (tiem: 24)
+2017-04-05,21:48:48 INFO Loss at step 60000: 30.227734 (tiem: 28)
+2017-04-05,21:48:52 INFO Loss at step 70000: 22.015980 (tiem: 33)
+2017-04-05,21:48:57 INFO Loss at step 80000: 15.005141 (tiem: 38)
+2017-04-05,21:49:02 INFO Loss at step 90000: 9.163576 (tiem: 42)
+2017-04-05,21:49:06 INFO Loss at step 100000: 4.374474 (tiem: 47)
+2017-04-05,21:49:11 INFO Loss at step 110000: 0.519173 (tiem: 52)
+2017-04-05,21:49:12 INFO Finishing training...
+2017-04-05,21:49:12 INFO Loss at step 111131: 0.149911 (tiem: 52)
+2017-04-05,21:49:12 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_slk.npy
+2017-04-05,21:49:12 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_slk.npy
+2017-04-05,21:49:12 INFO Translating BEN language...
+2017-04-05,21:49:12 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ben-000.txt
+2017-04-05,21:49:12 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.bn/wiki.bn.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 95
+Not found: 15
+[  6   9  11  12  25  36  46  49  52  67  75  77  78  82 104]
+2017-04-05,21:49:15 INFO Missing words: [u'bite', u'bone', u'burn', u'claw', u'fat', u'hand', u'lie', u'louse', u'flesh', u'root', u'sleep', u'smoke', u'stand', u'swim', u'short']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:49:15 INFO Training session is initialized, starting training...
+2017-04-05,21:49:15 INFO Loss at step 0: 358.581604 (tiem: 0)
+2017-04-05,21:49:19 INFO Loss at step 10000: 217.952042 (tiem: 5)
+2017-04-05,21:49:24 INFO Loss at step 20000: 119.409279 (tiem: 9)
+2017-04-05,21:49:29 INFO Loss at step 30000: 71.605148 (tiem: 14)
+2017-04-05,21:49:33 INFO Loss at step 40000: 51.235336 (tiem: 19)
+2017-04-05,21:49:38 INFO Loss at step 50000: 38.598846 (tiem: 23)
+2017-04-05,21:49:42 INFO Loss at step 60000: 29.190828 (tiem: 28)
+2017-04-05,21:49:47 INFO Loss at step 70000: 20.862347 (tiem: 33)
+2017-04-05,21:49:52 INFO Loss at step 80000: 13.690499 (tiem: 37)
+2017-04-05,21:49:56 INFO Loss at step 90000: 7.683584 (tiem: 42)
+2017-04-05,21:50:01 INFO Loss at step 100000: 2.787521 (tiem: 46)
+2017-04-05,21:50:04 INFO Finishing training...
+2017-04-05,21:50:04 INFO Loss at step 106718: 0.149875 (tiem: 50)
+2017-04-05,21:50:04 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ben.npy
+2017-04-05,21:50:04 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ben.npy
+2017-04-05,21:50:04 INFO Translating NOB language...
+2017-04-05,21:50:04 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/nob-000.txt
+2017-04-05,21:50:04 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.no/wiki.no.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 95
+Not found: 15
+[10 15 17 18 20 24 31 38 47 49 60 63 79 86 87]
+2017-04-05,21:50:14 INFO Missing words: [u'breast', u'come', u'dog', u'drink', u'ear', u'eye', u'full', u'hear', u'liver', u'louse', u'nose', u'human', u'star', u'thou', u'tongue']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:50:14 INFO Training session is initialized, starting training...
+2017-04-05,21:50:14 INFO Loss at step 0: 359.112701 (tiem: 0)
+2017-04-05,21:50:18 INFO Loss at step 10000: 219.145203 (tiem: 5)
+2017-04-05,21:50:23 INFO Loss at step 20000: 119.300262 (tiem: 9)
+2017-04-05,21:50:28 INFO Loss at step 30000: 70.603401 (tiem: 14)
+2017-04-05,21:50:32 INFO Loss at step 40000: 50.185879 (tiem: 19)
+2017-04-05,21:50:37 INFO Loss at step 50000: 38.011333 (tiem: 23)
+2017-04-05,21:50:42 INFO Loss at step 60000: 28.639141 (tiem: 28)
+2017-04-05,21:50:46 INFO Loss at step 70000: 20.429052 (tiem: 33)
+2017-04-05,21:50:51 INFO Loss at step 80000: 13.458747 (tiem: 37)
+2017-04-05,21:50:56 INFO Loss at step 90000: 7.725115 (tiem: 42)
+2017-04-05,21:51:00 INFO Loss at step 100000: 3.131368 (tiem: 47)
+2017-04-05,21:51:04 INFO Finishing training...
+2017-04-05,21:51:04 INFO Loss at step 108234: 0.149948 (tiem: 51)
+2017-04-05,21:51:04 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_nob.npy
+2017-04-05,21:51:04 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_nob.npy
+2017-04-05,21:51:04 INFO Translating KAN language...
+2017-04-05,21:51:04 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/kan-000.txt
+2017-04-05,21:51:04 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.kn/wiki.kn.vec
+2017-04-05,21:51:04 WARNING /home/eszti/data/panlex_swadesh/swadesh110/kan-000.txt does not exist
+Not found list len: 17
+Valid swadesh len: 93
+Embeddings len: 13
+Not found: 97
+[  0   1   2   3   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+  19  20  21  22  23  24  25  26  27  28  29  31  32  33  35  36  39  40
+  41  42  43  44  45  46  47  48  49  50  51  52  53  56  57  58  59  60
+  61  63  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80
+  81  84  85  86  87  88  90  91  92  93  94  95  96  98  99 100 101 102
+ 103 104 105 106 107 108 109]
+2017-04-05,21:51:08 INFO Missing words: [u'all', u'ash', u'bark', u'abdomen', u'bird', u'bite', u'black', u'blood', u'bone', u'breast', u'burn', u'claw', u'cloud', u'cold', u'come', u'dead', u'dog', u'drink', u'dry', u'ear', u'earth', u'eat', u'egg', u'eye', u'fat', u'feather', u'fire', u'fish', u'fly', u'full', u'give', u'good', u'hair', u'hand', u'heart', u'horn', u'i', u'kill', u'knee', u'know', u'leaf', u'lie', u'liver', u'long', u'louse', u'male', u'many', u'flesh', u'moon', u'name', u'neck', u'new', u'night', u'nose', u'not', u'human', u'red', u'path', u'root', u'round', u'sand', u'say', u'see', u'seed', u'sit', u'hide', u'sleep', u'little', u'smoke', u'stand', u'star', u'rock', u'sun', u'that', u'this', u'thou', u'tongue', u'tooth', u'grind', u'go', u'hot', u'water', u'we', u'what', u'white', u'female', u'yellow', u'distant', u'dull', u'close', u'salt', u'short', u'snake', u'thin', u'wind', u'earthworm', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:51:08 INFO Training session is initialized, starting training...
+2017-04-05,21:51:08 INFO Loss at step 0: 131.353027 (tiem: 0)
+2017-04-05,21:51:12 INFO Loss at step 10000: 26.373562 (tiem: 5)
+2017-04-05,21:51:17 INFO Loss at step 20000: 13.168736 (tiem: 9)
+2017-04-05,21:51:21 INFO Loss at step 30000: 6.504243 (tiem: 13)
+2017-04-05,21:51:25 INFO Loss at step 40000: 1.537977 (tiem: 18)
+2017-04-05,21:51:27 INFO Finishing training...
+2017-04-05,21:51:27 INFO Loss at step 43708: 0.149768 (tiem: 19)
+2017-04-05,21:51:27 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_kan.npy
+2017-04-05,21:51:27 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_kan.npy
+2017-04-05,21:51:27 INFO Translating HEB language...
+2017-04-05,21:51:27 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/heb-000.txt
+2017-04-05,21:51:27 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.he/wiki.he.vec
+Not found list len: 9
+Valid swadesh len: 101
+Embeddings len: 97
+Not found: 13
+[ 11  12  25  30  36  46  48  52  62  65  78  90 101]
+2017-04-05,21:51:35 INFO Missing words: [u'burn', u'claw', u'fat', u'foot', u'hand', u'lie', u'long', u'flesh', u'adulterous', u'red', u'stand', u'grind', u'dull']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:51:35 INFO Training session is initialized, starting training...
+2017-04-05,21:51:35 INFO Loss at step 0: 362.643921 (tiem: 0)
+2017-04-05,21:51:40 INFO Loss at step 10000: 225.308319 (tiem: 5)
+2017-04-05,21:51:45 INFO Loss at step 20000: 125.351227 (tiem: 9)
+2017-04-05,21:51:49 INFO Loss at step 30000: 74.956543 (tiem: 14)
+2017-04-05,21:51:54 INFO Loss at step 40000: 52.967552 (tiem: 19)
+2017-04-05,21:51:59 INFO Loss at step 50000: 39.843868 (tiem: 23)
+2017-04-05,21:52:03 INFO Loss at step 60000: 29.804718 (tiem: 28)
+2017-04-05,21:52:08 INFO Loss at step 70000: 20.864653 (tiem: 33)
+2017-04-05,21:52:13 INFO Loss at step 80000: 13.138352 (tiem: 37)
+2017-04-05,21:52:17 INFO Loss at step 90000: 6.687533 (tiem: 42)
+2017-04-05,21:52:22 INFO Loss at step 100000: 1.590466 (tiem: 47)
+2017-04-05,21:52:24 INFO Finishing training...
+2017-04-05,21:52:24 INFO Loss at step 103765: 0.149756 (tiem: 48)
+2017-04-05,21:52:24 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_heb.npy
+2017-04-05,21:52:24 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_heb.npy
+2017-04-05,21:52:24 INFO Translating CES language...
+2017-04-05,21:52:24 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ces-000.txt
+2017-04-05,21:52:24 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.cs/wiki.cs.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 98
+Not found: 12
+[ 6  8 11 15 25 27 31 38 64 74 78 79]
+2017-04-05,21:52:36 INFO Missing words: [u'bite', u'blood', u'burn', u'come', u'fat', u'fire', u'full', u'hear', u'rain', u'hide', u'stand', u'star']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:52:36 INFO Training session is initialized, starting training...
+2017-04-05,21:52:36 INFO Loss at step 0: 364.852234 (tiem: 0)
+2017-04-05,21:52:41 INFO Loss at step 10000: 224.445557 (tiem: 5)
+2017-04-05,21:52:45 INFO Loss at step 20000: 123.921371 (tiem: 10)
+2017-04-05,21:52:50 INFO Loss at step 30000: 73.659439 (tiem: 14)
+2017-04-05,21:52:55 INFO Loss at step 40000: 52.563274 (tiem: 19)
+2017-04-05,21:52:59 INFO Loss at step 50000: 39.732128 (tiem: 24)
+2017-04-05,21:53:04 INFO Loss at step 60000: 30.259417 (tiem: 29)
+2017-04-05,21:53:09 INFO Loss at step 70000: 21.911633 (tiem: 33)
+2017-04-05,21:53:13 INFO Loss at step 80000: 14.763767 (tiem: 38)
+2017-04-05,21:53:18 INFO Loss at step 90000: 8.818067 (tiem: 43)
+2017-04-05,21:53:23 INFO Loss at step 100000: 4.000556 (tiem: 47)
+2017-04-05,21:53:27 INFO Loss at step 110000: 0.247025 (tiem: 52)
+2017-04-05,21:53:28 INFO Finishing training...
+2017-04-05,21:53:28 INFO Loss at step 110310: 0.149776 (tiem: 52)
+2017-04-05,21:53:28 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ces.npy
+2017-04-05,21:53:28 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ces.npy
+2017-04-05,21:53:28 INFO Translating BUL language...
+2017-04-05,21:53:28 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/bul-000.txt
+2017-04-05,21:53:28 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.bg/wiki.bg.vec
+Not found list len: 8
+Valid swadesh len: 102
+Embeddings len: 101
+Not found: 9
+[ 6 11 12 25 36 46 47 52 78]
+2017-04-05,21:53:34 INFO Missing words: [u'bite', u'burn', u'claw', u'fat', u'hand', u'lie', u'liver', u'flesh', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:53:34 INFO Training session is initialized, starting training...
+2017-04-05,21:53:34 INFO Loss at step 0: 371.829590 (tiem: 0)
+2017-04-05,21:53:39 INFO Loss at step 10000: 228.603806 (tiem: 4)
+2017-04-05,21:53:43 INFO Loss at step 20000: 127.118797 (tiem: 9)
+2017-04-05,21:53:48 INFO Loss at step 30000: 75.190247 (tiem: 14)
+2017-04-05,21:53:53 INFO Loss at step 40000: 54.195118 (tiem: 18)
+2017-04-05,21:53:57 INFO Loss at step 50000: 41.209305 (tiem: 23)
+2017-04-05,21:54:02 INFO Loss at step 60000: 32.100197 (tiem: 28)
+2017-04-05,21:54:07 INFO Loss at step 70000: 24.092901 (tiem: 32)
+2017-04-05,21:54:11 INFO Loss at step 80000: 17.211107 (tiem: 37)
+2017-04-05,21:54:16 INFO Loss at step 90000: 11.405059 (tiem: 42)
+2017-04-05,21:54:21 INFO Loss at step 100000: 6.557564 (tiem: 46)
+2017-04-05,21:54:25 INFO Loss at step 110000: 2.534612 (tiem: 51)
+2017-04-05,21:54:29 INFO Finishing training...
+2017-04-05,21:54:29 INFO Loss at step 117143: 0.149918 (tiem: 54)
+2017-04-05,21:54:29 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_bul.npy
+2017-04-05,21:54:29 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_bul.npy
+2017-04-05,21:54:29 INFO Translating DEU language...
+2017-04-05,21:54:29 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/deu-000.txt
+2017-04-05,21:54:29 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.de/wiki.de.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 105
+Not found: 5
+[11 25 78 84 85]
+2017-04-05,21:55:09 INFO Missing words: [u'burn', u'fat', u'stand', u'that', u'this']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:55:09 INFO Training session is initialized, starting training...
+2017-04-05,21:55:09 INFO Loss at step 0: 373.645355 (tiem: 0)
+2017-04-05,21:55:14 INFO Loss at step 10000: 231.249756 (tiem: 4)
+2017-04-05,21:55:19 INFO Loss at step 20000: 128.601227 (tiem: 9)
+2017-04-05,21:55:23 INFO Loss at step 30000: 75.310547 (tiem: 14)
+2017-04-05,21:55:28 INFO Loss at step 40000: 54.490211 (tiem: 19)
+2017-04-05,21:55:33 INFO Loss at step 50000: 41.686714 (tiem: 23)
+2017-04-05,21:55:37 INFO Loss at step 60000: 33.023148 (tiem: 28)
+2017-04-05,21:55:42 INFO Loss at step 70000: 25.495646 (tiem: 33)
+2017-04-05,21:55:47 INFO Loss at step 80000: 19.088932 (tiem: 37)
+2017-04-05,21:55:52 INFO Loss at step 90000: 13.721734 (tiem: 42)
+2017-04-05,21:55:56 INFO Loss at step 100000: 9.258307 (tiem: 47)
+2017-04-05,21:56:01 INFO Loss at step 110000: 5.543046 (tiem: 51)
+2017-04-05,21:56:06 INFO Loss at step 120000: 2.441561 (tiem: 56)
+2017-04-05,21:56:10 INFO Finishing training...
+2017-04-05,21:56:10 INFO Loss at step 128931: 0.149966 (tiem: 60)
+2017-04-05,21:56:10 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_deu.npy
+2017-04-05,21:56:10 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_deu.npy
+2017-04-05,21:56:10 INFO Translating LAT language...
+2017-04-05,21:56:10 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/lat-000.txt
+2017-04-05,21:56:10 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.la/wiki.la.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 86
+Not found: 24
+[  3   5  11  25  29  30  42  43  44  46  47  50  52  54  55  59  66  78
+  85  87  92  93 100 102]
+2017-04-05,21:56:13 INFO Missing words: [u'abdomen', u'bird', u'burn', u'fat', u'fly', u'foot', u'kill', u'knee', u'know', u'lie', u'liver', u'male', u'flesh', u'hill', u'mouth', u'night', u'path', u'stand', u'this', u'tongue', u'hot', u'water', u'distant', u'close']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:56:13 INFO Training session is initialized, starting training...
+2017-04-05,21:56:13 INFO Loss at step 0: 341.631287 (tiem: 0)
+2017-04-05,21:56:18 INFO Loss at step 10000: 204.358246 (tiem: 5)
+2017-04-05,21:56:22 INFO Loss at step 20000: 108.525513 (tiem: 10)
+2017-04-05,21:56:27 INFO Loss at step 30000: 65.028282 (tiem: 14)
+2017-04-05,21:56:31 INFO Loss at step 40000: 45.528374 (tiem: 19)
+2017-04-05,21:56:36 INFO Loss at step 50000: 34.184879 (tiem: 24)
+2017-04-05,21:56:41 INFO Loss at step 60000: 24.834608 (tiem: 28)
+2017-04-05,21:56:45 INFO Loss at step 70000: 16.729025 (tiem: 33)
+2017-04-05,21:56:50 INFO Loss at step 80000: 9.946099 (tiem: 37)
+2017-04-05,21:56:55 INFO Loss at step 90000: 4.414691 (tiem: 42)
+2017-04-05,21:56:59 INFO Finishing training...
+2017-04-05,21:56:59 INFO Loss at step 99612: 0.149655 (tiem: 47)
+2017-04-05,21:56:59 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_lat.npy
+2017-04-05,21:56:59 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_lat.npy
+2017-04-05,21:56:59 INFO Translating RUS language...
+2017-04-05,21:56:59 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/rus-000.txt
+2017-04-05,21:56:59 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ru/wiki.ru.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 109
+Not found: 1
+[44]
+2017-04-05,21:57:34 INFO Missing words: [u'know']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:57:34 INFO Training session is initialized, starting training...
+2017-04-05,21:57:34 INFO Loss at step 0: 381.964539 (tiem: 0)
+2017-04-05,21:57:38 INFO Loss at step 10000: 239.735443 (tiem: 5)
+2017-04-05,21:57:43 INFO Loss at step 20000: 136.089478 (tiem: 9)
+2017-04-05,21:57:48 INFO Loss at step 30000: 79.860046 (tiem: 14)
+2017-04-05,21:57:52 INFO Loss at step 40000: 57.692936 (tiem: 19)
+2017-04-05,21:57:57 INFO Loss at step 50000: 44.027359 (tiem: 24)
+2017-04-05,21:58:02 INFO Loss at step 60000: 35.044048 (tiem: 28)
+2017-04-05,21:58:07 INFO Loss at step 70000: 27.152948 (tiem: 33)
+2017-04-05,21:58:11 INFO Loss at step 80000: 20.370008 (tiem: 38)
+2017-04-05,21:58:16 INFO Loss at step 90000: 14.649649 (tiem: 42)
+2017-04-05,21:58:21 INFO Loss at step 100000: 9.886427 (tiem: 47)
+2017-04-05,21:58:25 INFO Loss at step 110000: 5.943078 (tiem: 52)
+2017-04-05,21:58:30 INFO Loss at step 120000: 2.691119 (tiem: 57)
+2017-04-05,21:58:35 INFO Finishing training...
+2017-04-05,21:58:35 INFO Loss at step 129627: 0.149881 (tiem: 61)
+2017-04-05,21:58:35 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_rus.npy
+2017-04-05,21:58:35 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_rus.npy
+2017-04-05,21:58:35 INFO Translating RUP language...
+2017-04-05,21:58:35 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/rup-000.txt
+2017-04-05,21:58:35 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.hy/wiki.hy.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 30
+Not found: 80
+[  1   2   3   5   6   7   8  10  11  12  13  14  17  18  19  20  21  22
+  24  25  26  27  28  29  30  31  34  38  39  40  43  44  45  46  47  48
+  49  50  51  52  53  55  56  57  59  63  64  65  66  67  68  69  70  72
+  73  74  75  76  78  79  80  81  82  83  84  85  87  88  91  92  98  99
+ 100 101 102 103 104 106 107 108]
+2017-04-05,21:58:41 INFO Missing words: [u'ash', u'bark', u'abdomen', u'bird', u'bite', u'black', u'blood', u'breast', u'burn', u'claw', u'cloud', u'cold', u'dog', u'drink', u'dry', u'ear', u'earth', u'eat', u'eye', u'fat', u'feather', u'fire', u'fish', u'fly', u'foot', u'full', u'green', u'hear', u'heart', u'horn', u'knee', u'know', u'leaf', u'lie', u'liver', u'long', u'louse', u'male', u'many', u'flesh', u'moon', u'mouth', u'name', u'neck', u'night', u'human', u'rain', u'red', u'path', u'root', u'round', u'sand', u'say', u'seed', u'sit', u'hide', u'sleep', u'little', u'stand', u'star', u'rock', u'sun', u'swim', u'tail', u'that', u'this', u'tongue', u'tooth', u'go', u'hot', u'female', u'yellow', u'distant', u'dull', u'close', u'salt', u'short', u'thin', u'wind', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:58:41 INFO Training session is initialized, starting training...
+2017-04-05,21:58:41 INFO Loss at step 0: 202.956238 (tiem: 0)
+2017-04-05,21:58:45 INFO Loss at step 10000: 76.009102 (tiem: 5)
+2017-04-05,21:58:50 INFO Loss at step 20000: 34.170753 (tiem: 9)
+2017-04-05,21:58:54 INFO Loss at step 30000: 21.099871 (tiem: 13)
+2017-04-05,21:58:58 INFO Loss at step 40000: 12.526070 (tiem: 18)
+2017-04-05,21:59:03 INFO Loss at step 50000: 5.322019 (tiem: 22)
+2017-04-05,21:59:07 INFO Loss at step 60000: 0.204589 (tiem: 26)
+2017-04-05,21:59:07 INFO Finishing training...
+2017-04-05,21:59:07 INFO Loss at step 60163: 0.149871 (tiem: 26)
+2017-04-05,21:59:07 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_rup.npy
+2017-04-05,21:59:07 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_rup.npy
+2017-04-05,21:59:07 INFO Translating MAL language...
+2017-04-05,21:59:07 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/mal-000.txt
+2017-04-05,21:59:07 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ml/wiki.ml.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 80
+Not found: 30
+[  2   3  11  12  22  25  26  36  39  41  44  46  47  49  52  63  64  66
+  68  69  71  72  78  82  92  97  98 104 105 106]
+2017-04-05,21:59:10 INFO Missing words: [u'bark', u'abdomen', u'burn', u'claw', u'eat', u'fat', u'feather', u'hand', u'heart', u'i', u'know', u'lie', u'liver', u'louse', u'flesh', u'human', u'rain', u'path', u'round', u'sand', u'see', u'seed', u'stand', u'swim', u'hot', u'who', u'female', u'short', u'snake', u'thin']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,21:59:10 INFO Training session is initialized, starting training...
+2017-04-05,21:59:10 INFO Loss at step 0: 329.470428 (tiem: 0)
+2017-04-05,21:59:15 INFO Loss at step 10000: 192.515976 (tiem: 5)
+2017-04-05,21:59:20 INFO Loss at step 20000: 98.692070 (tiem: 9)
+2017-04-05,21:59:24 INFO Loss at step 30000: 59.107819 (tiem: 14)
+2017-04-05,21:59:29 INFO Loss at step 40000: 41.220715 (tiem: 18)
+2017-04-05,21:59:33 INFO Loss at step 50000: 31.210873 (tiem: 23)
+2017-04-05,21:59:38 INFO Loss at step 60000: 22.480307 (tiem: 28)
+2017-04-05,21:59:43 INFO Loss at step 70000: 15.141257 (tiem: 32)
+2017-04-05,21:59:47 INFO Loss at step 80000: 9.193912 (tiem: 37)
+2017-04-05,21:59:52 INFO Loss at step 90000: 4.510078 (tiem: 41)
+2017-04-05,21:59:56 INFO Loss at step 100000: 0.943395 (tiem: 46)
+2017-04-05,21:59:58 INFO Finishing training...
+2017-04-05,21:59:58 INFO Loss at step 102750: 0.149959 (tiem: 47)
+2017-04-05,21:59:58 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_mal.npy
+2017-04-05,21:59:58 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_mal.npy
+2017-04-05,21:59:58 INFO Translating HIN language...
+2017-04-05,21:59:58 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/hin-000.txt
+2017-04-05,21:59:58 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ur/wiki.ur.vec
+/home/eszti/.virtualenvs/dipterv/local/lib/python2.7/site-packages/sklearn/utils/validation.py:395: DeprecationWarning: Passing 1d arrays as data is deprecated in 0.17 and will raise ValueError in 0.19. Reshape your data either using X.reshape(-1, 1) if your data has a single feature or X.reshape(1, -1) if it contains a single sample.
+  DeprecationWarning)
+Not found list len: 8
+Valid swadesh len: 102
+Embeddings len: 0
+Not found: 110
+[  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53
+  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71
+  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89
+  90  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107
+ 108 109]
+2017-04-05,22:00:00 WARNING Skipping language hin
+2017-04-05,22:00:00 INFO Translating CMN language...
+2017-04-05,22:00:00 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/cmn-000.txt
+2017-04-05,22:00:00 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.zh/wiki.zh.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 106
+Not found: 4
+[ 7 12 31 82]
+2017-04-05,22:00:06 INFO Missing words: [u'black', u'claw', u'full', u'swim']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:00:06 INFO Training session is initialized, starting training...
+2017-04-05,22:00:06 INFO Loss at step 0: 373.865204 (tiem: 0)
+2017-04-05,22:00:11 INFO Loss at step 10000: 198.612930 (tiem: 4)
+2017-04-05,22:00:15 INFO Loss at step 20000: 87.585236 (tiem: 9)
+2017-04-05,22:00:20 INFO Loss at step 30000: 35.087921 (tiem: 14)
+2017-04-05,22:00:25 INFO Loss at step 40000: 30.659246 (tiem: 18)
+2017-04-05,22:00:29 INFO Loss at step 50000: 27.768661 (tiem: 23)
+2017-04-05,22:00:34 INFO Loss at step 60000: 25.395067 (tiem: 28)
+2017-04-05,22:00:39 INFO Loss at step 70000: 23.368097 (tiem: 32)
+2017-04-05,22:00:44 INFO Loss at step 80000: 21.593620 (tiem: 37)
+2017-04-05,22:00:48 INFO Loss at step 90000: 20.013741 (tiem: 42)
+2017-04-05,22:00:53 INFO Loss at step 100000: 18.609882 (tiem: 46)
+2017-04-05,22:00:58 INFO Loss at step 110000: 17.361906 (tiem: 51)
+2017-04-05,22:01:02 INFO Loss at step 120000: 16.210518 (tiem: 56)
+2017-04-05,22:01:07 INFO Loss at step 130000: 15.144521 (tiem: 60)
+2017-04-05,22:01:12 INFO Loss at step 140000: 14.154597 (tiem: 65)
+2017-04-05,22:01:16 INFO Loss at step 150000: 13.232835 (tiem: 70)
+2017-04-05,22:01:21 INFO Loss at step 160000: 12.372522 (tiem: 74)
+2017-04-05,22:01:26 INFO Loss at step 170000: 11.567882 (tiem: 79)
+2017-04-05,22:01:30 INFO Loss at step 180000: 10.813939 (tiem: 84)
+2017-04-05,22:01:35 INFO Loss at step 190000: 10.106358 (tiem: 88)
+2017-04-05,22:01:40 INFO Loss at step 200000: 9.441345 (tiem: 93)
+2017-04-05,22:01:44 INFO Loss at step 210000: 8.815564 (tiem: 98)
+2017-04-05,22:01:49 INFO Loss at step 220000: 8.226079 (tiem: 103)
+2017-04-05,22:01:54 INFO Loss at step 230000: 7.670211 (tiem: 107)
+2017-04-05,22:01:58 INFO Loss at step 240000: 7.145582 (tiem: 112)
+2017-04-05,22:02:03 INFO Loss at step 250000: 6.650034 (tiem: 117)
+2017-04-05,22:02:08 INFO Loss at step 260000: 6.181596 (tiem: 121)
+2017-04-05,22:02:12 INFO Loss at step 270000: 5.738457 (tiem: 126)
+2017-04-05,22:02:17 INFO Loss at step 280000: 5.318946 (tiem: 131)
+2017-04-05,22:02:22 INFO Loss at step 290000: 4.921550 (tiem: 135)
+2017-04-05,22:02:26 INFO Loss at step 300000: 4.544877 (tiem: 140)
+2017-04-05,22:02:31 INFO Loss at step 310000: 4.187633 (tiem: 145)
+2017-04-05,22:02:36 INFO Loss at step 320000: 3.848652 (tiem: 149)
+2017-04-05,22:02:40 INFO Loss at step 330000: 3.526858 (tiem: 154)
+2017-04-05,22:02:45 INFO Loss at step 340000: 3.221298 (tiem: 159)
+2017-04-05,22:02:50 INFO Loss at step 350000: 2.931108 (tiem: 163)
+2017-04-05,22:02:54 INFO Loss at step 360000: 2.655486 (tiem: 168)
+2017-04-05,22:02:59 INFO Loss at step 370000: 2.393719 (tiem: 173)
+2017-04-05,22:03:04 INFO Loss at step 380000: 2.145164 (tiem: 177)
+2017-04-05,22:03:09 INFO Loss at step 390000: 1.909270 (tiem: 182)
+2017-04-05,22:03:13 INFO Loss at step 400000: 1.685506 (tiem: 187)
+2017-04-05,22:03:18 INFO Loss at step 410000: 1.473405 (tiem: 191)
+2017-04-05,22:03:23 INFO Loss at step 420000: 1.272542 (tiem: 196)
+2017-04-05,22:03:27 INFO Loss at step 430000: 1.082514 (tiem: 201)
+2017-04-05,22:03:32 INFO Loss at step 440000: 0.902932 (tiem: 205)
+2017-04-05,22:03:37 INFO Loss at step 450000: 0.733426 (tiem: 210)
+2017-04-05,22:03:41 INFO Loss at step 460000: 0.573632 (tiem: 215)
+2017-04-05,22:03:46 INFO Loss at step 470000: 0.423213 (tiem: 220)
+2017-04-05,22:03:51 INFO Loss at step 480000: 0.281906 (tiem: 224)
+2017-04-05,22:03:55 INFO Loss at step 490000: 0.154249 (tiem: 229)
+2017-04-05,22:04:00 INFO Loss at step 500000: 0.154341 (tiem: 234)
+2017-04-05,22:04:05 INFO Loss at step 510000: 0.154344 (tiem: 238)
+2017-04-05,22:04:09 INFO Loss at step 520000: 0.154341 (tiem: 243)
+2017-04-05,22:04:14 INFO Loss at step 530000: 0.154336 (tiem: 248)
+2017-04-05,22:04:19 INFO Loss at step 540000: 0.154360 (tiem: 252)
+2017-04-05,22:04:23 INFO Loss at step 550000: 0.154386 (tiem: 257)
+2017-04-05,22:04:28 INFO Loss at step 560000: 0.154448 (tiem: 262)
+2017-04-05,22:04:33 INFO Loss at step 570000: 0.154403 (tiem: 266)
+2017-04-05,22:04:37 INFO Loss at step 580000: 0.154319 (tiem: 271)
+2017-04-05,22:04:42 INFO Loss at step 590000: 0.154306 (tiem: 276)
+2017-04-05,22:04:47 INFO Loss at step 600000: 0.154316 (tiem: 280)
+2017-04-05,22:04:51 INFO Loss at step 610000: 0.154301 (tiem: 285)
+2017-04-05,22:04:56 INFO Loss at step 620000: 0.154305 (tiem: 290)
+2017-04-05,22:05:01 INFO Loss at step 630000: 0.154307 (tiem: 294)
+2017-04-05,22:05:05 INFO Loss at step 640000: 0.154306 (tiem: 299)
+2017-04-05,22:05:10 INFO Loss at step 650000: 0.154303 (tiem: 304)
+2017-04-05,22:05:15 INFO Loss at step 660000: 0.154302 (tiem: 308)
+2017-04-05,22:05:20 INFO Loss at step 670000: 0.154296 (tiem: 313)
+2017-04-05,22:05:24 INFO Loss at step 680000: 0.154294 (tiem: 318)
+2017-04-05,22:05:29 INFO Loss at step 690000: 0.154293 (tiem: 322)
+2017-04-05,22:05:34 INFO Loss at step 700000: 0.154292 (tiem: 327)
+2017-04-05,22:05:38 INFO Loss at step 710000: 0.154291 (tiem: 332)
+2017-04-05,22:05:43 INFO Loss at step 720000: 0.154290 (tiem: 336)
+2017-04-05,22:05:48 INFO Loss at step 730000: 0.154288 (tiem: 341)
+2017-04-05,22:05:52 INFO Loss at step 740000: 0.154287 (tiem: 346)
+2017-04-05,22:05:57 INFO Loss at step 750000: 0.154286 (tiem: 351)
+2017-04-05,22:06:02 INFO Loss at step 760000: 0.154285 (tiem: 355)
+2017-04-05,22:06:06 INFO Loss at step 770000: 0.154284 (tiem: 360)
+2017-04-05,22:06:11 INFO Loss at step 780000: 0.154285 (tiem: 365)
+2017-04-05,22:06:16 INFO Loss at step 790000: 0.154284 (tiem: 369)
+2017-04-05,22:06:20 INFO Loss at step 800000: 0.154285 (tiem: 374)
+2017-04-05,22:06:25 INFO Loss at step 810000: 0.154285 (tiem: 379)
+2017-04-05,22:06:30 INFO Loss at step 820000: 0.154285 (tiem: 383)
+2017-04-05,22:06:35 INFO Loss at step 830000: 0.154285 (tiem: 388)
+2017-04-05,22:06:39 INFO Loss at step 840000: 0.154285 (tiem: 393)
+2017-04-05,22:06:44 INFO Loss at step 850000: 0.154285 (tiem: 397)
+2017-04-05,22:06:49 INFO Loss at step 860000: 0.154285 (tiem: 402)
+2017-04-05,22:06:53 INFO Loss at step 870000: 0.154285 (tiem: 407)
+2017-04-05,22:06:58 INFO Loss at step 880000: 0.154285 (tiem: 411)
+2017-04-05,22:07:03 INFO Loss at step 890000: 0.154285 (tiem: 416)
+2017-04-05,22:07:07 INFO Loss at step 900000: 0.154285 (tiem: 421)
+2017-04-05,22:07:12 INFO Loss at step 910000: 0.154285 (tiem: 425)
+2017-04-05,22:07:17 INFO Loss at step 920000: 0.154285 (tiem: 430)
+2017-04-05,22:07:21 INFO Loss at step 930000: 0.154285 (tiem: 435)
+2017-04-05,22:07:26 INFO Loss at step 940000: 0.154285 (tiem: 440)
+2017-04-05,22:07:31 INFO Loss at step 950000: 0.154285 (tiem: 444)
+2017-04-05,22:07:35 INFO Loss at step 960000: 0.154285 (tiem: 449)
+2017-04-05,22:07:40 INFO Loss at step 970000: 0.154285 (tiem: 454)
+2017-04-05,22:07:45 INFO Loss at step 980000: 0.154285 (tiem: 458)
+2017-04-05,22:07:49 INFO Loss at step 990000: 0.154285 (tiem: 463)
+2017-04-05,22:07:54 INFO Loss at step 1000000: 0.154285 (tiem: 468)
+2017-04-05,22:07:54 INFO Finishing training...
+2017-04-05,22:07:54 INFO Loss at step 1000001: 0.154285 (tiem: 468)
+2017-04-05,22:07:54 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_cmn.npy
+2017-04-05,22:07:54 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_cmn.npy
+2017-04-05,22:07:54 INFO Translating AZJ language...
+2017-04-05,22:07:54 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/azj-000.txt
+2017-04-05,22:07:54 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.az/wiki.az.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 88
+Not found: 22
+[ 9 10 11 12 16 20 24 25 28 31 38 40 45 46 50 52 58 64 71 74 78 89]
+2017-04-05,22:07:58 INFO Missing words: [u'bone', u'breast', u'burn', u'claw', u'dead', u'ear', u'eye', u'fat', u'fish', u'full', u'hear', u'horn', u'leaf', u'lie', u'male', u'flesh', u'new', u'rain', u'see', u'hide', u'stand', u'tree']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:07:58 INFO Training session is initialized, starting training...
+2017-04-05,22:07:58 INFO Loss at step 0: 344.912781 (tiem: 0)
+2017-04-05,22:08:03 INFO Loss at step 10000: 207.061401 (tiem: 4)
+2017-04-05,22:08:08 INFO Loss at step 20000: 110.916199 (tiem: 9)
+2017-04-05,22:08:12 INFO Loss at step 30000: 66.615089 (tiem: 14)
+2017-04-05,22:08:17 INFO Loss at step 40000: 46.399548 (tiem: 18)
+2017-04-05,22:08:21 INFO Loss at step 50000: 34.911144 (tiem: 23)
+2017-04-05,22:08:26 INFO Loss at step 60000: 25.148855 (tiem: 27)
+2017-04-05,22:08:30 INFO Loss at step 70000: 16.619709 (tiem: 32)
+2017-04-05,22:08:35 INFO Loss at step 80000: 9.485842 (tiem: 37)
+2017-04-05,22:08:40 INFO Loss at step 90000: 3.822129 (tiem: 41)
+2017-04-05,22:08:44 INFO Finishing training...
+2017-04-05,22:08:44 INFO Loss at step 98640: 0.149975 (tiem: 45)
+2017-04-05,22:08:44 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_azj.npy
+2017-04-05,22:08:44 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_azj.npy
+2017-04-05,22:08:44 INFO Translating HUN language...
+2017-04-05,22:08:44 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/hun-000.txt
+2017-04-05,22:08:44 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.hu/wiki.hu.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 106
+Not found: 4
+[11 25 28 78]
+2017-04-05,22:08:58 INFO Missing words: [u'burn', u'fat', u'fish', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:08:58 INFO Training session is initialized, starting training...
+2017-04-05,22:08:58 INFO Loss at step 0: 378.901062 (tiem: 0)
+2017-04-05,22:09:03 INFO Loss at step 10000: 237.948883 (tiem: 4)
+2017-04-05,22:09:07 INFO Loss at step 20000: 134.296509 (tiem: 9)
+2017-04-05,22:09:12 INFO Loss at step 30000: 78.787491 (tiem: 14)
+2017-04-05,22:09:17 INFO Loss at step 40000: 56.381821 (tiem: 18)
+2017-04-05,22:09:21 INFO Loss at step 50000: 42.834042 (tiem: 23)
+2017-04-05,22:09:26 INFO Loss at step 60000: 33.494011 (tiem: 28)
+2017-04-05,22:09:31 INFO Loss at step 70000: 25.293427 (tiem: 32)
+2017-04-05,22:09:36 INFO Loss at step 80000: 18.275988 (tiem: 37)
+2017-04-05,22:09:40 INFO Loss at step 90000: 12.406456 (tiem: 42)
+2017-04-05,22:09:45 INFO Loss at step 100000: 7.563029 (tiem: 46)
+2017-04-05,22:09:50 INFO Loss at step 110000: 3.582064 (tiem: 51)
+2017-04-05,22:09:54 INFO Loss at step 120000: 0.344066 (tiem: 56)
+2017-04-05,22:09:55 INFO Finishing training...
+2017-04-05,22:09:55 INFO Loss at step 120692: 0.149784 (tiem: 56)
+2017-04-05,22:09:55 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_hun.npy
+2017-04-05,22:09:55 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_hun.npy
+2017-04-05,22:09:55 INFO Translating EKK language...
+2017-04-05,22:09:55 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ekk-000.txt
+2017-04-05,22:09:55 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.et/wiki.et.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 95
+Not found: 15
+[ 11  35  36  40  41  43  45  54  56  70  71  77  80  82 106]
+2017-04-05,22:10:01 INFO Missing words: [u'burn', u'hair', u'hand', u'horn', u'i', u'knee', u'leaf', u'hill', u'name', u'say', u'see', u'smoke', u'rock', u'swim', u'thin']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:10:01 INFO Training session is initialized, starting training...
+2017-04-05,22:10:01 INFO Loss at step 0: 359.488861 (tiem: 0)
+2017-04-05,22:10:05 INFO Loss at step 10000: 221.867859 (tiem: 5)
+2017-04-05,22:10:10 INFO Loss at step 20000: 121.830688 (tiem: 10)
+2017-04-05,22:10:15 INFO Loss at step 30000: 72.450638 (tiem: 14)
+2017-04-05,22:10:19 INFO Loss at step 40000: 51.113712 (tiem: 19)
+2017-04-05,22:10:24 INFO Loss at step 50000: 38.580280 (tiem: 24)
+2017-04-05,22:10:29 INFO Loss at step 60000: 28.778952 (tiem: 28)
+2017-04-05,22:10:33 INFO Loss at step 70000: 20.132282 (tiem: 33)
+2017-04-05,22:10:38 INFO Loss at step 80000: 12.723377 (tiem: 37)
+2017-04-05,22:10:43 INFO Loss at step 90000: 6.544871 (tiem: 42)
+2017-04-05,22:10:47 INFO Loss at step 100000: 1.509718 (tiem: 47)
+2017-04-05,22:10:49 INFO Finishing training...
+2017-04-05,22:10:49 INFO Loss at step 103202: 0.149643 (tiem: 48)
+2017-04-05,22:10:49 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ekk.npy
+2017-04-05,22:10:49 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ekk.npy
+2017-04-05,22:10:49 INFO Translating BEL language...
+2017-04-05,22:10:49 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/bel-000.txt
+2017-04-05,22:10:49 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.be/wiki.be.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 96
+Not found: 14
+[  6  11  12  14  15  22  25  36  46  52  72  78  84 105]
+2017-04-05,22:10:54 INFO Missing words: [u'bite', u'burn', u'claw', u'cold', u'come', u'eat', u'fat', u'hand', u'lie', u'flesh', u'seed', u'stand', u'that', u'snake']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:10:54 INFO Training session is initialized, starting training...
+2017-04-05,22:10:54 INFO Loss at step 0: 358.846924 (tiem: 0)
+2017-04-05,22:10:58 INFO Loss at step 10000: 218.468689 (tiem: 5)
+2017-04-05,22:11:03 INFO Loss at step 20000: 119.354591 (tiem: 9)
+2017-04-05,22:11:07 INFO Loss at step 30000: 71.470039 (tiem: 14)
+2017-04-05,22:11:12 INFO Loss at step 40000: 51.595089 (tiem: 19)
+2017-04-05,22:11:17 INFO Loss at step 50000: 39.107841 (tiem: 23)
+2017-04-05,22:11:21 INFO Loss at step 60000: 29.963627 (tiem: 28)
+2017-04-05,22:11:26 INFO Loss at step 70000: 21.857895 (tiem: 32)
+2017-04-05,22:11:30 INFO Loss at step 80000: 14.834698 (tiem: 37)
+2017-04-05,22:11:35 INFO Loss at step 90000: 8.877569 (tiem: 42)
+2017-04-05,22:11:40 INFO Loss at step 100000: 3.902500 (tiem: 46)
+2017-04-05,22:11:44 INFO Finishing training...
+2017-04-05,22:11:44 INFO Loss at step 109186: 0.149698 (tiem: 50)
+2017-04-05,22:11:44 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_bel.npy
+2017-04-05,22:11:44 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_bel.npy
+2017-04-05,22:11:44 INFO Translating LVS language...
+2017-04-05,22:11:44 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/lvs-000.txt
+2017-04-05,22:11:44 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.lv/wiki.lv.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 86
+Not found: 24
+[ 6 10 11 13 14 15 34 38 41 42 50 51 59 63 70 75 76 77 82 87 93 96 97 99]
+2017-04-05,22:11:48 INFO Missing words: [u'bite', u'breast', u'burn', u'cloud', u'cold', u'come', u'green', u'hear', u'i', u'kill', u'male', u'many', u'night', u'human', u'say', u'sleep', u'little', u'smoke', u'swim', u'tongue', u'water', u'white', u'who', u'yellow']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:11:48 INFO Training session is initialized, starting training...
+2017-04-05,22:11:48 INFO Loss at step 0: 340.144562 (tiem: 0)
+2017-04-05,22:11:52 INFO Loss at step 10000: 203.959351 (tiem: 5)
+2017-04-05,22:11:57 INFO Loss at step 20000: 108.369011 (tiem: 9)
+2017-04-05,22:12:01 INFO Loss at step 30000: 65.227356 (tiem: 14)
+2017-04-05,22:12:06 INFO Loss at step 40000: 45.530655 (tiem: 19)
+2017-04-05,22:12:11 INFO Loss at step 50000: 34.447556 (tiem: 23)
+2017-04-05,22:12:15 INFO Loss at step 60000: 24.875324 (tiem: 28)
+2017-04-05,22:12:20 INFO Loss at step 70000: 16.573326 (tiem: 32)
+2017-04-05,22:12:25 INFO Loss at step 80000: 9.676530 (tiem: 37)
+2017-04-05,22:12:29 INFO Loss at step 90000: 4.224744 (tiem: 42)
+2017-04-05,22:12:34 INFO Loss at step 100000: 0.199301 (tiem: 46)
+2017-04-05,22:12:34 INFO Finishing training...
+2017-04-05,22:12:34 INFO Loss at step 100158: 0.149875 (tiem: 46)
+2017-04-05,22:12:34 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_lvs.npy
+2017-04-05,22:12:34 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_lvs.npy
+2017-04-05,22:12:34 INFO Translating ZLM language...
+2017-04-05,22:12:34 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/zlm-000.txt
+2017-04-05,22:12:34 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ms/wiki.ms.vec
+Not found list len: 25
+Valid swadesh len: 85
+Embeddings len: 38
+Not found: 72
+[  0   1   2   3   4   6   9  12  14  15  17  18  19  20  21  22  25  26
+  28  29  30  32  35  37  38  39  40  42  44  46  51  52  53  54  55  56
+  57  60  61  64  65  67  68  69  70  72  73  74  75  76  77  78  79  82
+  83  84  85  88  89  93  94  96  98 100 101 102 103 104 105 107 108 109]
+2017-04-05,22:12:37 INFO Missing words: [u'all', u'ash', u'bark', u'abdomen', u'big', u'bite', u'bone', u'claw', u'cold', u'come', u'dog', u'drink', u'dry', u'ear', u'earth', u'eat', u'fat', u'feather', u'fish', u'fly', u'foot', u'give', u'hair', u'head', u'hear', u'heart', u'horn', u'kill', u'know', u'lie', u'many', u'flesh', u'moon', u'hill', u'mouth', u'name', u'neck', u'nose', u'not', u'rain', u'red', u'root', u'round', u'sand', u'say', u'seed', u'sit', u'hide', u'sleep', u'little', u'smoke', u'stand', u'star', u'swim', u'tail', u'that', u'this', u'tooth', u'tree', u'water', u'we', u'white', u'female', u'distant', u'dull', u'close', u'salt', u'short', u'snake', u'wind', u'earthworm', u'year']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:12:37 INFO Training session is initialized, starting training...
+2017-04-05,22:12:37 INFO Loss at step 0: 227.291504 (tiem: 0)
+2017-04-05,22:12:42 INFO Loss at step 10000: 102.361176 (tiem: 4)
+2017-04-05,22:12:46 INFO Loss at step 20000: 45.107853 (tiem: 9)
+2017-04-05,22:12:51 INFO Loss at step 30000: 26.324320 (tiem: 13)
+2017-04-05,22:12:55 INFO Loss at step 40000: 14.903221 (tiem: 18)
+2017-04-05,22:13:00 INFO Loss at step 50000: 4.728287 (tiem: 22)
+2017-04-05,22:13:02 INFO Finishing training...
+2017-04-05,22:13:02 INFO Loss at step 55468: 0.149658 (tiem: 25)
+2017-04-05,22:13:02 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_zlm.npy
+2017-04-05,22:13:02 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_zlm.npy
+2017-04-05,22:13:02 INFO Translating LTZ language...
+2017-04-05,22:13:02 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/ltz-000.txt
+2017-04-05,22:13:02 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.lb/wiki.lb.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 95
+Not found: 15
+[ 11  12  15  16  18  25  38  42  46  49  52  71  78  90 108]
+2017-04-05,22:13:04 INFO Missing words: [u'burn', u'claw', u'come', u'dead', u'drink', u'fat', u'hear', u'kill', u'lie', u'louse', u'flesh', u'see', u'stand', u'grind', u'earthworm']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:13:04 INFO Training session is initialized, starting training...
+2017-04-05,22:13:04 INFO Loss at step 0: 360.784241 (tiem: 0)
+2017-04-05,22:13:08 INFO Loss at step 10000: 220.033829 (tiem: 5)
+2017-04-05,22:13:13 INFO Loss at step 20000: 121.037048 (tiem: 9)
+2017-04-05,22:13:18 INFO Loss at step 30000: 72.376678 (tiem: 14)
+2017-04-05,22:13:22 INFO Loss at step 40000: 51.574688 (tiem: 19)
+2017-04-05,22:13:27 INFO Loss at step 50000: 38.920021 (tiem: 23)
+2017-04-05,22:13:31 INFO Loss at step 60000: 29.362856 (tiem: 28)
+2017-04-05,22:13:36 INFO Loss at step 70000: 20.951155 (tiem: 32)
+2017-04-05,22:13:41 INFO Loss at step 80000: 13.796470 (tiem: 37)
+2017-04-05,22:13:45 INFO Loss at step 90000: 7.915472 (tiem: 42)
+2017-04-05,22:13:50 INFO Loss at step 100000: 3.223511 (tiem: 46)
+2017-04-05,22:13:54 INFO Finishing training...
+2017-04-05,22:13:54 INFO Loss at step 108688: 0.149890 (tiem: 50)
+2017-04-05,22:13:54 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_ltz.npy
+2017-04-05,22:13:54 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_ltz.npy
+2017-04-05,22:13:54 INFO Translating SLV language...
+2017-04-05,22:13:54 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/slv-000.txt
+2017-04-05,22:13:54 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sl/wiki.sl.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 98
+Not found: 12
+[  6  11  12  15  25  27  38  46  52  78  85 100]
+2017-04-05,22:13:59 INFO Missing words: [u'bite', u'burn', u'claw', u'come', u'fat', u'fire', u'hear', u'lie', u'flesh', u'stand', u'this', u'distant']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:13:59 INFO Training session is initialized, starting training...
+2017-04-05,22:13:59 INFO Loss at step 0: 364.599182 (tiem: 0)
+2017-04-05,22:14:04 INFO Loss at step 10000: 224.599854 (tiem: 5)
+2017-04-05,22:14:09 INFO Loss at step 20000: 124.095505 (tiem: 9)
+2017-04-05,22:14:13 INFO Loss at step 30000: 73.548447 (tiem: 14)
+2017-04-05,22:14:18 INFO Loss at step 40000: 52.401764 (tiem: 19)
+2017-04-05,22:14:23 INFO Loss at step 50000: 39.609627 (tiem: 23)
+2017-04-05,22:14:27 INFO Loss at step 60000: 30.156946 (tiem: 28)
+2017-04-05,22:14:32 INFO Loss at step 70000: 21.842449 (tiem: 32)
+2017-04-05,22:14:37 INFO Loss at step 80000: 14.728285 (tiem: 37)
+2017-04-05,22:14:41 INFO Loss at step 90000: 8.794850 (tiem: 42)
+2017-04-05,22:14:46 INFO Loss at step 100000: 3.949313 (tiem: 46)
+2017-04-05,22:14:51 INFO Loss at step 110000: 0.167201 (tiem: 51)
+2017-04-05,22:14:51 INFO Finishing training...
+2017-04-05,22:14:51 INFO Loss at step 110057: 0.149902 (tiem: 51)
+2017-04-05,22:14:51 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_slv.npy
+2017-04-05,22:14:51 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_slv.npy
+2017-04-05,22:14:51 INFO Translating BOS language...
+2017-04-05,22:14:51 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/bos-000.txt
+2017-04-05,22:14:51 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.bs/wiki.bs.vec
+Not found list len: 11
+Valid swadesh len: 99
+Embeddings len: 99
+Not found: 11
+[11 12 25 46 52 61 78 84 85 95 97]
+2017-04-05,22:14:54 INFO Missing words: [u'burn', u'claw', u'fat', u'lie', u'flesh', u'not', u'stand', u'that', u'this', u'what', u'who']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:14:54 INFO Training session is initialized, starting training...
+2017-04-05,22:14:54 INFO Loss at step 0: 365.726288 (tiem: 0)
+2017-04-05,22:14:59 INFO Loss at step 10000: 226.772736 (tiem: 4)
+2017-04-05,22:15:03 INFO Loss at step 20000: 125.751205 (tiem: 9)
+2017-04-05,22:15:08 INFO Loss at step 30000: 74.489883 (tiem: 14)
+2017-04-05,22:15:13 INFO Loss at step 40000: 52.993713 (tiem: 18)
+2017-04-05,22:15:17 INFO Loss at step 50000: 40.188213 (tiem: 23)
+2017-04-05,22:15:22 INFO Loss at step 60000: 30.612659 (tiem: 28)
+2017-04-05,22:15:27 INFO Loss at step 70000: 22.207405 (tiem: 32)
+2017-04-05,22:15:31 INFO Loss at step 80000: 15.051749 (tiem: 37)
+2017-04-05,22:15:36 INFO Loss at step 90000: 9.151589 (tiem: 42)
+2017-04-05,22:15:41 INFO Loss at step 100000: 4.455897 (tiem: 46)
+2017-04-05,22:15:45 INFO Loss at step 110000: 0.995046 (tiem: 51)
+2017-04-05,22:15:47 INFO Finishing training...
+2017-04-05,22:15:47 INFO Loss at step 113560: 0.149869 (tiem: 53)
+2017-04-05,22:15:47 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_bos.npy
+2017-04-05,22:15:47 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_bos.npy
+2017-04-05,22:15:47 INFO Translating POL language...
+2017-04-05,22:15:47 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/pol-000.txt
+2017-04-05,22:15:47 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.pl/wiki.pl.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 88
+Not found: 22
+[ 8 11 15 16 25 27 28 36 38 47 58 63 66 71 78 79 80 81 86 88 89 94]
+2017-04-05,22:16:06 INFO Missing words: [u'blood', u'burn', u'come', u'dead', u'fat', u'fire', u'fish', u'hand', u'hear', u'liver', u'new', u'human', u'path', u'see', u'stand', u'star', u'rock', u'sun', u'thou', u'tooth', u'tree', u'we']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:16:06 INFO Training session is initialized, starting training...
+2017-04-05,22:16:06 INFO Loss at step 0: 344.744141 (tiem: 0)
+2017-04-05,22:16:10 INFO Loss at step 10000: 205.165878 (tiem: 5)
+2017-04-05,22:16:15 INFO Loss at step 20000: 109.101227 (tiem: 10)
+2017-04-05,22:16:20 INFO Loss at step 30000: 65.776489 (tiem: 14)
+2017-04-05,22:16:24 INFO Loss at step 40000: 47.137535 (tiem: 19)
+2017-04-05,22:16:29 INFO Loss at step 50000: 35.973488 (tiem: 23)
+2017-04-05,22:16:33 INFO Loss at step 60000: 27.066816 (tiem: 28)
+2017-04-05,22:16:38 INFO Loss at step 70000: 19.309265 (tiem: 32)
+2017-04-05,22:16:43 INFO Loss at step 80000: 12.730697 (tiem: 37)
+2017-04-05,22:16:47 INFO Loss at step 90000: 7.288797 (tiem: 42)
+2017-04-05,22:16:52 INFO Loss at step 100000: 2.885402 (tiem: 46)
+2017-04-05,22:16:55 INFO Finishing training...
+2017-04-05,22:16:55 INFO Loss at step 107773: 0.149917 (tiem: 50)
+2017-04-05,22:16:55 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_pol.npy
+2017-04-05,22:16:55 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_pol.npy
+2017-04-05,22:16:55 INFO Translating GLG language...
+2017-04-05,22:16:55 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/glg-000.txt
+2017-04-05,22:16:55 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.gl/wiki.gl.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 94
+Not found: 16
+[11 12 16 25 28 43 46 47 49 52 54 58 60 63 78 87]
+2017-04-05,22:16:59 INFO Missing words: [u'burn', u'claw', u'dead', u'fat', u'fish', u'knee', u'lie', u'liver', u'louse', u'flesh', u'hill', u'new', u'nose', u'human', u'stand', u'tongue']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:16:59 INFO Training session is initialized, starting training...
+2017-04-05,22:16:59 INFO Loss at step 0: 355.423035 (tiem: 0)
+2017-04-05,22:17:04 INFO Loss at step 10000: 216.680634 (tiem: 5)
+2017-04-05,22:17:09 INFO Loss at step 20000: 118.088943 (tiem: 9)
+2017-04-05,22:17:13 INFO Loss at step 30000: 70.477119 (tiem: 14)
+2017-04-05,22:17:18 INFO Loss at step 40000: 50.325878 (tiem: 18)
+2017-04-05,22:17:23 INFO Loss at step 50000: 38.093685 (tiem: 23)
+2017-04-05,22:17:27 INFO Loss at step 60000: 28.858395 (tiem: 28)
+2017-04-05,22:17:32 INFO Loss at step 70000: 20.756231 (tiem: 32)
+2017-04-05,22:17:36 INFO Loss at step 80000: 13.829618 (tiem: 37)
+2017-04-05,22:17:41 INFO Loss at step 90000: 8.045897 (tiem: 42)
+2017-04-05,22:17:46 INFO Loss at step 100000: 3.317055 (tiem: 46)
+2017-04-05,22:17:50 INFO Finishing training...
+2017-04-05,22:17:50 INFO Loss at step 108362: 0.149758 (tiem: 50)
+2017-04-05,22:17:50 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_glg.npy
+2017-04-05,22:17:50 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_glg.npy
+2017-04-05,22:17:50 INFO Translating EPO language...
+2017-04-05,22:17:50 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/epo-000.txt
+2017-04-05,22:17:50 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.eo/wiki.eo.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 106
+Not found: 4
+[28 49 74 80]
+2017-04-05,22:17:56 INFO Missing words: [u'fish', u'louse', u'hide', u'rock']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:17:56 INFO Training session is initialized, starting training...
+2017-04-05,22:17:56 INFO Loss at step 0: 380.418945 (tiem: 0)
+2017-04-05,22:18:01 INFO Loss at step 10000: 236.008240 (tiem: 4)
+2017-04-05,22:18:05 INFO Loss at step 20000: 132.981232 (tiem: 9)
+2017-04-05,22:18:10 INFO Loss at step 30000: 78.214935 (tiem: 14)
+2017-04-05,22:18:15 INFO Loss at step 40000: 56.573795 (tiem: 18)
+2017-04-05,22:18:19 INFO Loss at step 50000: 43.025158 (tiem: 23)
+2017-04-05,22:18:24 INFO Loss at step 60000: 34.075356 (tiem: 28)
+2017-04-05,22:18:29 INFO Loss at step 70000: 26.193602 (tiem: 32)
+2017-04-05,22:18:34 INFO Loss at step 80000: 19.392303 (tiem: 37)
+2017-04-05,22:18:38 INFO Loss at step 90000: 13.625304 (tiem: 42)
+2017-04-05,22:18:43 INFO Loss at step 100000: 8.794678 (tiem: 46)
+2017-04-05,22:18:48 INFO Loss at step 110000: 4.784165 (tiem: 51)
+2017-04-05,22:18:52 INFO Loss at step 120000: 1.501930 (tiem: 56)
+2017-04-05,22:18:55 INFO Finishing training...
+2017-04-05,22:18:55 INFO Loss at step 124947: 0.149922 (tiem: 58)
+2017-04-05,22:18:55 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_epo.npy
+2017-04-05,22:18:55 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_epo.npy
+2017-04-05,22:18:55 INFO Translating SRP language...
+2017-04-05,22:18:55 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/srp-000.txt
+2017-04-05,22:18:55 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sr/wiki.sr.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 103
+Not found: 7
+[11 12 25 36 46 52 78]
+2017-04-05,22:19:02 INFO Missing words: [u'burn', u'claw', u'fat', u'hand', u'lie', u'flesh', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:19:02 INFO Training session is initialized, starting training...
+2017-04-05,22:19:02 INFO Loss at step 0: 373.996216 (tiem: 0)
+2017-04-05,22:19:07 INFO Loss at step 10000: 231.870697 (tiem: 5)
+2017-04-05,22:19:12 INFO Loss at step 20000: 129.831696 (tiem: 9)
+2017-04-05,22:19:16 INFO Loss at step 30000: 76.763077 (tiem: 14)
+2017-04-05,22:19:21 INFO Loss at step 40000: 55.501198 (tiem: 18)
+2017-04-05,22:19:26 INFO Loss at step 50000: 42.115696 (tiem: 23)
+2017-04-05,22:19:30 INFO Loss at step 60000: 32.983917 (tiem: 28)
+2017-04-05,22:19:35 INFO Loss at step 70000: 24.889399 (tiem: 32)
+2017-04-05,22:19:39 INFO Loss at step 80000: 17.856932 (tiem: 37)
+2017-04-05,22:19:44 INFO Loss at step 90000: 11.852946 (tiem: 42)
+2017-04-05,22:19:49 INFO Loss at step 100000: 6.792875 (tiem: 46)
+2017-04-05,22:19:53 INFO Loss at step 110000: 2.580459 (tiem: 51)
+2017-04-05,22:19:57 INFO Finishing training...
+2017-04-05,22:19:57 INFO Loss at step 116900: 0.149876 (tiem: 54)
+2017-04-05,22:19:57 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_srp.npy
+2017-04-05,22:19:57 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_srp.npy
+2017-04-05,22:19:57 INFO Translating AFR language...
+2017-04-05,22:19:57 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/afr-000.txt
+2017-04-05,22:19:57 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.af/wiki.af.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 94
+Not found: 16
+[ 11  12  25  28  36  40  43  46  47  49  52  63  78  93  94 107]
+2017-04-05,22:19:59 INFO Missing words: [u'burn', u'claw', u'fat', u'fish', u'hand', u'horn', u'knee', u'lie', u'liver', u'louse', u'flesh', u'human', u'stand', u'water', u'we', u'wind']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:19:59 INFO Training session is initialized, starting training...
+2017-04-05,22:19:59 INFO Loss at step 0: 354.852142 (tiem: 1)
+2017-04-05,22:20:04 INFO Loss at step 10000: 216.631256 (tiem: 5)
+2017-04-05,22:20:08 INFO Loss at step 20000: 118.061844 (tiem: 10)
+2017-04-05,22:20:13 INFO Loss at step 30000: 70.618179 (tiem: 14)
+2017-04-05,22:20:18 INFO Loss at step 40000: 50.210438 (tiem: 19)
+2017-04-05,22:20:22 INFO Loss at step 50000: 37.876377 (tiem: 24)
+2017-04-05,22:20:27 INFO Loss at step 60000: 28.389124 (tiem: 28)
+2017-04-05,22:20:31 INFO Loss at step 70000: 20.007654 (tiem: 33)
+2017-04-05,22:20:36 INFO Loss at step 80000: 12.792214 (tiem: 38)
+2017-04-05,22:20:41 INFO Loss at step 90000: 6.721132 (tiem: 42)
+2017-04-05,22:20:45 INFO Loss at step 100000: 1.723524 (tiem: 47)
+2017-04-05,22:20:47 INFO Finishing training...
+2017-04-05,22:20:47 INFO Loss at step 103771: 0.149853 (tiem: 48)
+2017-04-05,22:20:47 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_afr.npy
+2017-04-05,22:20:47 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_afr.npy
+2017-04-05,22:20:47 INFO Translating ISL language...
+2017-04-05,22:20:47 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/isl-000.txt
+2017-04-05,22:20:47 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.is/wiki.is.vec
+Not found list len: 0
+Valid swadesh len: 110
+Embeddings len: 86
+Not found: 24
+[ 15  16  17  20  28  31  38  41  43  49  52  54  58  59  63  74  86  87
+  88  89  90 100 102 104]
+2017-04-05,22:20:49 INFO Missing words: [u'come', u'dead', u'dog', u'ear', u'fish', u'full', u'hear', u'i', u'knee', u'louse', u'flesh', u'hill', u'new', u'night', u'human', u'hide', u'thou', u'tongue', u'tooth', u'tree', u'grind', u'distant', u'close', u'short']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:20:49 INFO Training session is initialized, starting training...
+2017-04-05,22:20:49 INFO Loss at step 0: 339.600861 (tiem: 0)
+2017-04-05,22:20:54 INFO Loss at step 10000: 202.616592 (tiem: 4)
+2017-04-05,22:20:59 INFO Loss at step 20000: 107.367249 (tiem: 9)
+2017-04-05,22:21:03 INFO Loss at step 30000: 64.832336 (tiem: 14)
+2017-04-05,22:21:08 INFO Loss at step 40000: 45.510475 (tiem: 18)
+2017-04-05,22:21:12 INFO Loss at step 50000: 34.351269 (tiem: 23)
+2017-04-05,22:21:17 INFO Loss at step 60000: 24.950249 (tiem: 28)
+2017-04-05,22:21:22 INFO Loss at step 70000: 16.808409 (tiem: 32)
+2017-04-05,22:21:26 INFO Loss at step 80000: 10.066269 (tiem: 37)
+2017-04-05,22:21:31 INFO Loss at step 90000: 4.750563 (tiem: 41)
+2017-04-05,22:21:35 INFO Loss at step 100000: 0.861476 (tiem: 46)
+2017-04-05,22:21:37 INFO Finishing training...
+2017-04-05,22:21:37 INFO Loss at step 102612: 0.149888 (tiem: 47)
+2017-04-05,22:21:37 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_isl.npy
+2017-04-05,22:21:37 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_isl.npy
+2017-04-05,22:21:37 INFO Translating THA language...
+2017-04-05,22:21:37 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/tha-000.txt
+2017-04-05,22:21:37 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.th/wiki.th.vec
+Not found list len: 3
+Valid swadesh len: 107
+Embeddings len: 89
+Not found: 21
+[ 8  9 11 17 22 25 36 37 40 43 56 59 63 75 78 85 86 89 90 97 98]
+2017-04-05,22:21:39 INFO Missing words: [u'blood', u'bone', u'burn', u'dog', u'eat', u'fat', u'hand', u'head', u'horn', u'knee', u'name', u'night', u'human', u'sleep', u'stand', u'this', u'thou', u'tree', u'grind', u'who', u'female']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:21:39 INFO Training session is initialized, starting training...
+2017-04-05,22:21:39 INFO Loss at step 0: 347.647705 (tiem: 0)
+2017-04-05,22:21:44 INFO Loss at step 10000: 206.113800 (tiem: 4)
+2017-04-05,22:21:48 INFO Loss at step 20000: 108.930679 (tiem: 9)
+2017-04-05,22:21:53 INFO Loss at step 30000: 65.032524 (tiem: 14)
+2017-04-05,22:21:58 INFO Loss at step 40000: 47.055611 (tiem: 18)
+2017-04-05,22:22:02 INFO Loss at step 50000: 35.928661 (tiem: 23)
+2017-04-05,22:22:07 INFO Loss at step 60000: 27.369246 (tiem: 27)
+2017-04-05,22:22:12 INFO Loss at step 70000: 19.889156 (tiem: 32)
+2017-04-05,22:22:16 INFO Loss at step 80000: 13.500704 (tiem: 37)
+2017-04-05,22:22:21 INFO Loss at step 90000: 8.162852 (tiem: 41)
+2017-04-05,22:22:25 INFO Loss at step 100000: 3.804788 (tiem: 46)
+2017-04-05,22:22:30 INFO Loss at step 110000: 0.414255 (tiem: 51)
+2017-04-05,22:22:31 INFO Finishing training...
+2017-04-05,22:22:31 INFO Loss at step 110959: 0.149879 (tiem: 51)
+2017-04-05,22:22:31 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_tha.npy
+2017-04-05,22:22:31 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_tha.npy
+2017-04-05,22:22:31 INFO Translating KAZ language...
+2017-04-05,22:22:31 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/kaz-000.txt
+2017-04-05,22:22:31 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.kk/wiki.kk.vec
+Not found list len: 7
+Valid swadesh len: 103
+Embeddings len: 97
+Not found: 13
+[ 6 11 12 18 25 36 40 42 43 46 52 77 78]
+2017-04-05,22:22:35 INFO Missing words: [u'bite', u'burn', u'claw', u'drink', u'fat', u'hand', u'horn', u'kill', u'knee', u'lie', u'flesh', u'smoke', u'stand']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:22:35 INFO Training session is initialized, starting training...
+2017-04-05,22:22:35 INFO Loss at step 0: 363.471252 (tiem: 0)
+2017-04-05,22:22:40 INFO Loss at step 10000: 224.150742 (tiem: 5)
+2017-04-05,22:22:44 INFO Loss at step 20000: 124.003036 (tiem: 10)
+2017-04-05,22:22:49 INFO Loss at step 30000: 73.789299 (tiem: 14)
+2017-04-05,22:22:54 INFO Loss at step 40000: 52.274509 (tiem: 19)
+2017-04-05,22:22:58 INFO Loss at step 50000: 39.338070 (tiem: 24)
+2017-04-05,22:23:03 INFO Loss at step 60000: 29.643042 (tiem: 28)
+2017-04-05,22:23:08 INFO Loss at step 70000: 21.128956 (tiem: 33)
+2017-04-05,22:23:12 INFO Loss at step 80000: 13.920836 (tiem: 38)
+2017-04-05,22:23:17 INFO Loss at step 90000: 8.049049 (tiem: 42)
+2017-04-05,22:23:22 INFO Loss at step 100000: 3.413708 (tiem: 47)
+2017-04-05,22:23:26 INFO Finishing training...
+2017-04-05,22:23:26 INFO Loss at step 109224: 0.149916 (tiem: 51)
+2017-04-05,22:23:26 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_kaz.npy
+2017-04-05,22:23:26 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_kaz.npy
+2017-04-05,22:23:26 INFO Translating BAK language...
+2017-04-05,22:23:26 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/bak-000.txt
+2017-04-05,22:23:26 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.ba/wiki.ba.vec
+Not found list len: 6
+Valid swadesh len: 104
+Embeddings len: 67
+Not found: 43
+[ 3  6  8  9 10 11 12 15 16 18 20 24 25 28 31 36 38 40 43 45 46 47 49 52 54
+ 56 58 60 62 63 64 66 71 74 78 79 80 81 86 88 89 91 94]
+2017-04-05,22:23:27 INFO Missing words: [u'abdomen', u'bite', u'blood', u'bone', u'breast', u'burn', u'claw', u'come', u'dead', u'drink', u'ear', u'eye', u'fat', u'fish', u'full', u'hand', u'hear', u'horn', u'knee', u'leaf', u'lie', u'liver', u'louse', u'flesh', u'hill', u'name', u'new', u'nose', u'adulterous', u'human', u'rain', u'path', u'see', u'hide', u'stand', u'star', u'rock', u'sun', u'thou', u'tooth', u'tree', u'go', u'we']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:23:28 INFO Training session is initialized, starting training...
+2017-04-05,22:23:28 INFO Loss at step 0: 304.456421 (tiem: 0)
+2017-04-05,22:23:32 INFO Loss at step 10000: 166.728241 (tiem: 5)
+2017-04-05,22:23:37 INFO Loss at step 20000: 80.613762 (tiem: 9)
+2017-04-05,22:23:41 INFO Loss at step 30000: 49.388786 (tiem: 14)
+2017-04-05,22:23:46 INFO Loss at step 40000: 34.278896 (tiem: 18)
+2017-04-05,22:23:51 INFO Loss at step 50000: 24.818146 (tiem: 23)
+2017-04-05,22:23:55 INFO Loss at step 60000: 16.730692 (tiem: 28)
+2017-04-05,22:24:00 INFO Loss at step 70000: 10.239197 (tiem: 32)
+2017-04-05,22:24:04 INFO Loss at step 80000: 5.456836 (tiem: 37)
+2017-04-05,22:24:09 INFO Loss at step 90000: 2.254452 (tiem: 42)
+2017-04-05,22:24:14 INFO Loss at step 100000: 0.163940 (tiem: 46)
+2017-04-05,22:24:14 INFO Finishing training...
+2017-04-05,22:24:14 INFO Loss at step 100079: 0.149989 (tiem: 46)
+2017-04-05,22:24:14 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_bak.npy
+2017-04-05,22:24:14 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_bak.npy
+2017-04-05,22:24:14 INFO Translating HBS language...
+2017-04-05,22:24:14 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/hbs-000.txt
+2017-04-05,22:24:14 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.sh/wiki.sh.vec
+2017-04-05,22:24:14 WARNING /home/eszti/data/panlex_swadesh/swadesh110/hbs-000.txt does not exist
+Not found list len: 9
+Valid swadesh len: 101
+Embeddings len: 100
+Not found: 10
+[ 3 11 25 47 61 66 78 84 85 89]
+2017-04-05,22:24:22 INFO Missing words: [u'abdomen', u'burn', u'fat', u'liver', u'not', u'path', u'stand', u'that', u'this', u'tree']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:24:22 INFO Training session is initialized, starting training...
+2017-04-05,22:24:22 INFO Loss at step 0: 370.881561 (tiem: 0)
+2017-04-05,22:24:27 INFO Loss at step 10000: 227.053589 (tiem: 4)
+2017-04-05,22:24:32 INFO Loss at step 20000: 126.093948 (tiem: 9)
+2017-04-05,22:24:36 INFO Loss at step 30000: 74.739342 (tiem: 14)
+2017-04-05,22:24:41 INFO Loss at step 40000: 53.836304 (tiem: 18)
+2017-04-05,22:24:46 INFO Loss at step 50000: 40.907024 (tiem: 23)
+2017-04-05,22:24:50 INFO Loss at step 60000: 31.740471 (tiem: 28)
+2017-04-05,22:24:55 INFO Loss at step 70000: 23.666758 (tiem: 32)
+2017-04-05,22:24:59 INFO Loss at step 80000: 16.715227 (tiem: 37)
+2017-04-05,22:25:04 INFO Loss at step 90000: 10.844241 (tiem: 42)
+2017-04-05,22:25:09 INFO Loss at step 100000: 5.947443 (tiem: 46)
+2017-04-05,22:25:13 INFO Loss at step 110000: 1.913850 (tiem: 51)
+2017-04-05,22:25:16 INFO Finishing training...
+2017-04-05,22:25:16 INFO Loss at step 115251: 0.149957 (tiem: 53)
+2017-04-05,22:25:16 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_hbs.npy
+2017-04-05,22:25:16 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_hbs.npy
+2017-04-05,22:25:16 INFO Translating KHM language...
+2017-04-05,22:25:16 INFO swadesh file: /home/eszti/data/panlex_swadesh/swadesh110/khm-000.txt
+2017-04-05,22:25:16 INFO embedding file: /mnt/permanent/Language/Multi/FB/wiki.km/wiki.km.vec
+Not found list len: 1
+Valid swadesh len: 109
+Embeddings len: 25
+Not found: 85
+[ 0  1  2  3  4  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 22 24 25 26 27
+ 28 29 30 31 33 34 36 37 38 39 40 41 42 43 44 45 46 47 49 50 51 52 53 54 56
+ 58 59 60 62 63 64 65 67 68 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85
+ 87 88 90 91 93 94 95 97 98 99]
+2017-04-05,22:25:17 INFO Missing words: [u'all', u'ash', u'bark', u'abdomen', u'big', u'bite', u'black', u'blood', u'bone', u'breast', u'burn', u'claw', u'cloud', u'cold', u'come', u'dead', u'dog', u'drink', u'dry', u'ear', u'eat', u'eye', u'fat', u'feather', u'fire', u'fish', u'fly', u'foot', u'full', u'good', u'green', u'hand', u'head', u'hear', u'heart', u'horn', u'i', u'kill', u'knee', u'know', u'leaf', u'lie', u'liver', u'louse', u'male', u'many', u'flesh', u'moon', u'hill', u'name', u'new', u'night', u'nose', u'adulterous', u'human', u'rain', u'red', u'root', u'round', u'say', u'see', u'seed', u'sit', u'hide', u'sleep', u'little', u'smoke', u'stand', u'star', u'rock', u'sun', u'swim', u'tail', u'that', u'this', u'tongue', u'tooth', u'grind', u'go', u'water', u'we', u'what', u'who', u'female', u'yellow']
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:01:00.0)
+2017-04-05,22:25:17 INFO Training session is initialized, starting training...
+2017-04-05,22:25:17 INFO Loss at step 0: 185.351562 (tiem: 0)
+2017-04-05,22:25:22 INFO Loss at step 10000: 64.381004 (tiem: 4)
+2017-04-05,22:25:26 INFO Loss at step 20000: 28.530991 (tiem: 8)
+2017-04-05,22:25:30 INFO Loss at step 30000: 16.001612 (tiem: 13)
+2017-04-05,22:25:35 INFO Loss at step 40000: 6.353498 (tiem: 17)
+2017-04-05,22:25:38 INFO Finishing training...
+2017-04-05,22:25:38 INFO Loss at step 47512: 0.149478 (tiem: 20)
+2017-04-05,22:25:38 INFO Saving translation mx to /home/eszti/data/embeddings/fb_trans/trans/20170405_2058/eng_khm.npy
+2017-04-05,22:25:38 INFO Saving embedding to /home/eszti/data/embeddings/fb_trans/embedding/20170405_2058/eng_khm.npy
+2017-04-05,22:25:38 INFO Running time in seconds: 5208
