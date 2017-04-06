@@ -23,8 +23,9 @@ def _train_univ_embed(embed_filenames, cfg_train, starttime):
         emb = utils.load_nparr(fn)
         W[i, :, :] = emb
         i += 1
-    T1, T, A = utils.train(W, starttime, num_steps=cfg_train.num_steps, verbose=cfg_train.verbose, output_dir=cfg_train.output_dir,
-                           log_freq=cfg_train.log_freq, end_cond=cfg_train.end_cond, max_iter=cfg_train.max_iter)
+    T1, T, A = utils.train(W, starttime, num_steps=cfg_train.num_steps, verbose=cfg_train.verbose,
+                           output_dir=cfg_train.output_dir, log_freq=cfg_train.log_freq,
+                           end_cond=cfg_train.end_cond, max_iter=cfg_train.max_iter, debug=cfg_train.debug)
     return T1, T, A
 
 

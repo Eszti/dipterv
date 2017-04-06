@@ -22,6 +22,7 @@ class BaseConfig:
     def read_train(self, cfg):
         section = 'train'
         self.verbose = cfg.getboolean(section, 'verbose')
+        self.debug = cfg.getboolean(section, 'debug')
         self.log_freq = cfg.getint(section, 'log_freq')
         self.num_steps = cfg.getint(section, 'num_steps')
         self.learning_rate = cfg.getfloat(section, 'learning_rate')

@@ -114,7 +114,7 @@ def train(W, starttime=None, learning_rate=0.01, num_steps=1001, t1_identity=Tru
         logging.info('Finishing training...')
         _log_steps(l, step, starttime)
 
-    if debug:
+    if debug and verbose:
         # Print transformation matrices + universal embedding
         print('\n')
         print('Transform 1:')

@@ -19,10 +19,11 @@ num: 110
 
 [train]
 verbose: False
-log_freq: 1000000
+debug: True
+log_freq: 100000
 num_steps: 0
-end_cond: 10
+end_cond: 10.0
 learning_rate: 0.03
-max_iter: 10000000
+max_iter: 1000000
 
 
