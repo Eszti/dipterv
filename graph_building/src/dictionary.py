@@ -11,16 +11,25 @@ class Dictionary:
         self.from_lang = from_lang
         self.to_lang = to_lang
 
+        from_lang = 'from'
+        to_lang = 'to'
+
         try:
             dict_name = from_lang + '_' + to_lang + '.txt'
             filename = os.path.join(dict_folder, dict_name)
-            self.dict = utils.process_tsv_dict_file(filename)
+            self.dict, self.rev_dict = dict(), dict()
+            utils.process_tsv_dict_file(filename, self.dict, self.rev_dict)
+            logging.info('{0}: dict: {1}\t rev_dict: {2}'
+                         .format(filename, len(self.dict), len(self.rev_dict)))
 
             rev_dict_name = to_lang + '_' + from_lang + '.txt'
             filename = os.path.join(dict_folder, rev_dict_name)
-            self.rev_dict = utils.process_tsv_dict_file(filename)
+            utils.process_tsv_dict_file(filename,self.rev_dict, self.dict)
+            logging.info('{0}: dict: {1}\t rev_dict: {2}'
+                         .format(filename, len(self.dict), len(self.rev_dict)))
 
-        except:
+        except Exception as e:
+            logging.warning(e)
             logging.error("could not process dictionary file: {0}".format(filename))
 
     def get(self, word):
@@ -49,9 +58,10 @@ class DictionarySource:
         _, self.name = os.path.split(dict_folder)
         self.dictionaries = []
 
-        for to in to_langs:
-            logging.debug('processing dictionary: {0}-{1} in folder: {2}'.format(from_lang, to, dict_folder))
-            new_dict = Dictionary(from_lang, to, dict_folder)
+        for code, lang in to_langs.iteritems():
+            folder = os.path.join(dict_folder, lang)
+            logging.info('processing dictionary: {0}-{1} in folder: {2}'.format(from_lang, code, folder))
+            new_dict = Dictionary(from_lang, code, folder)
             self.dictionaries.append(new_dict)
 
     def get(self, word):
