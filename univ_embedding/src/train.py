@@ -16,10 +16,12 @@ def _train_univ_embed(embed_filenames, cfg_train, starttime):
 
     W = np.ndarray(shape=(lang_cnt, en_emb.shape[0], en_emb.shape[1]), dtype=np.float32)
     W[0, :, :] = en_emb
+    logging.info('Embedding {0} is in position {1}'.format(cfg_train.eng_emb_fn, 0))
     i = 1
     for fn in embed_filenames:
         if 'eng_eng' in fn:
             continue
+        logging.info('Embedding {0} is in position {1}'.format(fn, i))
         emb = utils.load_nparr(fn)
         W[i, :, :] = emb
         i += 1
