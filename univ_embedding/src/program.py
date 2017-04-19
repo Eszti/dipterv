@@ -3,18 +3,25 @@ import time
 import logging
 import os
 from ConfigParser import ConfigParser
+
+from data_structures import GeneralParams
+from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
+from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes import GetLangCodesProcess
 from steps.process.get_swad_proc import GetSwadProcess
 
 
-def main(config_file, starttime):
+def main(config_file, starttime, output_dir):
     cfg = ConfigParser(os.environ)
     cfg.read(config_file)
+    genparams = GeneralParams(starttime, cfg, output_dir)
     steps = []
-    steps.append((GetLangCodesProcess('get_lang_codes', cfg, starttime), True))
-    steps.append((GetSwadProcess('get_swad_proc', cfg, starttime), True))
-    steps.append((SwadFilter('swad_filter', cfg, starttime), True))
+    steps.append((GetLangCodesProcess('get_lang_codes', genparams), True))
+    steps.append((LangCodesFilter('lang_codes_filter', genparams), False))
+    steps.append((GetSwadProcess('get_swad_proc', genparams), True))
+    steps.append((SwadFilter('swad_filter', genparams), True))
+    steps.append((GetEmbedProcess('get_embed_proc', genparams), True))
     input = None
     for (step, do) in steps:
         output = step.run(input, do)
@@ -37,5 +44,5 @@ if __name__ == '__main__':
     logging.basicConfig(filename=logfile, level=logging.DEBUG,
                         format='%(asctime)s %(levelname)s %(message)s',
                         datefmt='%Y-%m-%d,%H:%M:%S')
-
-    main(args.config_file, starttime)
+    logging.info('Starttime: {}'.format(starttime))
+    main(args.config_file, starttime, output_dir)

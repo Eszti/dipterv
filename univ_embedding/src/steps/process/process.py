@@ -1,13 +1,9 @@
+import logging
+
 from steps.step import Step
 
 
 class Process(Step):
-    def __init__(self, name, config, starttime):
-        super(Process, self).__init__(name, config, starttime)
-
-    def run(self, input, do=False):
-        return self._run(input, do)
-
     def _run(self, input, do=False):
         self.input = input
         if do:
@@ -28,9 +24,11 @@ class Process(Step):
         raise NotImplementedError
 
     def do(self):
+        logging.info('Do function is called')
         self.init_for_do()
         return self._do()
 
     def skip(self):
+        logging.info('Skip function is called')
         self.init_for_skip()
         return self._skip()

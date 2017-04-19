@@ -4,6 +4,12 @@ from steps.process.process import Process
 
 
 class GetLangCodesProcess(Process):
+    def _get_output_desc(self):
+        desc = 'output = lang_codes\n' \
+               'lang_codes = { sil_code }\n' \
+               'sil_code = ? all possible sil codes ?'
+        return desc
+
     def init_for_do(self):
         section = self.name
         self.lang_codes_file = self.config.get(section, 'lang_codes')

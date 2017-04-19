@@ -5,6 +5,16 @@ from steps.process.process import Process
 
 
 class GetSwadProcess(Process):
+    def _get_output_desc(self):
+        desc = 'output = lang_swad_dict\n' \
+               'lang_swad_dict = { lang_swad_entry }\n' \
+               'lang_swad_entry = sil_code, swad_list\n' \
+               'swad_list = { swad_entry }\n' \
+               'swad_entry = { word }\n' \
+               'word = ? all possible swadesh words ?\n' \
+               'sil_code = ? all possible sil codes ?'
+        return desc
+
     def init_for_do(self):
         section = self.name
         swad_root_dir = self.config.get(section, 'swad_root_dir')
@@ -47,4 +57,4 @@ class GetSwadProcess(Process):
 
     def _skip(self):
         # TODO
-        return self.do()
+        raise NotImplementedError
