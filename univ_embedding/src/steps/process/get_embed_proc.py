@@ -4,6 +4,7 @@ import logging
 import os
 
 from steps.process.process import Process
+from steps.utils import find_all_indices
 
 
 class GetEmbedProcess(Process):
@@ -31,14 +32,10 @@ class GetEmbedProcess(Process):
     def init_for_skip(self):
         raise NotImplementedError
 
-    def _find_all_indices(self, list, val):
-        idxs = [i for i, elem in enumerate(list) if elem == val]
-        return idxs
-
     def _do(self):
         output = self.input
         for sil, swad_list in self.input.iteritems():
-            swad_valid_len = len(swad_list) - len(self._find_all_indices(swad_list, None))
+            swad_valid_len = len(swad_list) - len(find_all_indices(swad_list, None))
             emb_list = [None] * len(swad_list)
             embed_fn = os.path.join(self.emb_dir, 'wiki.{0}/wiki.{0}.vec'.format(self.sil_to_fb[sil]))
             logging.info('Loading embedding {0} from {1}'.format(sil, embed_fn))
@@ -53,7 +50,7 @@ class GetEmbedProcess(Process):
                     fields = line.strip().decode('utf-8').split(' ')
                     w = fields[0]
                     w = w.lower()
-                    idxs = self._find_all_indices(swad_list, w)
+                    idxs = find_all_indices(swad_list, w)
                     if len(idxs) == 0:
                         continue
                     for idx in idxs:
@@ -64,9 +61,10 @@ class GetEmbedProcess(Process):
             output[sil] = []
             output[sil].append(swad_list)
             output[sil].append(emb_list)
-            emb_valid_len = len(emb_list) - len(self._find_all_indices(emb_list, None))
+            emb_valid_len = len(emb_list) - len(find_all_indices(emb_list, None))
             logging.info('Valid embedding len: {}'.format(emb_valid_len))
             logging.info('Not found: {}'.format(len(swad_list) - emb_valid_len))
+        return output
 
     def _skip(self):
         raise NotImplementedError

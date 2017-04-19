@@ -5,10 +5,11 @@ import os
 from ConfigParser import ConfigParser
 
 from data_structures import GeneralParams
+from steps.filter.embed_filter import EmbedFilter
 from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
 from steps.process.get_embed_proc import GetEmbedProcess
-from steps.process.get_lang_codes import GetLangCodesProcess
+from steps.process.get_lang_codes_proc import GetLangCodesProcess
 from steps.process.get_swad_proc import GetSwadProcess
 
 
@@ -17,11 +18,12 @@ def main(config_file, starttime, output_dir):
     cfg.read(config_file)
     genparams = GeneralParams(starttime, cfg, output_dir)
     steps = []
-    steps.append((GetLangCodesProcess('get_lang_codes', genparams), True))
-    steps.append((LangCodesFilter('lang_codes_filter', genparams), False))
+    steps.append((GetLangCodesProcess('get_lang_codes_proc', genparams), True))
+    steps.append((LangCodesFilter('lang_codes_filter', genparams), True))
     steps.append((GetSwadProcess('get_swad_proc', genparams), True))
     steps.append((SwadFilter('swad_filter', genparams), True))
     steps.append((GetEmbedProcess('get_embed_proc', genparams), True))
+    steps.append((EmbedFilter('embed_filter', genparams), True))
     input = None
     for (step, do) in steps:
         output = step.run(input, do)
