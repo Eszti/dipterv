@@ -56,5 +56,4 @@ class GetSwadProcess(Process):
         return output
 
     def _skip(self):
-        # TODO
         raise NotImplementedError

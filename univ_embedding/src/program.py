@@ -1,8 +1,9 @@
 import argparse
-import time
 import logging
-import os
+import time
 from ConfigParser import ConfigParser
+
+import os
 
 from data_structures import GeneralParams
 from steps.filter.embed_filter import EmbedFilter
@@ -11,6 +12,8 @@ from steps.filter.swad_filter import SwadFilter
 from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes_proc import GetLangCodesProcess
 from steps.process.get_swad_proc import GetSwadProcess
+from steps.process.translate_emb_proc import TranslateEmbProcess
+from utils import create_timestamped_dir
 
 
 def main(config_file, starttime, output_dir):
@@ -24,6 +27,7 @@ def main(config_file, starttime, output_dir):
     steps.append((SwadFilter('swad_filter', genparams), True))
     steps.append((GetEmbedProcess('get_embed_proc', genparams), True))
     steps.append((EmbedFilter('embed_filter', genparams), True))
+    steps.append((TranslateEmbProcess('translate_emb_proc', genparams), True))
     input = None
     for (step, do) in steps:
         output = step.run(input, do)
@@ -37,10 +41,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--config', type=str, dest='config_file', help='config file')
     args = parser.parse_args()
 
-    time_str = time.strftime("%H%M_%S")
-    date_str = time.strftime("%Y%m%d")
-    output_dir = os.path.join('output', '{0}_{1}'.format(date_str, time_str))
-    os.makedirs(output_dir)
+    output_dir = create_timestamped_dir('output')
 
     logfile = os.path.join(output_dir, 'log.txt')
     logging.basicConfig(filename=logfile, level=logging.DEBUG,

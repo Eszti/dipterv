@@ -1,8 +1,15 @@
 from __future__ import print_function
+
 import numpy as np
-import utils, json, os, sys, time, logging
 from os import listdir
 from os.path import isfile, join
+
+import json
+import logging
+import os
+import sys
+import time
+import utils
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s '

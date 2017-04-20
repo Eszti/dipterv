@@ -4,7 +4,7 @@ import logging
 import os
 
 from steps.process.process import Process
-from steps.utils import find_all_indices
+from utils.utils import find_all_indices
 
 
 class GetEmbedProcess(Process):
@@ -17,7 +17,7 @@ class GetEmbedProcess(Process):
                'embed_list = { embedding }\n' \
                'word = ? all possible swadesh words ?\n' \
                'sil_code = ? all possible sil codes ?\n' \
-               'embedding = ? all possible read word vectors ?'
+               'embedding = ? all possible read word vectors or None ?'
         return desc
 
     def init_for_do(self):

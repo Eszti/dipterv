@@ -1,9 +1,13 @@
-import utils
-import logging
-import sys, os, time
-import numpy as np
 import json
+import logging
+import os
+import sys
+import time
+
+import numpy as np
 from sklearn.preprocessing import normalize
+
+import utils
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s '

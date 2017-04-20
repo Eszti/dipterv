@@ -1,7 +1,7 @@
 import logging
 
 from steps.filter.filter import Filter
-from steps.utils import find_all_indices
+from utils.utils import find_all_indices
 
 
 class EmbedFilter(Filter):

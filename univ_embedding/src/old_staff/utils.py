@@ -1,11 +1,17 @@
 from __future__ import print_function
+
+import logging
+import os
+import time
+from ConfigParser import ConfigParser
+
 import numpy as np
-import logging, os, time
 import tensorflow as tf
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
-from ConfigParser import ConfigParser
+
 import config
+
 
 def get_cfg(cfg_file):
     pwd = os.path.dirname(os.path.realpath(__file__))
