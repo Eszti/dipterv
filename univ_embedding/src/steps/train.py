@@ -5,7 +5,7 @@ import numpy as np
 import os
 import tensorflow as tf
 
-from utils.general import create_timestamped_dir
+from helpers import create_timestamped_dir
 
 
 def _log_steps(l, step, starttime):
@@ -56,6 +56,7 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
     with tf.Session(graph=graph) as session:
         # This is a one-time operation which ensures the parameters get initialized as
         # we described in the graph
+        tf.global_variables_initializer().run()
         logging.info('Training session is initialized, starting training...')
         step = 0
         l = float("inf")

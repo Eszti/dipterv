@@ -3,8 +3,8 @@ import logging
 
 import os
 
+from helpers import find_all_indices
 from steps.process.process import Process
-from utils.utils import find_all_indices
 
 
 class GetEmbedProcess(Process):

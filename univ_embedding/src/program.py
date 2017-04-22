@@ -6,6 +6,7 @@ from ConfigParser import ConfigParser
 import os
 
 from data_structures import GeneralParams
+from helpers import create_timestamped_dir
 from steps.filter.embed_filter import EmbedFilter
 from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
@@ -13,7 +14,6 @@ from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes_proc import GetLangCodesProcess
 from steps.process.get_swad_proc import GetSwadProcess
 from steps.process.translate_emb_proc import TranslateEmbProcess
-from utils import create_timestamped_dir
 
 
 def main(config_file, starttime, output_dir):

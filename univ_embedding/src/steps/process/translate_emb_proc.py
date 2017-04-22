@@ -4,11 +4,9 @@ import numpy as np
 import os
 from sklearn.preprocessing import normalize
 
+from helpers import create_timestamped_dir, get_rowwise_norm, save_nparr, find_all_indices, filter_list
 from steps.process.process import Process
 from steps.train import train
-from utils.general_utils import create_timestamped_dir
-from utils.utils import find_all_indices, get_rowwise_norm, save_nparr
-
 
 class TranslateEmbProcess(Process):
     def _get_output_desc(self):
@@ -42,7 +40,7 @@ class TranslateEmbProcess(Process):
             output_dir = create_timestamped_dir(self.output_dir)
         input = self.input
         output = input
-        eng_emb = np.array(input['eng'][1])
+        eng_emb = np.array(input['eng'][1]).astype(np.float32)
         eng_emb = normalize(eng_emb)
         for lang, list in input.iteritems():
             trans_list = []
@@ -52,8 +50,8 @@ class TranslateEmbProcess(Process):
             train_output = os.path.join(self.output_dir, self.name, 'train_log', lang)
             emb_list = list[1]
             not_found_idxs = find_all_indices(emb_list, None)
-            emb = np.array(emb_list)
-            emb_filtered = np.delete(emb, not_found_idxs, 0)
+            emb_list_filtered = filter_list(emb_list, not_found_idxs)
+            emb_filtered = np.array(emb_list_filtered).astype(np.float32)
             eng_emb_filtered = np.delete(eng_emb, not_found_idxs, 0)
 
             W = np.ndarray(shape=(2, emb_filtered.shape[0],
