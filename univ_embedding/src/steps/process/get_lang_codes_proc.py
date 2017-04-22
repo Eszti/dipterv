@@ -7,10 +7,8 @@ from steps.process.process import Process
 
 class GetLangCodesProcess(Process):
     def _get_output_desc(self):
-        desc = 'output = lang_codes\n' \
-               'lang_codes = { sil_code }\n' \
-               'sil_code = ? all possible sil codes ?'
-        return desc
+        return 'input : file containing silcodes\n' \
+               'output : list of sil codes'
 
     def init_for_do(self):
         self.lang_codes_file = self.get('lang_codes')

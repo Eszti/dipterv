@@ -14,6 +14,8 @@ from steps.process.find_univ_proc import FindUnivProcess
 from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes_proc import GetLangCodesProcess
 from steps.process.get_swad_proc import GetSwadProcess
+from steps.process.translate_emb_proc import TranslateEmbProcess
+
 
 # 1.:   get_lang_codes_proc     GetLangCodesProcess     Process
 #       long_codes_filter       LangCodesFilter         Filter
@@ -26,7 +28,6 @@ from steps.process.get_swad_proc import GetSwadProcess
 # 5 :   find_univ_proc          FindUnivProcess         Process
 #       univ_filter             UnivFilter              Filter
 # 6 :   evaluation_proc         EvaluationProcess       Process
-from steps.process.translate_emb_proc import TranslateEmbProcess
 
 
 def main(config_file, start, finish, output_dir):

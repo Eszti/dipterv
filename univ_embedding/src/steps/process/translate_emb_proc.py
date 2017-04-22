@@ -8,21 +8,13 @@ from helpers import create_timestamped_dir, get_rowwise_norm, save_nparr, find_a
 from steps.process.process import Process
 from steps.train import train
 
-# input : lang : swad_list, raw_emb_list
-# output : lang : swad_list, emb_full (norm), not_found_list
+# input : lang : swad_list, raw_emb_list, emb_fn, not_found_list
+# output : lang : swad_list, emb_full (norm), emb_fn, not_found_list
 
 class TranslateEmbProcess(Process):
     def _get_output_desc(self):
-        desc = 'output = lang_swad_dict\n' \
-               'lang_swad_dict = { lang_swad_entry }\n' \
-               'lang_swad_entry = sil_code, value_list\n' \
-               'value_list = swad_list, embed_list\n' \
-               'swad_list = { word }\n' \
-               'embed_list = { embedding }\n' \
-               'word = ? all possible swadesh words ?\n' \
-               'sil_code = ? all possible sil codes ?\n' \
-               'embedding = ? all possible read word vectors completed by translation ?'
-        return desc
+        return 'input : lang : swad_list, raw_emb_list, emb_fn, not_found_list\n' \
+               'output : lang : swad_list, emb_full (norm), emb_fn, not_found_list'
 
     def init_for_do(self):
         self.save_output_flag = self.get('save_output', 'boolean')
@@ -51,8 +43,9 @@ class TranslateEmbProcess(Process):
                 output[lang][1] = eng_emb       # we have to save this as well
                 continue
             train_output = os.path.join(ts_output_dir, 'train_log', lang)
+            os.makedirs(train_output)
             emb_list = list[1]
-            not_found_idxs = find_all_indices(emb_list, None)
+            not_found_idxs = list[3]
             emb_list_filtered = filter_list(emb_list, not_found_idxs)
             # Normalize and filter embedding for translation
             emb_filtered = normalize(np.array(emb_list_filtered).astype(np.float32))
@@ -85,7 +78,6 @@ class TranslateEmbProcess(Process):
             if abs(diff) > 0.01:
                 logging.warning('Something went wrong at normalizing, diff = {}'.format(diff))
             output[lang][1] = trans_list_norm
-            output[lang].append(not_found_idxs)
             if self.save_output_flag:
                 filename = os.path.join(save_output_dir, '{}.npy'.format(lang))
                 save_nparr(filename, trans_list_norm)

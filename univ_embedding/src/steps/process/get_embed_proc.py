@@ -7,20 +7,12 @@ from helpers import find_all_indices
 from steps.process.process import Process
 
 # input : lang : swad_list
-# output : lang : swad_list, raw_emb_list, emb_fn,
+# output : lang : swad_list, raw_emb_list, emb_fn, not_found_list
 
 class GetEmbedProcess(Process):
     def _get_output_desc(self):
-        desc = 'output = lang_swad_dict\n' \
-               'lang_swad_dict = { lang_swad_entry }\n' \
-               'lang_swad_entry = sil_code, value_list\n' \
-               'value_list = swad_list, embed_list\n' \
-               'swad_list = { word }\n' \
-               'embed_list = { embedding }\n' \
-               'word = ? all possible swadesh words ?\n' \
-               'sil_code = ? all possible sil codes ?\n' \
-               'embedding = ? all possible read word vectors or None ?'
-        return desc
+        return 'input : lang : swad_list\n' \
+               'output : lang : swad_list, raw_emb_list, emb_fn, not_found_list'
 
     def init_for_do(self):
         self.emb_dir = self.get('emb_dir')
@@ -56,10 +48,13 @@ class GetEmbedProcess(Process):
                     idxs_found += idxs
                     if len(idxs_found) == swad_valid_len:
                         break
+            not_found_list = find_all_indices(emb_list, None)
+            emb_valid_len = len(emb_list) - len(not_found_list)
+            logging.info('Valid embedding len: {}'.format(emb_valid_len))
+            logging.info('Not found: {}'.format(len(swad_list) - emb_valid_len))
             output[sil] = []
             output[sil].append(swad_list)
             output[sil].append(emb_list)
-            emb_valid_len = len(emb_list) - len(find_all_indices(emb_list, None))
-            logging.info('Valid embedding len: {}'.format(emb_valid_len))
-            logging.info('Not found: {}'.format(len(swad_list) - emb_valid_len))
+            output[sil].append(embed_fn)
+            output[sil].append(not_found_list)
         return output

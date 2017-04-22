@@ -1,15 +1,12 @@
 from steps.filter.filter import Filter
 
+# input : lang : swad_list
+# output : lang : swad_list_single_entry
 
 class SwadFilter(Filter):
     def _get_output_desc(self):
-        desc = 'output = lang_swad_dict\n' \
-               'lang_swad_dict = { lang_swad_entry }\n' \
-               'lang_swad_entry = sil_code, swad_list\n' \
-               'swad_list = { word }\n' \
-               'word = ? all possible swadesh words ?\n' \
-               'sil_code = ? all possible sil codes ?'
-        return desc
+        return 'lang : swad_list\n' \
+               'lang : swad_list_single_entry'
 
     def filter(self, input):
         output = dict()

@@ -36,7 +36,7 @@ class Step():
             pickle.dump(output, f)
 
     def _get_output_desc(self):
-        raise NotImplementedError
+        return ''
 
     def create_output_descriptor(self):
         filename = os.path.join(self.output_dir, self.name, 'README')

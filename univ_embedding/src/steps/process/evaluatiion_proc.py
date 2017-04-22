@@ -8,9 +8,6 @@ from process import Process
 # input : ( [lang : swad_list, emb_full (norm), not_found_list, T], univ(norm))
 
 class EvaluationProcess(Process):
-    def _get_output_desc(self):
-        raise NotImplementedError
-
     def save_output(self, output):
         pass
 

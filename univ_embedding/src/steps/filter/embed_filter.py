@@ -3,19 +3,13 @@ import logging
 from helpers import find_all_indices
 from steps.filter.filter import Filter
 
+# input : lang : swad_list, raw_emb_list, emb_fn, not_found_list
+# output : lang : swad_list, raw_emb_list, emb_fn, not_found_list
 
 class EmbedFilter(Filter):
     def _get_output_desc(self):
-        desc = 'output = lang_swad_dict\n' \
-               'lang_swad_dict = { lang_swad_entry }\n' \
-               'lang_swad_entry = sil_code, value_list\n' \
-               'value_list = swad_list, embed_list\n' \
-               'swad_list = { word }\n' \
-               'embed_list = { embedding }\n' \
-               'word = ? all possible swadesh words ?\n' \
-               'sil_code = ? all possible sil codes ?\n' \
-               'embedding = ? all possible read word vectors ?'
-        return desc
+        return 'input : lang : swad_list, raw_emb_list, emb_fn, not_found_list\n' \
+               'output : lang : swad_list, raw_emb_list, emb_fn, not_found_list'
 
     def init_filter(self):
         self.cutoff = self.get('cutoff', 'int')

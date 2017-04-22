@@ -4,18 +4,12 @@ import os
 from steps.process.process import Process
 
 # input : list of sil codes
-# output : lang : swad_list
+# output : lang : swad_list_mul
 
 class GetSwadProcess(Process):
     def _get_output_desc(self):
-        desc = 'output = lang_swad_dict\n' \
-               'lang_swad_dict = { lang_swad_entry }\n' \
-               'lang_swad_entry = sil_code, swad_list\n' \
-               'swad_list = { swad_entry }\n' \
-               'swad_entry = { word }\n' \
-               'word = ? all possible swadesh words ?\n' \
-               'sil_code = ? all possible sil codes ?'
-        return desc
+        return 'input : list of sil codes\n' \
+               'output : lang : swad_list'
 
     def init_for_do(self):
         swad_root_dir = self.get('swad_root_dir')

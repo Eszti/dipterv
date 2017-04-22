@@ -6,15 +6,16 @@ from sklearn.preprocessing import normalize
 
 from helpers import create_timestamped_dir, save_nparr, get_rowwise_norm
 from process import Process
-from train import train
+from steps.train import train
 
-# input : lang : swad_list, emb_full (norm), not_found_list
-# output : ( [lang : swad_list, emb_full (norm), not_found_list, T], univ(norm))
+# input : lang : swad_list, emb_full (norm), emb_fn, not_found_list
+# output : ( [lang : swad_list, emb_full (norm), emb_fn, not_found_list, T], univ(norm))
 
 # pre: TranslateEmbProcess
 class FindUnivProcess(Process):
     def _get_output_desc(self):
-        raise NotImplementedError
+        return 'input : lang : swad_list, emb_full (norm), emb_fn, not_found_list\n' \
+               'output : ( [lang : swad_list, emb_full (norm), not_found_list, T], univ(norm))'
 
     def init_for_do(self):
         self.trans_output_dir = self.get('output_dir')

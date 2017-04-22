@@ -14,9 +14,6 @@ class Process(Step):
         else:
             return self.skip()
 
-    def _get_output_desc(self):
-        raise NotImplementedError
-
     def init_for_do(self):
         raise NotImplementedError
 

@@ -1,11 +1,11 @@
-
+import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 class Eval():
     def __init__(self, name):
         self.name = name
 
-    def _get_cos_sim_mx(emb):
+    def _get_cos_sim_mx(self, emb):
         cnt = emb.shape[0]
         mx = np.ndarray(shape=(cnt, cnt), dtype=np.float32)
         for i in range(0, cnt):
