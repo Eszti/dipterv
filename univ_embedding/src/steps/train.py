@@ -18,6 +18,7 @@ def _save_nparr(embed_fn, emb):
 
 def save_train_progress(output_dir, T1, T, A, step):
     if output_dir is not None:
+        logging.info('Saving T1, T, A into {}'.format(output_dir))
         T1_fn = os.path.join(output_dir, 'T1_{}.npy'.format(step))
         T_fn = os.path.join(output_dir, 'T_{}.npy'.format(step))
         A_fn = os.path.join(output_dir, 'A_{}.npy'.format(step))
@@ -26,7 +27,7 @@ def save_train_progress(output_dir, T1, T, A, step):
         _save_nparr(A_fn, A)
 
 def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
-          output_dir=None, end_cond=None, max_iter=None):
+          output_dir=None, end_cond=None, max_iter=None, verbose=False):
     if output_dir is not None:
         output_dir = create_timestamped_dir(output_dir)
     starttime = int(round(time.time()))
@@ -60,6 +61,7 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
         logging.info('Training session is initialized, starting training...')
         step = 0
         l = float("inf")
+        l_prev = l
         while ((step < num_steps) and (num_steps != 0)) or ((num_steps == 0) and (end_cond < l)):
             if (num_steps == 0) and max_iter is not None and step > max_iter:
                 break
@@ -67,8 +69,13 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True,
             _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
             if (step % 10000 == 0):
                 _log_steps(l, step, starttime)
-            if (step % 100000 == 0):
+            if (step % 100000 == 0) and verbose:
                 save_train_progress(output_dir, T1, T, A, step)
+            if abs(l, l_prev) < 0.0001:
+                logging.info('Loss does not change anymore ({0}, {1}), finishing training at step: {2}'
+                             .format(l_prev, l, step))
+                break
+            l_prev = l
             step += 1
         _log_steps(l, step, starttime)
         save_train_progress(output_dir, T1, T, A, step)
