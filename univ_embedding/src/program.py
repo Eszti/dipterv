@@ -25,15 +25,18 @@ from translate_emb_proc import TranslateEmbProcess
 # 4 :   translate_emb_proc      TranslateEmbProcess     Process
 #       translated_filter       TranslatedFilter        Filter
 # 5 :   find_univ_proc          FindUnivProcess         Process
-#
+#       univ_filter             UnivFilter              Filter
+# 6 :   evaluation_proc         EvaluationProcess       Process
 
 
-def main(config_file, start, output_dir):
+def main(config_file, start, finish, output_dir):
     cfg = ConfigParser(os.environ)
     cfg.read(config_file)
     genparams = GeneralParams(starttime, cfg, output_dir)
     steps = []
     do_flag = False
+    if start == None:
+        start = 1
     if start == 1:
         do_flag = True
     steps.append((GetLangCodesProcess('get_lang_codes_proc', genparams), do_flag))     # 1
@@ -53,9 +56,14 @@ def main(config_file, start, output_dir):
         do_flag = True
     steps.append((FindUnivProcess('find_univ_proc', genparams), do_flag))              # 5
     input = None
+    i = 1
     for (step, do) in steps:
         output = step.run(input, do)
         input = output
+        if finish == i:
+            logging.info('Finishing now, finish was set to {}'.format(finish))
+            break
+        i += 1
     output = input
 
 if __name__ == '__main__':
@@ -65,6 +73,8 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--config', type=str, dest='config_file', help='config file')
     parser.add_argument('-s', '--start', type=int, dest='start',
                         help='start processing from this step, steps before will be loaded by the skip method')
+    parser.add_argument('-f', '--finish', type=int, dest='finish',
+                        help='finish processing after this step, steps after will be not be executed')
     args = parser.parse_args()
 
     output_dir = create_timestamped_dir('output')
@@ -74,4 +84,5 @@ if __name__ == '__main__':
                         format='%(asctime)s %(levelname)s %(message)s',
                         datefmt='%Y-%m-%d,%H:%M:%S')
     logging.info('Starttime: {}'.format(starttime))
-    main(args.config_file,  args.start, output_dir)
+    logging.info('Start: {0} - Finish: {1}'.format(args.start, args.finish))
+    main(args.config_file,  args.start, args.finish, output_dir)
