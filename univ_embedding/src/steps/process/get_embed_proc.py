@@ -6,6 +6,8 @@ import os
 from helpers import find_all_indices
 from steps.process.process import Process
 
+# input : lang : swad_list
+# output : lang : swad_list, raw_emb_list, emb_fn,
 
 class GetEmbedProcess(Process):
     def _get_output_desc(self):
@@ -27,9 +29,6 @@ class GetEmbedProcess(Process):
             self.sil_to_fb = json.load(f)
         logging.info('{0} of languages are found in {1} sil-to-fb mapping file'
                      .format(len(self.sil_to_fb), sil_to_fb_fn))
-
-    def init_for_skip(self):
-        raise NotImplementedError
 
     def _do(self):
         output = self.input
@@ -64,6 +63,3 @@ class GetEmbedProcess(Process):
             logging.info('Valid embedding len: {}'.format(emb_valid_len))
             logging.info('Not found: {}'.format(len(swad_list) - emb_valid_len))
         return output
-
-    def _skip(self):
-        raise NotImplementedError

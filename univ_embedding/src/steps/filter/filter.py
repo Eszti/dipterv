@@ -2,9 +2,6 @@ from steps.step import Step
 
 
 class Filter(Step):
-    def __init__(self, name, genparams):
-        super(Filter, self).__init__(name, genparams)
-
     def init_filter(self):
         pass
 

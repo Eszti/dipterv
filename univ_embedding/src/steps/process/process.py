@@ -1,4 +1,7 @@
 import logging
+import pickle
+
+import os
 
 from steps.step import Step
 
@@ -18,13 +21,17 @@ class Process(Step):
         raise NotImplementedError
 
     def init_for_skip(self):
-        raise NotImplementedError
+        skip_root = self.get('skip_input_dir', section='skip')
+        self.skip_fn = os.path.join(skip_root, self.name, '{}.pickle'.format(self.name))
 
     def _do(self):
         raise NotImplementedError
 
     def _skip(self):
-        raise NotImplementedError
+        logging.info('Loading input from: {}'.format(self.skip_fn))
+        with open(self.skip_fn) as f:
+            output = pickle.load(f)
+        return output
 
     def do(self):
         logging.info('Do function is called')

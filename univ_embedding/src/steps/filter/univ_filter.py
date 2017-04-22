@@ -1,6 +1,6 @@
 from filter import Filter
 
 
-class TranslatedFilter(Filter):
+class UnivFilter(Filter):
     def filter(self, input):
         raise NotImplementedError

@@ -14,16 +14,18 @@ class Step():
     def _log_cfg(self, section, key, value):
         logging.info('Conf param read: [{0}]: {1} - {2}'.format(section, key, value))
 
-    def get(self, cfg_key, type=None):
+    def get(self, cfg_key, type=None, section=None):
+        if section is None:
+            section = self.name
         if type is None:
-            value = self.config.get(self.name, cfg_key)
+            value = self.config.get(section, cfg_key)
         elif type == 'int':
-            value = self.config.getint(self.name, cfg_key)
+            value = self.config.getint(section, cfg_key)
         elif type == 'float':
-            value = self.config.getfloat(self.name, cfg_key)
+            value = self.config.getfloat(section, cfg_key)
         elif type == 'boolean':
-            value = self.config.getboolean(self.name, cfg_key)
-        self._log_cfg(self.name, cfg_key, value)
+            value = self.config.getboolean(section, cfg_key)
+        self._log_cfg(section, cfg_key, value)
         return value
 
     def save_output(self, output):

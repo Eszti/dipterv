@@ -5,8 +5,6 @@ import numpy as np
 import os
 import tensorflow as tf
 
-from helpers import create_timestamped_dir
-
 
 def _log_steps(l, step, starttime):
     currtime = int(round(time.time()))
@@ -27,9 +25,9 @@ def save_train_progress(output_dir, T1, T, A, step):
         _save_nparr(A_fn, A)
 
 def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, loss_crit=0.0001,
-          output_dir=None, end_cond=None, max_iter=None, verbose=False):
+          loss_crit_flag = True, output_dir=None, end_cond=None, max_iter=None, verbose=False):
     if output_dir is not None:
-        output_dir = create_timestamped_dir(output_dir)
+        os.makedirs(output_dir)
     starttime = int(round(time.time()))
     num_of_langs = W.shape[0]
     num_of_words = W[0].shape[0]
@@ -71,10 +69,11 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, loss_crit=0.0
                 _log_steps(l, step, starttime)
             if (step % 100000 == 0) and verbose:
                 save_train_progress(output_dir, T1, T, A, step)
-            if abs(l - l_prev) < loss_crit:
-                logging.info('Loss does not change anymore ({0}, {1}), finishing training at step: {2}'
-                             .format(l_prev, l, step))
-                break
+            if loss_crit_flag:
+                if abs(l - l_prev) < loss_crit:
+                    logging.info('Loss does not change anymore ({0}, {1}), finishing training at step: {2}'
+                                 .format(l_prev, l, step))
+                    break
             l_prev = l
             step += 1
         _log_steps(l, step, starttime)

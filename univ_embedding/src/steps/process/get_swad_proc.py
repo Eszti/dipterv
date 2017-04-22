@@ -3,6 +3,8 @@ import os
 
 from steps.process.process import Process
 
+# input : list of sil codes
+# output : lang : swad_list
 
 class GetSwadProcess(Process):
     def _get_output_desc(self):
@@ -19,9 +21,6 @@ class GetSwadProcess(Process):
         swad_root_dir = self.get('swad_root_dir')
         num = self.get('num', 'int')
         self.swad_dir = os.path.join(swad_root_dir, 'swadesh{}'.format(str(num)))
-
-    def init_for_skip(self):
-        raise NotImplementedError
 
     def _read_swadesh(self, swad_fn):
         with open(swad_fn) as f:
@@ -53,6 +52,3 @@ class GetSwadProcess(Process):
                     raise Exception('NOSwadesh')
             output[lang] = ls_swad
         return output
-
-    def _skip(self):
-        raise NotImplementedError

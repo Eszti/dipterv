@@ -14,6 +14,13 @@ def filter_list(list, idxs):
             output.append(item)
     return output
 
+def retain_list(list, idxs):
+    output = []
+    for i, item in enumerate(list):
+        if i in idxs:
+            output.append(item)
+    return output
+
 def get_rowwise_norm(embedding):
     sum = 0
     for row in embedding:
@@ -24,6 +31,11 @@ def get_rowwise_norm(embedding):
 def save_nparr(embed_fn, emb):
     with open(embed_fn, 'w') as f:
         np.save(f, emb)
+
+def load_nparr(embed_fn):
+    with open(embed_fn) as f:
+        emb = np.load(f)
+    return emb
 
 def _get_timestamp_str():
     time_str = time.strftime("%H%M_%S")
