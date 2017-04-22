@@ -29,6 +29,7 @@ class TranslateEmbProcess(Process):
         self.learning_rate = self.get('learning_rate', 'float')
         self.end_cond = self.get('end_cond', 'float')
         self.max_iter = self.get('max_iter', 'int')
+        self.loss_crit = self.get('loss_crit', 'float')
 
     def init_for_skip(self):
         section = self.name
@@ -50,7 +51,9 @@ class TranslateEmbProcess(Process):
             emb_list = list[1]
             not_found_idxs = find_all_indices(emb_list, None)
             emb_list_filtered = filter_list(emb_list, not_found_idxs)
-            emb_filtered = np.array(emb_list_filtered).astype(np.float32)
+            # Normalize and filter embedding for translation
+            emb_filtered = normalize(np.array(emb_list_filtered).astype(np.float32))
+            # Filter English embedding for translation
             eng_emb_filtered = np.delete(eng_emb, not_found_idxs, 0)
 
             W = np.ndarray(shape=(2, emb_filtered.shape[0],
@@ -60,6 +63,7 @@ class TranslateEmbProcess(Process):
             T1, T, A = train(W, num_steps=self.num_steps,
                              learning_rate=self.learning_rate,
                              output_dir=train_output,
+                             loss_crit=self.loss_crit,
                              end_cond=self.end_cond, max_iter=self.max_iter)
             translation = np.dot(eng_emb, T[0])
             for i, entry in enumerate(emb_list):
@@ -67,6 +71,7 @@ class TranslateEmbProcess(Process):
                     trans_list.append(translation[i])
                 else:
                     trans_list.append(entry)
+            # Normalize translated embedding
             trans_list_norm = normalize(np.array(trans_list).astype(np.float32))
             row_norm = get_rowwise_norm(trans_list_norm)
             logging.info('Embedding normalized, Frobenius norm: {0} embed len ({1})'
