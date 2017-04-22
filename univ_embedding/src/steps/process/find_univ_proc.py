@@ -11,6 +11,7 @@ from train import train
 # input : lang : swad_list, emb_full (norm), not_found_list
 # output : ( [lang : swad_list, emb_full (norm), not_found_list, T], univ(norm))
 
+# pre: TranslateEmbProcess
 class FindUnivProcess(Process):
     def _get_output_desc(self):
         raise NotImplementedError

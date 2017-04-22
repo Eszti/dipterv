@@ -6,15 +6,14 @@ from ConfigParser import ConfigParser
 import os
 
 from data_structures import GeneralParams
-from find_univ_proc import FindUnivProcess
 from helpers import create_timestamped_dir
 from steps.filter.embed_filter import EmbedFilter
 from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
+from steps.process.find_univ_proc import FindUnivProcess
 from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes_proc import GetLangCodesProcess
 from steps.process.get_swad_proc import GetSwadProcess
-from translate_emb_proc import TranslateEmbProcess
 
 # 1.:   get_lang_codes_proc     GetLangCodesProcess     Process
 #       long_codes_filter       LangCodesFilter         Filter
@@ -27,6 +26,7 @@ from translate_emb_proc import TranslateEmbProcess
 # 5 :   find_univ_proc          FindUnivProcess         Process
 #       univ_filter             UnivFilter              Filter
 # 6 :   evaluation_proc         EvaluationProcess       Process
+from steps.process.translate_emb_proc import TranslateEmbProcess
 
 
 def main(config_file, start, finish, output_dir):
