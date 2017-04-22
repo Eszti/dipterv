@@ -23,7 +23,7 @@ class TranslateEmbProcess(Process):
 
     def init_for_do(self):
         self.save_output = self.get('save_output', 'boolean')
-        if self.save_output:
+        if self.save_output_flag:
             self.output_dir = self.get('output_dir')
         self.num_steps = self.get('num_steps', 'int')
         self.learning_rate = self.get('learning_rate', 'float')
@@ -36,16 +36,17 @@ class TranslateEmbProcess(Process):
         self.input_dir = self.config.get(section, 'input_dir')
 
     def _do(self):
-        if self.save_output:
+        if self.save_output_flag:
             output_dir = create_timestamped_dir(os.path.join(self.output_dir, 'saved'))
         input = self.input
         output = input
         eng_emb = np.array(input['eng'][1]).astype(np.float32)
+        # Normalize English embedding
         eng_emb = normalize(eng_emb)
         for lang, list in input.iteritems():
             trans_list = []
             if lang == 'eng':
-                output[lang][1] = eng_emb
+                output[lang][1] = eng_emb       # we have to save this as well
                 continue
             train_output = os.path.join(self.output_dir, self.name, 'train_log', lang)
             emb_list = list[1]
@@ -80,7 +81,7 @@ class TranslateEmbProcess(Process):
             if abs(diff) > 0.01:
                 logging.warning('Something went wrong at normalizing, diff = {}'.format(diff))
             output[lang][1] = trans_list_norm
-            if self.save_output:
+            if self.save_output_flag:
                 filename = os.path.join(output_dir, '{}.npy'.format(lang))
                 save_nparr(filename, trans_list_norm)
                 logging.info('Translation of {0} is saved into {1}'.format(lang, filename))
