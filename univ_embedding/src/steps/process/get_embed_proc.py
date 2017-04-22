@@ -21,9 +21,8 @@ class GetEmbedProcess(Process):
         return desc
 
     def init_for_do(self):
-        section = self.name
-        self.emb_dir = self.config.get(section, 'emb_dir')
-        sil_to_fb_fn = self.config.get(section, 'sil_to_fb')
+        self.emb_dir = self.get('emb_dir')
+        sil_to_fb_fn = self.get( 'sil_to_fb')
         with open(sil_to_fb_fn) as f:
             self.sil_to_fb = json.load(f)
         logging.info('{0} of languages are found in {1} sil-to-fb mapping file'

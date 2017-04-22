@@ -16,9 +16,8 @@ class GetSwadProcess(Process):
         return desc
 
     def init_for_do(self):
-        section = self.name
-        swad_root_dir = self.config.get(section, 'swad_root_dir')
-        num = self.config.getint(section, 'num')
+        swad_root_dir = self.get('swad_root_dir')
+        num = self.get('num', 'int')
         self.swad_dir = os.path.join(swad_root_dir, 'swadesh{}'.format(str(num)))
 
     def init_for_skip(self):

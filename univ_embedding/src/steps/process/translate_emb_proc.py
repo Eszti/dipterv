@@ -22,14 +22,13 @@ class TranslateEmbProcess(Process):
         return desc
 
     def init_for_do(self):
-        section = self.name
-        self.save_output = self.config.getboolean(section, 'save_output')
+        self.save_output = self.get('save_output', 'boolean')
         if self.save_output:
-            self.output_dir = self.config.get(section, 'output_dir')
-        self.num_steps = self.config.getint(section, 'num_steps')
-        self.learning_rate = self.config.getfloat(section, 'learning_rate')
-        self.end_cond = self.config.getfloat(section, 'end_cond')
-        self.max_iter = self.config.getint(section, 'max_iter')
+            self.output_dir = self.get('output_dir')
+        self.num_steps = self.get('num_steps', 'int')
+        self.learning_rate = self.get('learning_rate', 'float')
+        self.end_cond = self.get('end_cond', 'float')
+        self.max_iter = self.get('max_iter', 'int')
 
     def init_for_skip(self):
         section = self.name

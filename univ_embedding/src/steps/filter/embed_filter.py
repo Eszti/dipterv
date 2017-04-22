@@ -18,8 +18,7 @@ class EmbedFilter(Filter):
         return desc
 
     def init_filter(self):
-        section = self.name
-        self.cutoff = self.config.getint(section, 'cutoff')
+        self.cutoff = self.get('cutoff', 'int')
 
     def filter(self, input):
         output = dict()

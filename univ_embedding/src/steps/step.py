@@ -11,6 +11,21 @@ class Step():
         self.starttime = genparams.starttime
         self.output_dir = genparams.output_dir
 
+    def _log_cfg(self, section, key, value):
+        logging.info('Conf param read: [{0}]: {1} - {2}'.format(section, key, value))
+
+    def get(self, cfg_key, type=None):
+        if type is None:
+            value = self.config.get(self.name, cfg_key)
+        elif type == 'int':
+            value = self.config.getint(self.name, cfg_key)
+        elif type == 'float':
+            value = self.config.getfloat(self.name, cfg_key)
+        elif type == 'boolean':
+            value = self.config.getboolean(self.name, cfg_key)
+        self._log_cfg(self.name, cfg_key, value)
+        return value
+
     def save_output(self, output):
         step_output_dir_name = os.path.join(self.output_dir, self.name)
         os.mkdir(step_output_dir_name)

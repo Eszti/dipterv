@@ -11,8 +11,7 @@ class GetLangCodesProcess(Process):
         return desc
 
     def init_for_do(self):
-        section = self.name
-        self.lang_codes_file = self.config.get(section, 'lang_codes')
+        self.lang_codes_file = self.get('lang_codes')
 
     def init_for_skip(self):
         raise NotImplementedError
