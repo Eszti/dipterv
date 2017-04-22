@@ -22,7 +22,7 @@ class TranslateEmbProcess(Process):
         return desc
 
     def init_for_do(self):
-        self.save_output = self.get('save_output', 'boolean')
+        self.save_output_flag = self.get('save_output', 'boolean')
         if self.save_output_flag:
             self.output_dir = self.get('output_dir')
         self.num_steps = self.get('num_steps', 'int')
