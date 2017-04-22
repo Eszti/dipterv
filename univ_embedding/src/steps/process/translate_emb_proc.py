@@ -85,7 +85,7 @@ class TranslateEmbProcess(Process):
             if abs(diff) > 0.01:
                 logging.warning('Something went wrong at normalizing, diff = {}'.format(diff))
             output[lang][1] = trans_list_norm
-            output(lang).append(not_found_idxs)
+            output[lang].append(not_found_idxs)
             if self.save_output_flag:
                 filename = os.path.join(save_output_dir, '{}.npy'.format(lang))
                 save_nparr(filename, trans_list_norm)

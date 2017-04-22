@@ -27,7 +27,7 @@ class GetEmbedProcess(Process):
         sil_to_fb_fn = self.get( 'sil_to_fb')
         with open(sil_to_fb_fn) as f:
             self.sil_to_fb = json.load(f)
-        logging.info('{0} of languages are found in {1} sil-to-fb mapping file'
+        logging.info('{0} languages are found in {1} sil-to-fb mapping file'
                      .format(len(self.sil_to_fb), sil_to_fb_fn))
 
     def _do(self):
