@@ -84,6 +84,7 @@ class TranslateEmbProcess(Process):
                 filename = os.path.join(output_dir, '{}.npy'.format(lang))
                 save_nparr(filename, trans_list_norm)
                 logging.info('Translation of {0} is saved into {1}'.format(lang, filename))
+        return output
 
     def _skip(self):
         raise NotImplementedError
