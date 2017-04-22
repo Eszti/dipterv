@@ -37,7 +37,7 @@ class TranslateEmbProcess(Process):
 
     def _do(self):
         if self.save_output:
-            output_dir = create_timestamped_dir(self.output_dir)
+            output_dir = create_timestamped_dir(os.path.join(self.output_dir, 'saved'))
         input = self.input
         output = input
         eng_emb = np.array(input['eng'][1]).astype(np.float32)
