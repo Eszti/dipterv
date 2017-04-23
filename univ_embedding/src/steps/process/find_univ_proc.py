@@ -100,7 +100,8 @@ class FindUnivProcess(Process):
                          T_initial=T_init,
                          T1_initial=T1_init,
                          A_initial=A_init,
-                         step_initial=step)
+                         step_initial=step,
+                         verbose=True)
         # Save output
         T1_fn = os.path.join(save_output_dir, 'T1.npy')
         T_fn = os.path.join(save_output_dir, 'T.npy')
