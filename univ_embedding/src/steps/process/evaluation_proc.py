@@ -3,11 +3,12 @@ import csv
 import os
 
 from process import Process
+from steps.eval.basic_eval import BasicEvaluation
+from steps.eval.top_n_eval import TopNEvaluation
 
-from steps.eval.basic_eval import BasicEval
 
-# input : ( [lang : swad_list, emb_full (norm), emb_fn, not_found_list, T], univ(norm))
 class EvaluationProcess(Process):
+# input : ( [lang : swad_list, emb_full (norm), emb_fn, not_found_list, T], univ(norm))
     def save_output(self, output):
         pass
 
@@ -21,7 +22,9 @@ class EvaluationProcess(Process):
         self.evals = []
         for eval_str in eval_strs:
             if eval_str == 'basic':
-                self.evals.append(BasicEval('basic_eval'))
+                self.evals.append(BasicEvaluation('basic_eval', self.config))
+            if eval_str == 'top_n':
+                self.evals.append(TopNEvaluation('top_n_eval', self.config))
         self.output_dir_name = os.path.join(self.output_dir, self.name)
         os.mkdir(self.output_dir_name)
 

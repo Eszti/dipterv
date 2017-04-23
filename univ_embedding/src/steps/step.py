@@ -10,6 +10,7 @@ class Step():
         self.config = genparams.config
         self.starttime = genparams.starttime
         self.output_dir = genparams.output_dir
+        self.save_if_load = self.get('save_if_load', section='load', type='boolean')
 
     def _log_cfg(self, section, key, value):
         logging.info('Conf param read: [{0}]: {1} - {2}'.format(section, key, value))

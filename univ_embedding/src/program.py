@@ -10,7 +10,7 @@ from helpers import create_timestamped_dir
 from steps.filter.embed_filter import EmbedFilter
 from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
-from steps.process.evaluatiion_proc import EvaluationProcess
+from steps.process.evaluation_proc import EvaluationProcess
 from steps.process.find_univ_proc import FindUnivProcess
 from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes_proc import GetLangCodesProcess
@@ -57,7 +57,7 @@ def main(config_file, start, finish, output_dir):
     # step 3
     if start == 3:
         do_flag = True
-    if start - 3 == 3:
+    if start - 1 == 3:
         load_flag = True
     steps.append((GetEmbedProcess('get_embed_proc', genparams), do_flag, load_flag))              # 3
     steps.append((EmbedFilter('embed_filter', genparams), do_flag, load_flag))
@@ -70,7 +70,7 @@ def main(config_file, start, finish, output_dir):
     # step 5
     if start == 5:
         do_flag = True
-    if start == 5:
+    if start - 1 == 5:
         load_flag = True
     steps.append((FindUnivProcess('find_univ_proc', genparams), do_flag, load_flag))              # 5
     # step 6

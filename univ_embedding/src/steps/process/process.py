@@ -18,7 +18,6 @@ class Process(Step):
         raise NotImplementedError
 
     def init_for_load(self):
-        self.save_if_load = self.get('save_if_load', section='load', type='boolean')
         skip_root = self.get('load_input_dir', section='load')
         self.load_fn = os.path.join(skip_root, self.name, '{}.pickle'.format(self.name))
 
