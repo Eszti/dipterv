@@ -31,11 +31,11 @@ class Process(Step):
         return output
 
     def do(self):
-        logging.info('Do function is called')
+        logging.info('DO function is called')
         self.init_for_do()
         return self._do()
 
     def skip(self):
-        logging.info('Skip function is called')
+        logging.info('SKIP function is called')
         self.init_for_skip()
         return self._skip()

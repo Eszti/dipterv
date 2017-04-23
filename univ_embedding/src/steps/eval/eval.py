@@ -1,3 +1,4 @@
+import logging
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -15,8 +16,14 @@ class Eval():
                 mx[j][i] = sim
         return mx
 
-    def evalute(self, input):
+    def _evalute(self, input):
         raise NotImplementedError
+
+    def evalute(self, input):
+        logging.info('Evaluation {} has started'.format(self.name))
+        output = self._evalute(input)
+        logging.info('Evaluation {} has finished'.format(self.name))
+        return output
 
     def save_result(self, header, result, fn):
         raise NotImplementedError

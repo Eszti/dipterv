@@ -10,6 +10,7 @@ from helpers import create_timestamped_dir
 from steps.filter.embed_filter import EmbedFilter
 from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
+from steps.process.evaluatiion_proc import EvaluationProcess
 from steps.process.find_univ_proc import FindUnivProcess
 from steps.process.get_embed_proc import GetEmbedProcess
 from steps.process.get_lang_codes_proc import GetLangCodesProcess
@@ -56,6 +57,9 @@ def main(config_file, start, finish, output_dir):
     if start == 5:
         do_flag = True
     steps.append((FindUnivProcess('find_univ_proc', genparams), do_flag))              # 5
+    if start == 6:
+        do_flag = True
+    steps.append((EvaluationProcess('evaluation_proc', genparams), do_flag))           # 6
     input = None
     i = 1
     for (step, do) in steps:
@@ -71,7 +75,8 @@ if __name__ == '__main__':
     starttime = int(round(time.time()))
     os.nice(20)
     parser = argparse.ArgumentParser(description='Pipeline for creating universal embedding.')
-    parser.add_argument('-c', '--config', type=str, dest='config_file', help='config file')
+    parser.add_argument('-c', '--config', type=str, dest='config_file'
+                        , help='config file')
     parser.add_argument('-s', '--start', type=int, dest='start',
                         help='start processing from this step, steps before will be loaded by the skip method')
     parser.add_argument('-f', '--finish', type=int, dest='finish',

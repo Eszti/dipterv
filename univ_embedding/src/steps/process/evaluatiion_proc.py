@@ -2,11 +2,11 @@ import csv
 
 import os
 
-from basic_eval import BasicEval
 from process import Process
 
-# input : ( [lang : swad_list, emb_full (norm), not_found_list, T], univ(norm))
+from steps.eval.basic_eval import BasicEval
 
+# input : ( [lang : swad_list, emb_full (norm), emb_fn, not_found_list, T], univ(norm))
 class EvaluationProcess(Process):
     def save_output(self, output):
         pass
@@ -21,7 +21,7 @@ class EvaluationProcess(Process):
         self.evals = []
         for eval_str in eval_strs:
             if eval_str == 'basic':
-                self.evals.append(BasicEval)
+                self.evals.append(BasicEval('basic_eval'))
         self.output_dir_name = os.path.join(self.output_dir, self.name)
         os.mkdir(self.output_dir_name)
 
@@ -29,6 +29,6 @@ class EvaluationProcess(Process):
         input = self.input
         for eval in self.evals:
             output = eval.evalute(input)
-            filename = os.path.join(self.output_dir_name, '{}.csv'.format(self.name))
+            filename = os.path.join(self.output_dir_name, '{}.csv'.format(eval.name))
             self.save_eval(filename, output)
         return input
