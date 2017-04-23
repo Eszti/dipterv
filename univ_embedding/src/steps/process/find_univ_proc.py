@@ -4,7 +4,7 @@ import numpy as np
 import os
 from sklearn.preprocessing import normalize
 
-from helpers import create_timestamped_dir, save_nparr, get_rowwise_norm
+from helpers import create_timestamped_dir, save_nparr, get_rowwise_norm, load_nparr
 from process import Process
 from steps.train import train
 
@@ -25,6 +25,36 @@ class FindUnivProcess(Process):
         self.max_iter = self.get('max_iter', 'int')
         self.loss_crit = self.get('loss_crit', 'float')
         self.loss_crit_flag = self.get('loss_crit_flag', 'boolean')
+        self.cont = self.get('continue', 'boolean')
+        self.dir_for_initials = self.get('dir_for_initials')
+
+    def _init_for_cont(self):
+        dir = self.dir_for_initials
+        filenames = [fn for fn in os.listdir(dir)]
+        step_str = filenames[0].split('_')[1].split('.')[0]
+        step = int(step_str)
+        logging.info('Step is set to {}'.format(step))
+        T1_path = os.path.join(dir, 'T1_{}.npy'.format(step))
+        logging.info('Loading T1 from {}'.format(T1_path))
+        T1_init = load_nparr(T1_path)
+        T_path = os.path.join(dir, 'T_{}.npy'.format(step))
+        logging.info('Loading T from {}'.format(T_path))
+        T_init = load_nparr(T_path)
+        A_path = os.path.join(dir, 'A_{}.npy'.format(step))
+        logging.info('Loading A from {}'.format(A_path))
+        A_init = load_nparr(A_path)
+        skip_input_dir = self.get('skip_input_dir', section='skip')
+        log_fn = os.path.join(skip_input_dir, 'log.txt')
+        logging.info('Reconstruct language order from log file: {}'.format(log_fn))
+        lang_list = []
+        with open(log_fn) as f:
+            lines = f.readlines()
+            for line in lines:
+                if 'is in position' in  line:
+                    sil = line.split(' ')[3].lower()
+                    lang_list.append(sil)
+        logging.debug(lang_list)
+        return step, T1_init, T_init, A_init, lang_list
 
     def _do(self):
         ts_output_dir = create_timestamped_dir(os.path.join(self.trans_output_dir))
@@ -34,6 +64,15 @@ class FindUnivProcess(Process):
         os.makedirs(train_output)
         input = self.input
         output = input
+        # Whether we should continue
+        T1_init, T_init, A_init = None, None, None
+        if self.cont:
+            logging.info('Continue training!')
+            step, T1_init, T_init_raw, A_init, lang_list = self._init_for_cont()
+            T_init = np.ndarray(shape=(T_init_raw.shape[0], T_init_raw.shape[1], T_init_raw.shape[2]), dtype=np.float32)
+        else:
+            T1_init, T_init, A_init = None, None, None
+            step = 0
         eng_emb = input['eng'][1]
         W = np.ndarray(shape=(len(input), eng_emb.shape[0], eng_emb.shape[1]), dtype=np.float32)
         W[0, :, :] = eng_emb
@@ -47,14 +86,21 @@ class FindUnivProcess(Process):
             lang_pos[lang] = i
             emb = list[1]
             W[i, :, :] = emb
+            if self.cont:
+                T_init[i-1, :, :] = T_init_raw[lang_list.index(lang) - 1, :, :]
             i += 1
+
         T1, T, A = train(W, num_steps=self.num_steps,
                          learning_rate=self.learning_rate,
                          output_dir=train_output,
                          loss_crit=self.loss_crit,
                          loss_crit_flag=self.loss_crit_flag,
                          end_cond=self.end_cond,
-                         max_iter=self.max_iter)
+                         max_iter=self.max_iter,
+                         T_initial=T_init,
+                         T1_initial=T1_init,
+                         A_initial=A_init,
+                         step_initial=step)
         # Save output
         T1_fn = os.path.join(save_output_dir, 'T1.npy')
         T_fn = os.path.join(save_output_dir, 'T.npy')

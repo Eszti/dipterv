@@ -24,8 +24,19 @@ def save_train_progress(output_dir, T1, T, A, step):
         _save_nparr(T_fn, T)
         _save_nparr(A_fn, A)
 
-def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, loss_crit=0.0001,
-          loss_crit_flag = True, output_dir=None, end_cond=None, max_iter=None, verbose=False):
+def train(W, learning_rate=0.01,
+          num_steps=1001,
+          t1_identity=True,
+          loss_crit=0.0001,
+          loss_crit_flag = True,
+          output_dir=None,
+          end_cond=None,
+          max_iter=None,
+          verbose=False,
+          T1_initial=None,
+          T_initial=None,
+          A_initial=None,
+          step_initial=0):
     starttime = int(round(time.time()))
     num_of_langs = W.shape[0]
     num_of_words = W[0].shape[0]
@@ -37,11 +48,24 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, loss_crit=0.0
         tf_W = tf.constant(W)
         if t1_identity:
             tf_T1 = tf.constant(np.identity(dim_of_emb).astype(np.float32))  # T1 = identity
+            logging.info('T1 is set to constant identity')
         # Variables.
+        # Init T1
         if not t1_identity:
-            tf_T1 = tf.Variable(tf.truncated_normal([dim_of_emb, dim_of_emb]))
-        tf_T = tf.Variable(tf.truncated_normal([num_of_langs - 1, dim_of_emb, dim_of_emb]))
-        tf_A = tf.Variable(tf.truncated_normal([num_of_words, dim_of_emb]))
+            if T1_initial is not None:
+                tf_T1 = tf.Variable(T1_initial)
+            else:
+                tf_T1 = tf.Variable(tf.truncated_normal([dim_of_emb, dim_of_emb]))
+        # Init T
+        if T_initial is not None:
+            tf_T = tf.Variable(T_initial)
+        else:
+            tf_T = tf.Variable(tf.truncated_normal([num_of_langs - 1, dim_of_emb, dim_of_emb]))
+        # Init A
+        if A_initial is not None:
+            tf_A = tf.Variable(A_initial)
+        else:
+            tf_A = tf.Variable(tf.truncated_normal([num_of_words, dim_of_emb]))
         # Training computation
         loss = tf.norm(tf.matmul(tf_W[0], tf_T1) - tf_A)  # T1 may be constant
         for i in range(1, num_of_langs):
@@ -55,7 +79,7 @@ def train(W, learning_rate=0.01, num_steps=1001, t1_identity=True, loss_crit=0.0
         # we described in the graph
         tf.global_variables_initializer().run()
         logging.info('Training session is initialized, starting training...')
-        step = 0
+        step = step_initial
         l = float("inf")
         l_prev = l
         while ((step < num_steps) and (num_steps != 0)) or ((num_steps == 0) and (end_cond < l)):
