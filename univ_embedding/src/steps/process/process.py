@@ -12,21 +12,22 @@ class Process(Step):
         if do:
             return self.do()
         else:
-            return self.skip()
+            return self.load()
 
     def init_for_do(self):
         raise NotImplementedError
 
-    def init_for_skip(self):
-        skip_root = self.get('skip_input_dir', section='skip')
-        self.skip_fn = os.path.join(skip_root, self.name, '{}.pickle'.format(self.name))
+    def init_for_load(self):
+        self.save_if_load = self.get('save_if_load', section='load', type='boolean')
+        skip_root = self.get('load_input_dir', section='load')
+        self.load_fn = os.path.join(skip_root, self.name, '{}.pickle'.format(self.name))
 
     def _do(self):
         raise NotImplementedError
 
-    def _skip(self):
-        logging.info('Loading input from: {}'.format(self.skip_fn))
-        with open(self.skip_fn) as f:
+    def _load(self):
+        logging.info('Loading input from: {}'.format(self.load_fn))
+        with open(self.load_fn) as f:
             output = pickle.load(f)
         return output
 
@@ -35,7 +36,7 @@ class Process(Step):
         self.init_for_do()
         return self._do()
 
-    def skip(self):
-        logging.info('SKIP function is called')
-        self.init_for_skip()
-        return self._skip()
+    def load(self):
+        logging.info('LOAD function is called')
+        self.init_for_load()
+        return self._load()

@@ -10,7 +10,6 @@ class Step():
         self.config = genparams.config
         self.starttime = genparams.starttime
         self.output_dir = genparams.output_dir
-        self.save_if_skip = self.get('save_if_skip', section='skip', type='boolean')
 
     def _log_cfg(self, section, key, value):
         logging.info('Conf param read: [{0}]: {1} - {2}'.format(section, key, value))
@@ -47,16 +46,20 @@ class Step():
             f.writelines(desc)
         logging.info('Descriptor file has been saved to {}'.format(filename))
 
-    def run(self, input, do=False):
+    def run(self, input, do=False, load=False):
         logging.info('Starting step {}...'.format(self.name.upper()))
-        output = self._run(input, do)
-        if do or self.save_if_skip:
-            logging.info('Saving output at the end of the step')
-            self.save_output(output)
-            self.create_output_descriptor()
+        if not do and not load:
+            logging.info('Skipping step {} both do and load set to false'. format(self.name.upper()))
+            output = None
         else:
-            logging.info('Skipping saving output at the end of the step')
-        logging.info('Finishing step {}...'.format(self.name.upper()))
+            output = self._run(input, do)
+            if do or self.save_if_load:
+                logging.info('Saving output at the end of the step')
+                self.save_output(output)
+                self.create_output_descriptor()
+            else:
+                logging.info('Skipping saving output at the end of the step')
+            logging.info('Finishing step {}...'.format(self.name.upper()))
         return output
 
     def _run(self, input, do=False):
