@@ -2,8 +2,10 @@ import csv
 
 import os
 
+from data_structures import GeneralParams
 from process import Process
 from steps.eval.basic_eval import BasicEvaluation
+from steps.eval.swad_eval import SwadeshEvaluation
 from steps.eval.top_n_eval import TopNEvaluation
 
 
@@ -18,13 +20,19 @@ class EvaluationProcess(Process):
             wr.writerows(data)
 
     def init_for_do(self):
+        genparams = GeneralParams(self.starttime, self.config, self.output_dir)
         eval_strs = self.get('evals').split('|')
         self.evals = []
         for eval_str in eval_strs:
             if eval_str == 'basic':
-                self.evals.append(BasicEvaluation('basic_eval', self.config))
+                name = os.path.join(self.name, 'basic_eval')
+                self.evals.append(BasicEvaluation(name, genparams))
             if eval_str == 'top_n':
-                self.evals.append(TopNEvaluation('top_n_eval', self.config))
+                name = os.path.join(self.name, 'top_n_eval')
+                self.evals.append(TopNEvaluation(name, genparams))
+            if eval_str == 'swad':
+                name = os.path.join(self.name, 'swad_eval')
+                self.evals.append(SwadeshEvaluation(name, genparams))
         self.output_dir_name = os.path.join(self.output_dir, self.name)
         os.mkdir(self.output_dir_name)
 
@@ -32,6 +40,6 @@ class EvaluationProcess(Process):
         input = self.input
         for eval in self.evals:
             output = eval.evalute(input)
-            filename = os.path.join(self.output_dir_name, '{}.csv'.format(eval.name))
+            filename = os.path.join(self.output_dir_name, '{}.csv'.format(eval.fn))
             self.save_eval(filename, output)
         return input

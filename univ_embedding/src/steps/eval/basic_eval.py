@@ -1,13 +1,13 @@
 import numpy as np
-import scipy.stats
 from sklearn.preprocessing import normalize
 
 from steps.eval.langwise_eval import LangWiseEvaluation
 
+
 class BasicEvaluation(LangWiseEvaluation):
 # input : ( [lang : swad_list, emb_full (norm), emb_fn, not_found_list, T], univ(norm))
 
-    def init_for_eval(self):
+    def _init_for_eval(self):
         pass
 
     def get_header(self):

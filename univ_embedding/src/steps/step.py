@@ -7,6 +7,7 @@ __metaclass__ = type
 class Step():
     def __init__(self, name, genparams):
         self.name = name
+        self.fn = self.name.split('/')[-1]
         self.config = genparams.config
         self.starttime = genparams.starttime
         self.output_dir = genparams.output_dir
@@ -31,8 +32,8 @@ class Step():
 
     def save_output(self, output):
         step_output_dir_name = os.path.join(self.output_dir, self.name)
-        os.mkdir(step_output_dir_name)
-        filename = os.path.join(step_output_dir_name, '{}.pickle'.format(self.name))
+        os.makedirs(step_output_dir_name)
+        filename = os.path.join(step_output_dir_name, '{}.pickle'.format(self.fn))
         with open(filename, 'w') as f:
             pickle.dump(output, f)
         logging.info('Output has been saved to {}'.format(filename))

@@ -8,17 +8,11 @@ def find_all_indices(list, val):
     return idxs
 
 def filter_list(list, idxs):
-    output = []
-    for i, item in enumerate(list):
-        if i not in idxs:
-            output.append(item)
+    output = [list[i] for i in range(len(list)) if i not in idxs]
     return output
 
 def retain_list(list, idxs):
-    output = []
-    for i, item in enumerate(list):
-        if i in idxs:
-            output.append(item)
+    output = [list[i] for i in idxs]
     return output
 
 def get_rowwise_norm(embedding):

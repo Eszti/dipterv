@@ -1,16 +1,23 @@
 import logging
+
 import numpy as np
 import scipy
 from scipy import spatial
-from sklearn.metrics.pairwise import cosine_similarity
 
 class Evaluation():
-    def __init__(self, name, config):
+    def __init__(self, name, genparams):
         self.name = name
-        self.config = config
+        self.fn = name.split('/')[-1]
+        self.starttime = genparams.starttime
+        self.config = genparams.config
+        self.output_dir = genparams.output_dir
 
-    def init_for_eval(self):
+    def _init_for_eval(self):
         raise NotImplementedError
+
+    def init_for_eval(self, input):
+        self.input = input
+        self._init_for_eval()
 
     def _log_cfg(self, section, key, value):
         logging.info('Conf param read: [{0}]: {1} - {2}'.format(section, key, value))
@@ -39,12 +46,18 @@ class Evaluation():
         corr = scipy.stats.pearsonr(flat1, flat2)
         return corr
 
-    def _evalute(self, input):
+    def cos_corr(self, emb1, emb2):
+        cos1 = self._get_cos_sim_mx(emb1)
+        cos2 = self._get_cos_sim_mx(emb2)
+        corr = self._corr_cos_sims(cos1, cos2)
+        return corr
+
+    def _evalute(self):
         raise NotImplementedError
 
     def evalute(self, input):
-        logging.info('Evaluation {} has started'.format(self.name))
-        self.init_for_eval()
-        output = self._evalute(input)
-        logging.info('Evaluation {} has finished'.format(self.name))
+        logging.info('EVALUATION {} has started'.format(self.name.upper()))
+        self.init_for_eval(input)
+        output = self._evalute()
+        logging.info('EVALUATION {} has finished'.format(self.name.upper()))
         return output

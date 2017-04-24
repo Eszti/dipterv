@@ -9,7 +9,7 @@ from steps.eval.langwise_eval import LangWiseEvaluation
 class TopNEvaluation(LangWiseEvaluation):
 # input : ( [lang : swad_list, emb_full (norm), emb_fn, not_found_list, T], univ(norm))
 
-    def init_for_eval(self):
+    def _init_for_eval(self):
         self.top = self.get('top', 'int')
 
     def get_header(self):
@@ -40,9 +40,7 @@ class TopNEvaluation(LangWiseEvaluation):
                             .format(lang.upper(), self.top, embed_fn))
         logging.info('Loaded embedding length: {}'.format(len(emb_list)))
         emb = np.array(emb_list).astype(np.float32)
-        emb_cos = self._get_cos_sim_mx(emb)
         trans = np.dot(emb, T)
-        trans_cos = self._get_cos_sim_mx(trans)
-        pears = self._corr_cos_sims(emb_cos, trans_cos)
+        pears = self.cos_corr(emb, trans)
         row.append(pears)
         return row

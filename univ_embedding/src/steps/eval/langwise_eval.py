@@ -10,7 +10,8 @@ class LangWiseEvaluation(Evaluation):
     def get_row_values(self, lang, list, univ, univ_cos):
         raise NotImplementedError
 
-    def _evalute(self, input):
+    def _evalute(self):
+        input = self.input
         headers = self.get_header()
         logging.debug('Headers: {}'.format(headers))
         data = input[0]
@@ -19,6 +20,7 @@ class LangWiseEvaluation(Evaluation):
         results = []
         results.append(headers)
         for lang, list in data.iteritems():
+            logging.info('Processing {}'.format(lang.upper()))
             row = []
             row.append(lang)
             row += self.get_row_values(lang, list, univ, univ_cos)

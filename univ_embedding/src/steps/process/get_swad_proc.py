@@ -3,10 +3,14 @@ import os
 
 from steps.process.process import Process
 
+
+class GetSwadProcess(Process):
 # input : list of sil codes
 # output : lang : swad_list_mul
 
-class GetSwadProcess(Process):
+    def __init__(self, name, genparams):
+        super(GetSwadProcess, self).__init__(name, genparams)
+
     def _get_output_desc(self):
         return 'input : list of sil codes\n' \
                'output : lang : swad_list'
@@ -32,17 +36,16 @@ class GetSwadProcess(Process):
         output = dict()
         langs = self.input
         for lang in langs:
-            swad_fn = os.path.join(self.swad_dir, '{}-000.txt'.format(lang))
-            try:
+            swad_fns = [filename for filename in os.listdir(self.swad_dir) if filename.startswith(lang)]
+            logging.info('{0} number of swad lists are found {1}'.format(len(swad_fns), swad_fns))
+            if len(swad_fns) > 0:
+                swad_min = min(swad_fns)
+                swad_fn = os.path.join(self.swad_dir, swad_min)
+                logging.info('Swadesh list {} is used'.format(swad_fn))
                 ls_swad = self._read_swadesh(swad_fn)
-            except:
-                logging.warning('{0} does not exist'.format(swad_fn))
-                try:
-                    swad_fn2 = swad_fn.replace('000', '001')
-                    ls_swad = self._read_swadesh(swad_fn2)
-                    logging.warning('{0} is used'.format(swad_fn2))
-                except:
-                    logging.warning('{0} does not exist EITHER'.format(swad_fn2))
-                    raise Exception('NOSwadesh')
+            else:
+                logging.warning('Skipping language : {}'.format(lang.upper()))
+                continue
             output[lang] = ls_swad
+        logging.info('{} languages are found'.format(len(output)))
         return output

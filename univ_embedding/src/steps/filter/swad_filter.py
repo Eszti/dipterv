@@ -1,9 +1,10 @@
 from steps.filter.filter import Filter
 
+
+class SwadFilter(Filter):
 # input : lang : swad_list
 # output : lang : swad_list_single_entry
 
-class SwadFilter(Filter):
     def _get_output_desc(self):
         return 'lang : swad_list\n' \
                'lang : swad_list_single_entry'

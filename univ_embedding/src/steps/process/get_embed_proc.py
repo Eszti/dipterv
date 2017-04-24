@@ -6,10 +6,11 @@ import os
 from helpers import find_all_indices
 from steps.process.process import Process
 
+
+class GetEmbedProcess(Process):
 # input : lang : swad_list
 # output : lang : swad_list, raw_emb_list, emb_fn, not_found_list
 
-class GetEmbedProcess(Process):
     def _get_output_desc(self):
         return 'input : lang : swad_list\n' \
                'output : lang : swad_list, raw_emb_list, emb_fn, not_found_list'
