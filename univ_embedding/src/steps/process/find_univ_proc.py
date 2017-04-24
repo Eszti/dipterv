@@ -43,7 +43,7 @@ class FindUnivProcess(Process):
         A_path = os.path.join(dir, 'A_{}.npy'.format(step))
         logging.info('Loading A from {}'.format(A_path))
         A_init = load_nparr(A_path)
-        skip_input_dir = self.get('skip_input_dir', section='skip')
+        skip_input_dir = self.get('load_input_dir', section='load')
         log_fn = os.path.join(skip_input_dir, 'log.txt')
         logging.info('Reconstruct language order from log file: {}'.format(log_fn))
         lang_list = []
