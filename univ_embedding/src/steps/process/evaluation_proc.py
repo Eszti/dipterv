@@ -16,7 +16,7 @@ class EvaluationProcess(Process):
 
     def save_eval(self, filename, data):
         with open(filename, 'wb') as resultFile:
-            wr = csv.writer(resultFile, dialect='excel')
+            wr = csv.writer(resultFile, dialect='excel-tab')
             wr.writerows(data)
 
     def init_for_do(self):
@@ -40,6 +40,6 @@ class EvaluationProcess(Process):
         input = self.input
         for eval in self.evals:
             output = eval.evalute(input)
-            filename = os.path.join(self.output_dir_name, '{}.csv'.format(eval.fn))
+            filename = os.path.join(self.output_dir_name, '{}.tsv'.format(eval.fn))
             self.save_eval(filename, output)
         return input

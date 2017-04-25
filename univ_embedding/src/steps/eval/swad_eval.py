@@ -40,7 +40,9 @@ class SwadeshEvaluation(LangWiseEvaluation):
 
     def get_header(self):
         headers = ['lang_code',
-                   'cos_swad_diff(orig, trans)'
+                   'cos_swad(orig, trans)',
+                   'train_on',
+                   'eval_on'
                     ]
         return headers
 
@@ -70,4 +72,6 @@ class SwadeshEvaluation(LangWiseEvaluation):
             logging.debug('Eval embed shape: {}'.format(emb_eval.shape))
             trans = np.dot(emb_eval, T)
             row.append(self.cos_corr(emb_eval, trans))
+            row.append(swad_orig_valid_len)
+            row.append(swad_eval_valid_len)
         return row

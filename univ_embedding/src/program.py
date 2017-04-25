@@ -46,7 +46,6 @@ def main(config_file, start, finish, output_dir):
     elif start - 1 == 1:
         load_flag = True
     steps.append((GetLangCodesProcess('get_lang_codes_proc', genparams), do_flag, load_flag))     # 1
-    steps.append((LangCodesFilter('lang_codes_filter', genparams), do_flag, load_flag))
     # step 2
     if start == 2:
         do_flag = True
@@ -67,6 +66,9 @@ def main(config_file, start, finish, output_dir):
     if start - 1 == 4:
         load_flag = True
     steps.append((TranslateEmbProcess('translate_emb_proc', genparams), do_flag, load_flag))      # 4
+    if load_flag:   # we want to filter if next step will be carried out
+        do_flag = True
+    steps.append((LangCodesFilter('lang_codes_filter', genparams), do_flag, load_flag))
     # step 5
     if start == 5:
         do_flag = True
