@@ -82,15 +82,19 @@ def train(W, learning_rate=0.01,
         step = step_initial
         l = float("inf")
         l_prev = l
+        first_step = True
         while ((step < num_steps) and (num_steps != 0)) or ((num_steps == 0) and (end_cond < l)):
             if (num_steps == 0) and max_iter is not None and step > max_iter:
                 break
             # Run the computations
             _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
-            if (step % 10000 == 0):
-                _log_steps(l, step, starttime)
-            if (step % 100000 == 0) and verbose:
-                save_train_progress(output_dir, T1, T, A, step)
+            if first_step:
+                _log_steps(l, step, starttime)      # for checking when continuing
+            else:
+                if (step % 10000 == 0):
+                    _log_steps(l, step, starttime)
+                if (step % 100000 == 0) and verbose:
+                    save_train_progress(output_dir, T1, T, A, step)
             if loss_crit_flag:
                 if abs(l - l_prev) < loss_crit:
                     logging.info('Loss does not change anymore ({0}, {1}), finishing training at step: {2}'
