@@ -90,6 +90,7 @@ def train(W, learning_rate=0.01,
             _, l, T1, T, A = session.run([optimizer, loss, tf_T1, tf_T, tf_A])
             if first_step:
                 _log_steps(l, step, starttime)      # for checking when continuing
+                first_step = False
             else:
                 if (step % 10000 == 0):
                     _log_steps(l, step, starttime)
