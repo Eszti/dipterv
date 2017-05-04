@@ -76,7 +76,7 @@ class FindUnivProcess(Process):
         eng_emb = input['eng'][1]
         W = np.ndarray(shape=(len(input), eng_emb.shape[0], eng_emb.shape[1]), dtype=np.float32)
         W[0, :, :] = eng_emb
-        logging.info('Embedding {0} is in position {1}'.format('eng', 0))
+        logging.info('Embedding {0} is in position {1}'.format('ENG', 0))
         lang_pos = dict()
         i = 1
         for lang, list in input.iteritems():

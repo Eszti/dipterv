@@ -50,50 +50,52 @@ def main(config_file, start, finish, output_dir):
         do_flag = True
     elif start - 1 == 1:
         load_flag = True
-    steps.append((GetLangCodesProcess('get_lang_codes_proc', genparams), do_flag, load_flag))     # 1
+    steps.append((GetLangCodesProcess('get_lang_codes_proc', genparams), do_flag, load_flag))                       # 1
     # step 2
-    if start == 2:
-        do_flag = True
-    if start - 1 == 2:
-        load_flag = True
-    steps.append((GetSwadProcess('get_swad_proc', genparams), do_flag, load_flag))                # 2
-    steps.append((SwadFilter('swad_filter', genparams), do_flag, load_flag))
-    # step 3
-    if start == 3:
-        do_flag = True
-    if start - 1 == 3:
-        load_flag = True
-    steps.append((GetEmbedProcess('get_embed_proc', genparams), do_flag, load_flag))              # 3
-    steps.append((EmbedFilter('embed_filter', genparams), do_flag, load_flag))
-    # step 4
-    if start == 4:
-        do_flag = True
-    if start - 1 == 4:
-        load_flag = True
-    steps.append((TranslateEmbProcess('translate_emb_proc', genparams), do_flag, load_flag))      # 4
-    if load_flag:   # we want to filter if next step will be carried out
-        do_flag = True
-    steps.append((LangCodesFilter('lang_codes_filter', genparams), do_flag, load_flag))
-    # step 5
-    if start == 5:
-        do_flag = True
-    if start - 1 == 5:
-        load_flag = True
-    steps.append((FindUnivProcess('find_univ_proc', genparams), do_flag, load_flag))              # 5
-    # step 6
-    if start == 6:
-        do_flag = True
-    if start - 1 == 6:
-        load_flag = True
-    steps.append((EvaluationProcess('evaluation_proc', genparams), do_flag, load_flag))           # 6
+    if finish != 1:
+        if start == 2:
+            do_flag = True
+        elif start - 1 == 2:
+            load_flag = True
+        steps.append((GetSwadProcess('get_swad_proc', genparams), do_flag, load_flag))                              # 2
+        steps.append((SwadFilter('swad_filter', genparams), do_flag, load_flag))
+        # step 3
+        if finish != 2:
+            if start == 3:
+                do_flag = True
+            elif start - 1 == 3:
+                load_flag = True
+            steps.append((GetEmbedProcess('get_embed_proc', genparams), do_flag, load_flag))                        # 3
+            steps.append((EmbedFilter('embed_filter', genparams), do_flag, load_flag))
+            # step 4
+            if finish != 3:
+                if start == 4:
+                    do_flag = True
+                elif start - 1 == 4:
+                    load_flag = True
+                steps.append((TranslateEmbProcess('translate_emb_proc', genparams), do_flag, load_flag))            # 4
+                if load_flag:   # we want to filter if next step will be carried out
+                    do_flag = True
+                steps.append((LangCodesFilter('lang_codes_filter', genparams), do_flag, load_flag))
+                # step 5
+                if finish != 4:
+                    if start == 5:
+                        do_flag = True
+                    elif start - 1 == 5:
+                        load_flag = True
+                    steps.append((FindUnivProcess('find_univ_proc', genparams), do_flag, load_flag))                # 5
+                    # step 6
+                    if finish != 5:
+                        if start == 6:
+                            do_flag = True
+                        elif start - 1 == 6:
+                            load_flag = True
+                        steps.append((EvaluationProcess('evaluation_proc', genparams), do_flag, load_flag))         # 6
     input = None
     i = 1
     for (step, do, load) in steps:
         output = step.run(input, do, load)
         input = output
-        if finish == i:
-            logging.info('Finishing now, finish was set to {}'.format(finish))
-            break
         i += 1
     output = input
 
@@ -118,5 +120,6 @@ if __name__ == '__main__':
                       file_log_level=logging.INFO,
                       file_log_format='%(asctime)s %(levelname)s %(message)s')
     logging.info('Starttime: {}'.format(starttime))
+
     logging.info('Start: {0} - Finish: {1}'.format(args.start, args.finish))
     main(args.config_file,  args.start, args.finish, output_dir)
