@@ -6,7 +6,7 @@ from ConfigParser import ConfigParser
 import os
 
 from data_structures import GeneralParams
-from helpers import create_timestamped_dir
+from helpers import create_timestamped_dir, configure_logging
 from steps.filter.embed_filter import EmbedFilter
 from steps.filter.lang_codes_filter import LangCodesFilter
 from steps.filter.swad_filter import SwadFilter
@@ -41,6 +41,11 @@ def main(config_file, start, finish, output_dir):
     # step 1
     if start == None:
         start = 1
+    if finish == None:
+        finish = 6
+    if start > finish:
+        logging.error('Start - finish conflict: {0} > {1}'.format(start, finish))
+        exit(1)
     if start == 1:
         do_flag = True
     elif start - 1 == 1:
@@ -107,9 +112,11 @@ if __name__ == '__main__':
     output_dir = create_timestamped_dir('output')
 
     logfile = os.path.join(output_dir, 'log.txt')
-    logging.basicConfig(filename=logfile, level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)s %(message)s',
-                        datefmt='%Y-%m-%d,%H:%M:%S')
+    configure_logging(console_log_level=logging.INFO,
+                      console_log_format='%(asctime)s %(levelname)s %(message)s',
+                      file_log_path=logfile,
+                      file_log_level=logging.INFO,
+                      file_log_format='%(asctime)s %(levelname)s %(message)s')
     logging.info('Starttime: {}'.format(starttime))
     logging.info('Start: {0} - Finish: {1}'.format(args.start, args.finish))
     main(args.config_file,  args.start, args.finish, output_dir)
