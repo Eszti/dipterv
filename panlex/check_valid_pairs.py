@@ -12,8 +12,8 @@ sil2fb_fn = '/home/eszti/projects/dipterv/notebooks/panlex/data/sil2fb.json'
 with open(sil2fb_fn) as f:
      sil2fb = json.load(f)
 
-# langs = ['spa', 'fra']
-langs = ['eng', 'hun', 'deu', 'ita', 'spa', 'fra']
+langs = ['spa', 'fra']
+# langs = ['eng', 'hun', 'deu', 'ita', 'spa', 'fra']
 
 pan_fold = '6_lang'
 emb_fold = '/mnt/permanent/Language/Multi/FB'
@@ -89,7 +89,7 @@ for sil in langs:
     for i, row in df_langs_plx[sil].iterrows():
         w = row[sil]
         if w in emb.model:
-            df.loc[df[sil] == w, 'found'] = True
+            df_langs_plx[sil].loc[df_langs_plx[sil][sil] == w, 'found'] = True
 
     # Save and stat
     tot = len(df_langs_plx[sil].index)
