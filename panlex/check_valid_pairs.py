@@ -5,15 +5,15 @@ import subprocess
 import os
 import pandas as pd
 
-from embedding import FasttextEmbedding
+from embedding import Word2VecEmbedding
 
 sil2fb_fn = '/home/eszti/projects/dipterv/notebooks/panlex/data/sil2fb.json'
 
 with open(sil2fb_fn) as f:
      sil2fb = json.load(f)
 
-langs = ['spa', 'fra']
-# langs = ['eng', 'hun', 'deu', 'ita', 'spa', 'fra']
+# langs = ['spa', 'fra']
+langs = ['eng', 'hun', 'deu', 'ita', 'spa', 'fra']
 
 pan_fold = '6_lang'
 emb_fold = '/mnt/permanent/Language/Multi/FB'
@@ -48,32 +48,28 @@ for lang_pair, df in df_dicts.items():
     lang1 = lang_pair[0]
     lang2 = lang_pair[1]
     if lang1 not in df_langs_plx:
-        df_langs_plx[lang1] = df[[lang1]].drop_duplicates()
+        df_langs_plx[lang1] = df[[lang1]].drop_duplicates().dropna()
     else:
-        df_langs_plx[lang1] = pd.concat([df_langs_plx[lang1], df[[lang1]]]).drop_duplicates()
+        df_langs_plx[lang1] = pd.concat([df_langs_plx[lang1], df[[lang1]]]).drop_duplicates().dropna()
     if lang2 not in df_langs_plx:
-        df_langs_plx[lang2] = df[[lang2]].drop_duplicates()
+        df_langs_plx[lang2] = df[[lang2]].drop_duplicates().dropna()
     else:
-        df_langs_plx[lang2] = pd.concat([df_langs_plx[lang2], df[[lang2]]]).drop_duplicates()
+        df_langs_plx[lang2] = pd.concat([df_langs_plx[lang2], df[[lang2]]]).drop_duplicates().dropna()
 logging.info('Tables for languages are created!')
 
 
-# Add found column
-for lang in df_langs_plx.keys():
-    df_langs_plx[lang] = df_langs_plx[lang].dropna()
-    df_langs_plx[lang] = df_langs_plx[lang].assign(found = False)
-
 # Language statistics
-header = ['lang', 'words', 'found']
+header = ['lang', 'words', 'found', 'emb']
 df_lang_stat = pd.DataFrame(columns = header)
 
 
 # Search for embeddings
+df_langs_found = dict()
 for sil in langs:
     fb = sil2fb[sil]
 
     # Get embedding
-    ext = 'bin'
+    ext = 'vec'
     emb_fn = os.path.join(emb_fold, 'wiki.{0}/wiki.{0}.{1}'.format(fb, ext))
     if ext == 'vec':
         p = subprocess.Popen(['wc', '-l', emb_fn], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -83,21 +79,23 @@ for sil in langs:
         lines = int(result.strip().split()[0])
         logging.info('# lines in embed file: {}'.format(lines))
     # Load embedding
-    emb = FasttextEmbedding(emb_fn)
+    emb = Word2VecEmbedding(emb_fn, 'word2vec_txt')
 
-    # Checking if vector in embedding exists for the words
-    for i, row in df_langs_plx[sil].iterrows():
-        w = row[sil]
-        if w in emb.model:
-            df_langs_plx[sil].loc[df_langs_plx[sil][sil] == w, 'found'] = True
+    # Checking if embedding can be found for panlex vocab words
+    n_pan = len(df_langs_plx[sil].index)
+    logging.info('# panlex vocab:  {}'.format(n_pan))
+    vocab = set(emb.model.vocab.keys())
+    df_emb = pd.DataFrame(list(vocab), columns=[sil])
+    n_emb = len(df_emb.index)
+    logging.info('# emb vocab:  {}'.format(n_emb))
+    df_found = df_langs_plx[sil].merge(df_emb)
+    df_found = df_found.assign(found = True)
+    df_langs_found[sil] = df_found
+    n_fou = len(df_found.index)
+    logging.info('# found vocab:  {}'.format(n_fou))
 
-    # Save and stat
-    tot = len(df_langs_plx[sil].index)
-    f = len(df_langs_plx[sil][df_langs_plx[sil]['found'] == True])
-    logging.info('# words: {}\t# found: {}'.format(tot, f))
-    found_fn = os.path.join(out_fold, '{}_found.tsv'.format(sil))
-    df_langs_plx[sil].to_csv(found_fn, sep='\t', index=False)
-    stat_row = pd.DataFrame([[lang, tot, f]], columns=header)
+    # Stat
+    stat_row = pd.DataFrame([[sil, n_pan, n_fou, n_emb]], columns=header)
     df_lang_stat = df_lang_stat.append(stat_row)
 
 
@@ -106,9 +104,11 @@ df_merged_dicts = dict()
 for lang_pair, df in df_dicts.items():
     lang1 = lang_pair[0]
     lang2 = lang_pair[1]
-    tmp1 = pd.merge(df, df_langs_plx[lang1], on=lang1)
-    tmp2 = pd.merge(tmp1, df_langs_plx[lang2], on=lang2)
-    df_merged_dicts[lang_pair] = tmp2
+    tmp1 = pd.merge(df, df_langs_found[lang1], on=lang1, how='left')
+    tmp2 = pd.merge(tmp1, df_langs_found[lang2], on=lang2, how='left')
+    df_merged_dicts[lang_pair] = tmp2.fillna(False)
+    merge_fn = os.path.join(out_fold, '{0}_{1}.tsv'.format(lang1, lang2))
+    df_merged_dicts[lang_pair].to_csv(merge_fn, sep='\t', index=False)
 
 
 # Save language statistics
