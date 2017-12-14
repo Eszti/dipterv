@@ -25,7 +25,7 @@ def print_debug(str):
 def print_verbose(str):
     logging.info(str)
 
-def save(T, lc, precs, i=None):
+def save(T, i=None):
     def _save(data, name, id, as_json=True):
         fn = os.path.join(output_dir, '{0}_{1}.json'.format(name, id))
         with open(fn, 'w') as f:
@@ -38,6 +38,4 @@ def save(T, lc, precs, i=None):
         id = 'final'
     else:
         id = str(i)
-    _save(lc, 'lc', id)
-    _save(precs, 'precs', id)
     _save(T,  'T', id)
