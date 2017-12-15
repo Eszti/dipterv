@@ -52,7 +52,16 @@ class LanguageConfig(Configable):
         self.name = strings.LANGUAGE_CONFIG_NAME
         self.langs = self.get('langs', type='list')
 
-class DataConfig(Configable):
+class EmbeddingConfig(Configable):
+    def __init__(self, cfg):
+        Configable.__init__(self, cfg)
+        self.config = cfg
+        self.name = strings.EMBEDDING_CONFIG_MAME
+        self.sil2fb_path = self.get('sil2fb_path')
+        self.path = self.get('path')
+        self.limit = self.get_optional('limit', type='int')
+
+class DataModelConfig(Configable):
     def __init__(self, cfg, typestr):
         Configable.__init__(self, cfg)
         self.config = cfg
@@ -70,5 +79,5 @@ class DataWrapperConfig(Configable):
         self.types = self.get('types', type='list')
         self.data_configs = dict()
         for typestr in self.types:
-            self.data_configs[typestr] = DataConfig(cfg, typestr)
+            self.data_configs[typestr] = DataModelConfig(cfg, typestr)
 

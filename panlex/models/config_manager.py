@@ -1,5 +1,7 @@
 import sys
 
+from data_model import DataModelWrapper
+
 sys.path.insert(0, 'utils')
 sys.path.insert(0, 'models')
 from configparser import ConfigParser
@@ -34,6 +36,11 @@ class ConfigManager:
         # Getting config models
         self.language_config = config_models.LanguageConfig(cfg=self.cfg)
         self.data_wrapper_config = config_models.DataWrapperConfig(cfg=self.cfg)
+        self.embedding_config = config_models.EmbeddingConfig(cfg=self.cfg)
+        # Getting models
+        self.data_wrapper_model = DataModelWrapper(data_wrapper_config=self.data_wrapper_config,
+                                                   embedding_config=self.embedding_config,
+                                                   language_config=self.language_config)
 
     def _get_config(self, config_files_list):
         config_files = [fn for fn in config_files_list if fn is not None]
