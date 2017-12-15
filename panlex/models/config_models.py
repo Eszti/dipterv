@@ -33,6 +33,9 @@ class Configable(Loggable):
             value = self.config.getboolean(section, cfg_key)
         elif type == 'list':
             value = self.config.get(section, cfg_key).split('|')
+        elif type == 'intlist':
+            value = self.config.get(section, cfg_key).split('|')
+            value = [int(x) for x in value]
         self._log_cfg(section, cfg_key, value)
         return value
 
@@ -80,4 +83,19 @@ class DataWrapperConfig(Configable):
         self.data_configs = dict()
         for typestr in self.types:
             self.data_configs[typestr] = DataModelConfig(cfg, typestr)
+
+class TrainingConfig(Configable):
+    def __init__(self, cfg):
+        Configable.__init__(self, cfg)
+        self.config = cfg
+        self.name = strings.TRAINING_CONFIG_NAME
+        self.lr_base = self.get('lr_base', type='float')
+        self.epochs = self.get('epochs', type='int')
+        self.iters = self.get_optional('iters', type='int')
+        self.svd = self.get('svd', type='boolean')
+        self.svd_f = self.get('svd_f',  type='int')
+        self.do_prec_calc = self.get('do_prec_calc', type='boolean')
+        self.prec_calc_strat = self.get('prec_calc_strat', type='int')
+        self.precs_to_calc = self.get_optional('precs_to_calc', type='intlist')
+
 

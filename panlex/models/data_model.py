@@ -10,12 +10,19 @@ from base.loggable import Loggable
 class DataModel(Loggable):
     def __init__(self, language_config, data_model_config, embedding_model):
         Loggable.__init__(self)
-        self.word_pairs_dict = dict()
-        self.dictionaries = dict()
+        # Configs
         self.language_config = language_config
         self.data_model_config = data_model_config
+        # Initialize
+        # lang1 - Lang2 : word pair list
+        self.word_pairs_dict = dict()
         self.get_word_pairs_dict()
+        # Lang1 - Lang2 : Lang1 - Lang2 dictionary
+        self.dictionaries = dict()
         self.get_two_lang_dictionaries(embedding_model)
+        # Lang : reduced amoung of word embeddings
+        self.filtered_models = dict()
+        self.get_filtered_models(embedding_model)
 
     def get_word_pairs_dict(self):
         done = set()
@@ -69,11 +76,11 @@ class DataModel(Loggable):
             updated_word_pairs[(l1, l2)] = updated_wp_l
             # Create dictioary
             self.logger.info('Creating dictionary for: {0}-{1}'.format(l1, l2))
-            l12, l21 = self._wp_list_2_dict(wp_l)
+            l12, l21 = self._wp_list_2_dict(updated_wp_l)
             self.dictionaries[(l1, l2)] = l12
             self.dictionaries[(l2, l1)] = l21
-            self.logger.info('# word in: {0}-{1}:\t{2}'.format(l1, l2, len(l12)))
-            self.logger.info('# word in: {0}-{1}:\t{2}'.format(l2, l1, len(l21)))
+            self.logger.info('# word in: {0}-{1}:\t{2}'.format(l1.upper(), l2, len(l12)))
+            self.logger.info('# word in: {0}-{1}:\t{2}'.format(l2.upper(), l1, len(l21)))
         self.word_pairs_dict = updated_word_pairs
 
     # Get dictionary fromm wordlist
@@ -91,6 +98,18 @@ class DataModel(Loggable):
                 l21[w2].append(w1)
         return l12, l21
 
+    def get_filtered_models(self, embedding_model):
+        dim = embedding_model.get_dim()
+        for ((l1, l2), d) in self.dictionaries.items():
+            filtered_mod = KeyedVectors()
+            filtered_mod.index2word = list(d.keys())
+            filtered_mod.syn0 = np.ndarray(shape=(len(filtered_mod.index2word), dim), dtype=np.float32)
+            # Adding embedding to train model
+            for i, w in enumerate(filtered_mod.index2word):
+                filtered_mod.syn0[i, :] = embedding_model.embeddings[l1][w]
+            self.logger.info('Filtered model: {0}-{1} contains {2} words'.
+                             format(l1.upper(), l2, len(filtered_mod.syn0)))
+            self.filtered_models[(l1, l2)] = filtered_mod
 
 class EmbeddingModel(Loggable):
     def __init__(self, language_config, embedding_config):
@@ -123,11 +142,11 @@ class DataModelWrapper(Loggable):
     def __init__(self, data_wrapper_config, embedding_config, language_config):
         Loggable.__init__(self)
         self.data_models = dict()
-        self.embeddig_model = EmbeddingModel(language_config=language_config, embedding_config=embedding_config)
+        self.embedding_model = EmbeddingModel(language_config=language_config, embedding_config=embedding_config)
         for (key, data_model_config) in data_wrapper_config.data_configs.items():
-            self.logger.info('Crating data model for {} ...'.format(key))
+            self.logger.info('Crating data model for {} ...'.format(key.upper()))
             self.data_models[key] = DataModel(language_config=language_config,
                                               data_model_config=data_model_config,
-                                              embedding_model=self.embeddig_model)
-        self.vector_size = self.embeddig_model.get_dim()
-        self.logger.info('Vector dimension: {}'.format(self.vector_size))
+                                              embedding_model=self.embedding_model)
+        self.dim = self.embedding_model.get_dim()
+        self.logger.info('Vector dimension: {}'.format(self.dim))

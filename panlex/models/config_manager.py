@@ -1,6 +1,7 @@
 import sys
 
 from data_model import DataModelWrapper
+from train_model import TrainMModel
 
 sys.path.insert(0, 'utils')
 sys.path.insert(0, 'models')
@@ -37,10 +38,15 @@ class ConfigManager:
         self.language_config = config_models.LanguageConfig(cfg=self.cfg)
         self.data_wrapper_config = config_models.DataWrapperConfig(cfg=self.cfg)
         self.embedding_config = config_models.EmbeddingConfig(cfg=self.cfg)
+        self.training_config = config_models.TrainingConfig(cfg=self.cfg)
         # Getting models
-        self.data_wrapper_model = DataModelWrapper(data_wrapper_config=self.data_wrapper_config,
+        self.data_model_wrapper = DataModelWrapper(data_wrapper_config=self.data_wrapper_config,
                                                    embedding_config=self.embedding_config,
                                                    language_config=self.language_config)
+        self.training_model = TrainMModel(train_config=self.training_config,
+                                          data_model_wrapper=self.data_model_wrapper,
+                                          language_config=self.language_config,
+                                          output_dir=self.output_dir)
 
     def _get_config(self, config_files_list):
         config_files = [fn for fn in config_files_list if fn is not None]
