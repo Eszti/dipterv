@@ -3,7 +3,7 @@ import copy
 import os
 sys.path.insert(0, 'utils')
 
-from io_helper import save_pickle
+from io_helper import save_pickle, save_json, list_to_csv
 from math_helper import calc_precision
 
 
@@ -74,7 +74,7 @@ class TrainMModel(Loggable):
                         emb1 = self.embeddings[l1][w1].reshape((1, 300))
                         emb2 = self.embeddings[l2][w2].reshape((1, 300))
                         # Todo: if we add "or j == 0" for some reason it's better in this mock example
-                        if (self.train_config.svd and i % self.train_config.svd_f == 0) or j == 0:
+                        if (self.train_config.svd and i % self.train_config.svd_f == 0):
                             _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
                                                         feed_dict={tf_w1: emb1,
                                                                    tf_w2: emb2,
@@ -99,7 +99,7 @@ class TrainMModel(Loggable):
                 loss_np_arr = np.asarray(loss_arr)
                 loss_epoch_avg = np.average(loss_np_arr)
                 self.logger.info('epoch:\t{0}\tavg sims: {1}'.format(i, loss_epoch_avg))
-                lc_arr.append(loss_epoch_avg)
+                lc_arr.append([str(i), str(loss_epoch_avg)])
 
                 if self.train_config.do_prec_calc:
                     # Calculate precision
@@ -149,4 +149,8 @@ class TrainMModel(Loggable):
         return T, lc_arr, precs_arr
 
     def run(self):
-        self.train()
+        T, lc_arr, precs_arr = self.train()
+        loss_fn = os.path.join(self.output_dir, strings.LOSS_FN)
+        prec_fn = os.path.join(self.output_dir, strings.PREC_FN)
+        list_to_csv(lc_arr, loss_fn)
+        save_pickle(precs_arr, prec_fn)
