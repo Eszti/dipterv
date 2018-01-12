@@ -41,3 +41,4 @@ def copy_files(output_dir, orig_files, logger=None):
             logger.debug('{} is copied to {}'.format(orig_fn, dest_fn))
         else:
             logger.debug('{} is copied to {}'.format(orig_fn, dest_fn))
+
