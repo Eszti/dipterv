@@ -5,7 +5,7 @@ import subprocess
 import os
 import pandas as pd
 
-from embedding import Word2VecEmbedding
+from OLD_TO_DEL.embedding import Word2VecEmbedding
 
 sil2fb_fn = '/home/eszti/projects/dipterv/notebooks/panlex/data/sil2fb.json'
 
