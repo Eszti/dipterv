@@ -12,7 +12,7 @@ def calc_precision(precs, model_src, model_tar, dict_scr_2_tar, logger):
     idx_tar = model_tar.index2word
 
     cos_mx = cosine_similarity(W_src, W_tar)
-    sim_mx = np.argsort(-cos_mx)
+    sim_mx = np.argsort(-cos_mx, axis=1)
     max_prec = max(precs)
     prec_cnt = np.zeros(shape=(1, max_prec))
     logger.debug('word: \ttranslations in dict: \tclosest words after translation: \t')
@@ -21,9 +21,7 @@ def calc_precision(precs, model_src, model_tar, dict_scr_2_tar, logger):
         value_words = dict_scr_2_tar[key_word]
         closest_words = []
         for j in range(max_prec):
-            ans = np.where(r == j)
-            idx_orig = ans[0][0]
-            word = idx_tar[idx_orig]
+            word = idx_tar[r[j]]
             closest_words.append(word)
             if word in value_words:
                 prec_cnt[0][j] = prec_cnt[0][j] + 1

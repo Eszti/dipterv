@@ -18,6 +18,7 @@ class TrainMModel(Loggable):
         self.train_config = train_config
         self.data_model_wrapper = data_model_wrapper
         self.langs = language_config.langs
+        self.logger.info('Language order: {0}'.format([(i, l) for i, l in enumerate(self.langs)]))
         self.dim = data_model_wrapper.dim
         self.train_data_model = self.data_model_wrapper.data_models[strings.TRAIN]
         self.embeddings = self.data_model_wrapper.embedding_model.embeddings

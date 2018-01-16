@@ -144,7 +144,7 @@ class DataModelWrapper(Loggable):
         self.data_models = dict()
         self.embedding_model = EmbeddingModel(language_config=language_config, embedding_config=embedding_config)
         for (key, data_model_config) in data_wrapper_config.data_configs.items():
-            self.logger.info('Crating data model for {} ...'.format(key.upper()))
+            self.logger.info('Creating data model for {} ...'.format(key.upper()))
             self.data_models[key] = DataModel(language_config=language_config,
                                               data_model_config=data_model_config,
                                               embedding_model=self.embedding_model)
