@@ -128,16 +128,15 @@ class TrainMModel(Loggable):
                                                      self.train_data_model.dictionaries[(l2, l1)],
                                                      self.logger)
                         elif self.train_config.prec_calc_strat == 1:
-                            # Todo: should be done this way
                             m1 = copy.deepcopy(self.embeddings[l1])
                             m2 = copy.deepcopy(self.embeddings[l2])
+                            m1.syn0 = np.dot(m1.syn0, T1)
+                            m2.syn0 = np.dot(m2.syn0, T2)
                             # Prec l1 - l2
-                            m1_tr.syn0 = np.dot(m1_tr.syn0, T1)
                             precs_1 = calc_precision(self.train_config.precs_to_calc, m1_tr, m2,
                                                      self.train_data_model.dictionaries[(l1, l2)],
                                                      self.logger)
                             # Prec l2 - l1
-                            m2_tr.syn0 = np.dot(m2_tr.syn0, T2)
                             precs_2 = calc_precision(self.train_config.precs_to_calc, m2_tr, m1,
                                                      self.train_data_model.dictionaries[(l2, l1)],
                                                      self.logger)
