@@ -12,6 +12,7 @@ TRAIN_MODEL_NAME = 'train_mod'
 
 # Procedures
 TRAIN = 'train'
+TEST = 'test'
 
 # File names
 LOSS_FN = 'loss_output.csv'
