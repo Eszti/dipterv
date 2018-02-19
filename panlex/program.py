@@ -16,6 +16,9 @@ def main(config_files, output_folder):
     train_model = config_manager.training_model
     train_model.run()
 
+    test_model = config_manager.test_model
+    test_model.plot_progress()
+
 
 if __name__ == '__main__':
     os.nice(19)

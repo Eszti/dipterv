@@ -2,6 +2,7 @@ import sys
 
 from data_model import DataModelWrapper
 from train_model import TrainMModel
+from test_model import TestModel
 
 sys.path.insert(0, 'utils')
 sys.path.insert(0, 'models')
@@ -47,6 +48,7 @@ class ConfigManager:
                                           data_model_wrapper=self.data_model_wrapper,
                                           language_config=self.language_config,
                                           output_dir=self.output_dir)
+        self.test_model = TestModel(input_dir=self.output_dir)
 
     def _get_config(self, config_files_list):
         config_files = [fn for fn in config_files_list if fn is not None]

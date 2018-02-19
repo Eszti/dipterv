@@ -93,7 +93,7 @@ class TrainingConfig(Configable):
         self.lr_base = self.get('lr_base', type='float')
         self.epochs = self.get('epochs', type='int')
         self.iters = self.get_optional('iters', type='int')
-        self.svd = self.get('svd', type='boolean')
+        self.svd_mode = self.get('svd_mode', type='int')
         self.svd_f = self.get('svd_f',  type='int')
         self.do_prec_calc = self.get('do_prec_calc', type='boolean')
         self.prec_calc_strat = self.get('prec_calc_strat', type='int')

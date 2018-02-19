@@ -27,7 +27,7 @@ class TrainMModel(Loggable):
         # Getting embeddings
         self.train_embeddings = self.data_model_wrapper.training_embeddings
         self.embeddings = self.data_model_wrapper.embedding_model.embeddings
-        self.output_dir = os.path.join(output_dir, strings.TRAIN_MODEL_NAME)
+        self.output_dir = os.path.join(output_dir, strings.TRAIN_FOLDER_NAME)
 
     def train(self):
         nb_langs = len(self.langs)
@@ -79,8 +79,8 @@ class TrainMModel(Loggable):
                     for (w1, w2) in wp_l:
                         emb1 = self.train_embeddings[l1][w1].reshape((1, 300))
                         emb2 = self.train_embeddings[l2][w2].reshape((1, 300))
-                        # Todo: if we add "or j == 0" for some reason it's better in this mock example
-                        if (self.train_config.svd and i % self.train_config.svd_f == 0):
+                        if (self.train_config.svd_mode == 1 and i % self.train_config.svd_f == 0) or \
+                                (self.train_config.svd_mode == 2 and j == 0):
                             _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
                                                         feed_dict={tf_w1: emb1,
                                                                    tf_w2: emb2,
@@ -183,7 +183,7 @@ class TrainMModel(Loggable):
 
     def run(self):
         T, lc_arr, precs_arr = self.train()
-        loss_fn = os.path.join(self.output_dir, strings.LOSS_FN)
-        prec_fn = os.path.join(self.output_dir, strings.PREC_FN)
+        loss_fn = os.path.join(self.output_dir, strings.LOSS_LOG_FN)
+        prec_fn = os.path.join(self.output_dir, strings.PREC_LOG_FN)
         list_to_csv(lc_arr, loss_fn)
         save_pickle(precs_arr, prec_fn)

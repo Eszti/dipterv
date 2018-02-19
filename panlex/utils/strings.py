@@ -7,14 +7,19 @@ DATA_WRAPPER_CONFIG_NAME = 'data'
 EMBEDDING_CONFIG_MAME = 'embedding'
 TRAINING_CONFIG_NAME = 'training'
 
-# Model names
-TRAIN_MODEL_NAME = 'train_mod'
-
 # Procedures
 TRAIN = 'train'
 VALID = 'validation'
 TEST = 'test'
 
-# File names
-LOSS_FN = 'loss_output.csv'
-PREC_FN = 'precision_output'
+# Output folder names
+TRAIN_FOLDER_NAME = 'train_mod'
+PLOT_FOLDER_NAME = 'plots'
+
+# Output file names
+LOSS_LOG_FN = 'loss_output.csv'
+PREC_LOG_FN = 'precision_output'
+LOSS_PLOT_FN = 'loss.png'
+PREC_PLOT_FN = 'precision.png'
+
+
