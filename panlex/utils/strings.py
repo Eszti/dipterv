@@ -12,6 +12,7 @@ TRAIN_MODEL_NAME = 'train_mod'
 
 # Procedures
 TRAIN = 'train'
+VALID = 'validation'
 TEST = 'test'
 
 # File names

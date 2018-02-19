@@ -73,6 +73,7 @@ class DataModelConfig(Configable):
         self.header = self.get('header', type='boolean')
         self.idx1 = self.get('idx1', type='int')
         self.idx2 = self.get('idx2', type='int')
+        self.emb_dir = self.get_optional('emb_dir')
 
 class DataWrapperConfig(Configable):
     def __init__(self, cfg):

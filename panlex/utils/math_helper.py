@@ -25,9 +25,8 @@ def calc_precision(precs, model_src, model_tar, dict_scr_2_tar, logger):
             closest_words.append(word)
             if word in value_words:
                 prec_cnt[0][j] = prec_cnt[0][j] + 1
-                break
         logger.debug('{}"\t{}\t{}'.format(key_word, value_words, closest_words))
-    logger.info('{0} - {1}'.format(prec_cnt, sim_mx.shape))
+    logger.debug(prec_cnt)
     prec_pcnts = []
     for i, val in enumerate(precs):
         sum_hit = np.sum(prec_cnt[0][0:val])

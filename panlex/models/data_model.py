@@ -1,10 +1,16 @@
 import json
+import pickle
 
 import numpy as np
 import os
+import sys
 from gensim.models import KeyedVectors
 
-from base.loggable import Loggable
+sys.path.insert(0, 'utils')
+sys.path.insert(0, 'base')
+
+import strings
+from loggable import Loggable
 
 
 class DataModel(Loggable):
@@ -17,12 +23,19 @@ class DataModel(Loggable):
         # lang1 - Lang2 : word pair list
         self.word_pairs_dict = dict()
         self.get_word_pairs_dict()
+        if data_model_config.emb_dir is not None:       # in case of we have saved training words embedding separately
+            self.logger.info('embedding is read from : {}'.format(data_model_config.emb_dir))
+            self._read_filtered_embedding(data_model_config.emb_dir)
+            embeddings = self.training_embeddings
+        else:
+            self.logger.info('original embedding is used'.format(data_model_config.emb_dir))
+            embeddings = embedding_model.embeddings
         # Lang1 - Lang2 : Lang1 - Lang2 dictionary
         self.dictionaries = dict()
-        self.get_two_lang_dictionaries(embedding_model)
+        self.get_two_lang_dictionaries(embeddings)
         # Lang : reduced amoung of word embeddings
         self.filtered_models = dict()
-        self.get_filtered_models(embedding_model)
+        self.get_filtered_models(embeddings, embedding_model.get_dim())
 
     def get_word_pairs_dict(self):
         done = set()
@@ -47,6 +60,14 @@ class DataModel(Loggable):
             data = [(line.split()[id1], line.split()[id2]) for i, line in enumerate(lines) if i > 0 or header == False]
         return data
 
+    def _read_filtered_embedding(self, emb_dir):
+        self.training_embeddings = dict()
+        for l in self.language_config.langs:
+            fn = os.path.join(emb_dir, '{}.pickle'.format(l))
+            with open(fn, 'rb') as f:
+                data = pickle.load(f)
+            self.training_embeddings[l] = data
+
     def _get_not_found_list(self, vocab, embedding):
         nf_list = []
         for i, w in enumerate(vocab):
@@ -55,7 +76,7 @@ class DataModel(Loggable):
                 nf_list.append(w)
         return nf_list
 
-    def get_two_lang_dictionaries(self, embedding_model):
+    def get_two_lang_dictionaries(self, embeddings):
         updated_word_pairs = dict()
         for ((l1, l2), wp_l) in self.word_pairs_dict.items():
             self.logger.info('Processing {0}-{1}...'.format(l1, l2))
@@ -63,10 +84,10 @@ class DataModel(Loggable):
             [l1_vocab, l2_vocab] = zip( *wp_l)
             l1_vocab = list(set(l1_vocab))
             l2_vocab = list(set(l2_vocab))
-            nf_l1 = self._get_not_found_list(vocab=l1_vocab, embedding=embedding_model.embeddings[l1])
+            nf_l1 = self._get_not_found_list(vocab=l1_vocab, embedding=embeddings[l1])
             self.logger.info('Words not found in embedding {0}: {1}'.format(l1, len(nf_l1)))
             self.logger.debug(nf_l1)
-            nf_l2 = self._get_not_found_list(vocab=l2_vocab, embedding=embedding_model.embeddings[l2])
+            nf_l2 = self._get_not_found_list(vocab=l2_vocab, embedding=embeddings[l2])
             self.logger.info('Words not found in embedding {0}: {1}'.format(l2, len(nf_l2)))
             self.logger.debug(nf_l2)
             # Update word list
@@ -98,15 +119,14 @@ class DataModel(Loggable):
                 l21[w2].append(w1)
         return l12, l21
 
-    def get_filtered_models(self, embedding_model):
-        dim = embedding_model.get_dim()
+    def get_filtered_models(self, embeddings, dim):
         for ((l1, l2), d) in self.dictionaries.items():
             filtered_mod = KeyedVectors()
             filtered_mod.index2word = list(d.keys())
             filtered_mod.syn0 = np.ndarray(shape=(len(filtered_mod.index2word), dim), dtype=np.float32)
             # Adding embedding to train model
             for i, w in enumerate(filtered_mod.index2word):
-                filtered_mod.syn0[i, :] = embedding_model.embeddings[l1][w]
+                filtered_mod.syn0[i, :] = embeddings[l1][w]
             self.logger.info('Filtered model: {0}-{1} contains {2} words'.
                              format(l1.upper(), l2, len(filtered_mod.syn0)))
             self.filtered_models[(l1, l2)] = filtered_mod
@@ -150,3 +170,4 @@ class DataModelWrapper(Loggable):
                                               embedding_model=self.embedding_model)
         self.dim = self.embedding_model.get_dim()
         self.logger.info('Vector dimension: {}'.format(self.dim))
+        self.training_embeddings = self.data_models[strings.TRAIN].training_embeddings
