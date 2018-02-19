@@ -1,11 +1,9 @@
 import sys
-
 import copy
 import os
-
 sys.path.insert(0, 'utils')
 
-from io_helper import save_pickle, list_to_csv
+from io_helper import save_pickle, save_json, list_to_csv
 from math_helper import calc_precision
 
 
@@ -15,7 +13,7 @@ import tensorflow as tf
 import numpy as np
 
 class TrainMModel(Loggable):
-    def __init__(self, train_config, data_model_wrapper, language_config, output_dir, cont_model):
+    def __init__(self, train_config, data_model_wrapper, language_config, output_dir):
         Loggable.__init__(self)
         self.train_config = train_config
         self.data_model_wrapper = data_model_wrapper
@@ -23,13 +21,8 @@ class TrainMModel(Loggable):
         self.logger.info('Language order: {0}'.format([(i, l) for i, l in enumerate(self.langs)]))
         self.dim = data_model_wrapper.dim
         self.train_data_model = self.data_model_wrapper.data_models[strings.TRAIN]
-        self.valid_data_model = self.data_model_wrapper.data_models[strings.VALID]
-        # Getting embeddings
-        self.train_embeddings = self.data_model_wrapper.training_embeddings
         self.embeddings = self.data_model_wrapper.embedding_model.embeddings
-        self.output_dir = os.path.join(output_dir, strings.TRAIN_FOLDER_NAME)
-        # Set continue params
-        self.cont_model = cont_model
+        self.output_dir = os.path.join(output_dir, strings.TRAIN_MODEL_NAME)
 
     def train(self):
         nb_langs = len(self.langs)
@@ -46,10 +39,6 @@ class TrainMModel(Loggable):
             tf_idx_l2 = tf.placeholder(tf.int32)
             # Translation matrices
             tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
-            # Load pretrained model
-            if self.cont_model.cont:
-                for i, l in enumerate(self.langs):
-                    tf_T[i] = self.cont_model.T_loaded[l]
 
             # SVD reguralization
             tf_s1, tf_U1, tf_V1 = tf.svd(tf_T[tf_idx_l1], full_matrices=True, compute_uv=True)
@@ -83,10 +72,10 @@ class TrainMModel(Loggable):
                     idx_l2 = self.langs.index(l2)
                     k = 0
                     for (w1, w2) in wp_l:
-                        emb1 = self.train_embeddings[l1][w1].reshape((1, 300))
-                        emb2 = self.train_embeddings[l2][w2].reshape((1, 300))
-                        if (self.train_config.svd_mode == 1 and i % self.train_config.svd_f == 0) or \
-                                (self.train_config.svd_mode == 2 and j == 0):
+                        emb1 = self.embeddings[l1][w1].reshape((1, 300))
+                        emb2 = self.embeddings[l2][w2].reshape((1, 300))
+                        # Todo: if we add "or j == 0" for some reason it's better in this mock example
+                        if (self.train_config.svd and i % self.train_config.svd_f == 0):
                             _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
                                                         feed_dict={tf_w1: emb1,
                                                                    tf_w2: emb2,
@@ -125,60 +114,32 @@ class TrainMModel(Loggable):
                         T2 = T[idx_l2]
                         precs_1 = 0.0
                         precs_2 = 0.0
-                        if self.train_config.prec_calc_strat == 0 or self.train_config.prec_calc_strat == 1:
-                            m1_tr = copy.deepcopy(self.train_data_model.filtered_models[(l1, l2)])
-                            m2_tr = copy.deepcopy(self.train_data_model.filtered_models[(l2, l1)])
-                            m1_tr.syn0 = np.dot(m1_tr.syn0, T1)
-                            m2_tr.syn0 = np.dot(m2_tr.syn0, T2)
-                            if self.train_config.prec_calc_strat == 0:
-                                # Prec l1 - l2
-                                precs_1 = calc_precision(self.train_config.precs_to_calc, m1_tr, m2_tr,
-                                                         self.train_data_model.dictionaries[(l1, l2)],
-                                                         self.logger)
-                                # Prec l2 - l1
-                                precs_2 = calc_precision(self.train_config.precs_to_calc, m2_tr, m1_tr,
-                                                         self.train_data_model.dictionaries[(l2, l1)],
-                                                         self.logger)
-                            elif self.train_config.prec_calc_strat == 1:
-                                m1 = copy.deepcopy(self.embeddings[l1])
-                                m2 = copy.deepcopy(self.embeddings[l2])
-                                m1.syn0 = np.dot(m1.syn0, T1)
-                                m2.syn0 = np.dot(m2.syn0, T2)
-                                # Prec l1 - l2
-                                precs_1 = calc_precision(self.train_config.precs_to_calc, m1_tr, m2,
-                                                         self.train_data_model.dictionaries[(l1, l2)],
-                                                         self.logger)
-                                # Prec l2 - l1
-                                precs_2 = calc_precision(self.train_config.precs_to_calc, m2_tr, m1,
-                                                         self.train_data_model.dictionaries[(l2, l1)],
-                                                         self.logger)
-                        if self.train_config.prec_calc_strat == 2 or self.train_config.prec_calc_strat == 3:
-                            m1_tr = copy.deepcopy(self.valid_data_model.filtered_models[(l1, l2)])
-                            m2_tr = copy.deepcopy(self.valid_data_model.filtered_models[(l2, l1)])
-                            m1_tr.syn0 = np.dot(m1_tr.syn0, T1)
-                            m2_tr.syn0 = np.dot(m2_tr.syn0, T2)
-                            if self.train_config.prec_calc_strat == 2:
-                                # Prec l1 - l2
-                                precs_1 = calc_precision(self.train_config.precs_to_calc, m1_tr, m2_tr,
-                                                         self.valid_data_model.dictionaries[(l1, l2)],
-                                                         self.logger)
-                                # Prec l2 - l1
-                                precs_2 = calc_precision(self.train_config.precs_to_calc, m2_tr, m1_tr,
-                                                         self.valid_data_model.dictionaries[(l2, l1)],
-                                                         self.logger)
-                            elif self.train_config.prec_calc_strat == 3:
-                                m1 = copy.deepcopy(self.embeddings[l1])
-                                m2 = copy.deepcopy(self.embeddings[l2])
-                                m1.syn0 = np.dot(m1.syn0, T1)
-                                m2.syn0 = np.dot(m2.syn0, T2)
-                                # Prec l1 - l2
-                                precs_1 = calc_precision(self.train_config.precs_to_calc, m1_tr, m2,
-                                                         self.valid_data_model.dictionaries[(l1, l2)],
-                                                         self.logger)
-                                # Prec l2 - l1
-                                precs_2 = calc_precision(self.train_config.precs_to_calc, m2_tr, m1,
-                                                         self.valid_data_model.dictionaries[(l2, l1)],
-                                                         self.logger)
+                        if self.train_config.prec_calc_strat == 0:
+                        	m1_tr = copy.deepcopy(self.train_data_model.filtered_models[(l1, l2)])
+                        	m2_tr = copy.deepcopy(self.train_data_model.filtered_models[(l2, l1)])
+                        	m1_tr.syn0 = np.dot(m1_tr.syn0, T1)
+                        	m2_tr.syn0 = np.dot(m2_tr.syn0, T2)
+                            # Prec l1 - l2
+                            precs_1 = calc_precision(self.train_config.precs_to_calc, m1_tr, m2_tr,
+                                                     self.train_data_model.dictionaries[(l1, l2)],
+                                                     self.logger)
+                            # Prec l2 - l1
+                            precs_2 = calc_precision(self.train_config.precs_to_calc, m2_tr, m1_tr,
+                                                     self.train_data_model.dictionaries[(l2, l1)],
+                                                     self.logger)
+                        elif self.train_config.prec_calc_strat == 1:
+                            m1 = copy.deepcopy(self.embeddings[l1])
+                            m2 = copy.deepcopy(self.embeddings[l2])
+                            # Prec l1 - l2
+                            m1.syn0 = np.dot(m1_tr.syn0, T1)
+                            m2.syn0 = np.dot(m2_tr.syn0, T2)
+                            precs_1 = calc_precision(self.train_config.precs_to_calc, m1, m2,
+                                                     self.train_data_model.dictionaries[(l1, l2)],
+                                                     self.logger)
+                            # Prec l2 - l1
+                            precs_2 = calc_precision(self.train_config.precs_to_calc, m2, m1,
+                                                     self.train_data_model.dictionaries[(l2, l1)],
+                                                     self.logger)
                         e_prec_l.append(((l1, l2), precs_1))
                         e_prec_l.append(((l2, l1), precs_2))
                     self.logger.info(e_prec_l)
@@ -189,7 +150,7 @@ class TrainMModel(Loggable):
 
     def run(self):
         T, lc_arr, precs_arr = self.train()
-        loss_fn = os.path.join(self.output_dir, strings.LOSS_LOG_FN)
-        prec_fn = os.path.join(self.output_dir, strings.PREC_LOG_FN)
+        loss_fn = os.path.join(self.output_dir, strings.LOSS_FN)
+        prec_fn = os.path.join(self.output_dir, strings.PREC_FN)
         list_to_csv(lc_arr, loss_fn)
         save_pickle(precs_arr, prec_fn)

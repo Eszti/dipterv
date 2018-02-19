@@ -6,6 +6,7 @@ LANGUAGE_CONFIG_NAME = 'lang'
 DATA_WRAPPER_CONFIG_NAME = 'data'
 EMBEDDING_CONFIG_MAME = 'embedding'
 TRAINING_CONFIG_NAME = 'training'
+CONT_CONFIT_NAME = 'cont'
 
 # Procedures
 TRAIN = 'train'

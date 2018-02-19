@@ -55,6 +55,16 @@ class LanguageConfig(Configable):
         self.name = strings.LANGUAGE_CONFIG_NAME
         self.langs = self.get('langs', type='list')
 
+class ContConfig(Configable):
+    def __init__(self, cfg):
+        Configable.__init__(self, cfg)
+        self.config = cfg
+        self.name = strings.CONT_CONFIT_NAME
+        self.cont = self.get('continue', type='boolean')
+        if self.cont:
+            self.input_folder = self.get('input_folder')
+            self.epoch = self.get_optional('epoch', 'int')
+
 class EmbeddingConfig(Configable):
     def __init__(self, cfg):
         Configable.__init__(self, cfg)

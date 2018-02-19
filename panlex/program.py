@@ -1,3 +1,4 @@
+import argparse
 import sys
 
 import os
@@ -22,6 +23,8 @@ def main(config_files, output_folder):
 
 if __name__ == '__main__':
     os.nice(19)
-    config_files = ['conf/default.conf']
-    output_folder = 'output'    # Todo: valami permanens helyre
-    main(config_files=config_files, output_folder=output_folder)
+    parser = argparse.ArgumentParser(description='Run dipterv.')
+    parser.add_argument('-cf', dest='config_file', type=str, help='config file for the experiments')
+    args = parser.parse_args()
+    output_folder = 'output'        # Todo: valami permanens helyre
+    main(config_files=[args.config_file], output_folder=output_folder)

@@ -19,6 +19,11 @@ def save_pickle(data, filename):
     with open(filename, 'wb') as f:
         pickle.dump(data, f)
 
+def load_pickle(filename):
+    with open(filename, 'rb') as f:
+        data = pickle.load(f)
+    return data
+
 def save_json(data, filename):
     _checkdir(filename)
     with open(filename, 'wt') as f:
@@ -41,4 +46,3 @@ def copy_files(output_dir, orig_files, logger=None):
             logger.debug('{} is copied to {}'.format(orig_fn, dest_fn))
         else:
             logger.debug('{} is copied to {}'.format(orig_fn, dest_fn))
-

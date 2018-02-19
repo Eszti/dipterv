@@ -1,6 +1,7 @@
 import sys
 
 from data_model import DataModelWrapper
+from continue_model import ContModel
 from train_model import TrainMModel
 from test_model import TestModel
 
@@ -37,17 +38,20 @@ class ConfigManager:
         self.logger.debug('Config files are saved to {}'.format(config_files_output_dir))
         # Getting config models
         self.language_config = config_models.LanguageConfig(cfg=self.cfg)
+        self.cont_config = config_models.ContConfig(cfg=self.cfg)
         self.data_wrapper_config = config_models.DataWrapperConfig(cfg=self.cfg)
         self.embedding_config = config_models.EmbeddingConfig(cfg=self.cfg)
         self.training_config = config_models.TrainingConfig(cfg=self.cfg)
         # Getting models
+        self.cont_model = ContModel(cont_config=self.cont_config)
         self.data_model_wrapper = DataModelWrapper(data_wrapper_config=self.data_wrapper_config,
                                                    embedding_config=self.embedding_config,
                                                    language_config=self.language_config)
         self.training_model = TrainMModel(train_config=self.training_config,
                                           data_model_wrapper=self.data_model_wrapper,
                                           language_config=self.language_config,
-                                          output_dir=self.output_dir)
+                                          output_dir=self.output_dir,
+                                          cont_model=self.cont_model)
         self.test_model = TestModel(input_dir=self.output_dir)
 
     def _get_config(self, config_files_list):
