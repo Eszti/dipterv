@@ -14,7 +14,8 @@ from base.loggable import Loggable
 class ContModel(Loggable):
     def __init__(self, cont_config):
         Loggable.__init__(self)
-        if cont_config.cont:
+        self.cont = cont_config.cont
+        if self.cont:
             self.logger.info('Continuing training...')
             input_folder = os.path.join(cont_config.input_folder, strings.TRAIN_FOLDER_NAME)
             epoch = cont_config.epoch

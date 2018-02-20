@@ -45,11 +45,11 @@ class TrainMModel(Loggable):
             tf_idx_l1 = tf.placeholder(tf.int32)
             tf_idx_l2 = tf.placeholder(tf.int32)
             # Translation matrices
-            tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
             # Load pretrained model
             if self.cont_model.cont:
-                for i, l in enumerate(self.langs):
-                    tf_T[i] = self.cont_model.T_loaded[l]
+                tf_T = tf.Variable(self.cont_model.T_loaded)
+            else:
+                tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
 
             # SVD reguralization
             tf_s1, tf_U1, tf_V1 = tf.svd(tf_T[tf_idx_l1], full_matrices=True, compute_uv=True)
