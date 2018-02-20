@@ -23,7 +23,7 @@ def plot_progress(input_folder, logger=None):
     # Plot learning curve
     loss_log_fn = os.path.join(input_folder, strings.TRAIN_FOLDER_NAME, strings.LOSS_LOG_FN)
     loss_plot_fn = os.path.join(output_folder, strings.LOSS_PLOT_FN)
-    _checkdir(loss_log_fn)
+    _checkdir(loss_plot_fn)
     data_x = []
     data_y = []
 
