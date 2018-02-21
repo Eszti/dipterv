@@ -2,3 +2,4 @@ output*/
 not_used/
 data/
 .idea/
+__pycache__/
