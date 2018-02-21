@@ -84,6 +84,8 @@ class DataModel(Loggable):
             [l1_vocab, l2_vocab] = zip( *wp_l)
             l1_vocab = list(set(l1_vocab))
             l2_vocab = list(set(l2_vocab))
+            self.logger.info('Words in {0}: {1}'.format(l1, len(l1_vocab)))
+            self.logger.info('Words in {0}: {1}'.format(l2, len(l2_vocab)))
             nf_l1 = self._get_not_found_list(vocab=l1_vocab, embedding=embeddings[l1])
             self.logger.info('Words not found in embedding {0}: {1}'.format(l1, len(nf_l1)))
             self.logger.debug(nf_l1)
