@@ -108,4 +108,5 @@ class TrainingConfig(Configable):
         self.do_prec_calc = self.get('do_prec_calc', type='boolean')
         self.prec_calc_strat = self.get('prec_calc_strat', type='int')
         self.precs_to_calc = self.get_optional('precs_to_calc', type='intlist')
+        self.prec_eval_space = self.get('prec_eval_space', type='int')
 
