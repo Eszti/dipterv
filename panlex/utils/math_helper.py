@@ -35,7 +35,6 @@ def calc_precision_calc(W_src, i2w_src, W_tar, i2w_tar, precs, dict_scr_2_tar, l
                 break
         logger.debug('{}"\t{}\t{}'.format(key_word, value_words, closest_words))
     logger.debug(prec_cnt)
-    logger.info('sim_mx.shape[0]: {}'.format(sim_mx.shape[0]))
     prec_pcnts = []
     for i, val in enumerate(precs):
         sum_hit = np.sum(prec_cnt[0][0:val])

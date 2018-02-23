@@ -3,6 +3,8 @@ import sys
 import copy
 import os
 
+from debug_helper import get_smalls
+
 sys.path.insert(0, 'utils')
 
 from io_helper import save_pickle, list_to_csv
@@ -12,6 +14,7 @@ import strings
 from base.loggable import Loggable
 import tensorflow as tf
 import numpy as np
+
 
 class TrainMModel(Loggable):
     def __init__(self, train_config, data_model_wrapper, language_config, output_dir, cont_model):
@@ -33,6 +36,7 @@ class TrainMModel(Loggable):
     def _prec_eval_univ(self, prec_mode, l1, l2, T1, T2):
         precs_1 = []
         precs_2 = []
+        self.logger.info('Univ space...')
         if prec_mode == 0 or prec_mode == 1:
             m1_tr = copy.deepcopy(self.train_data_model.filtered_models[(l1, l2)])
             m2_tr = copy.deepcopy(self.train_data_model.filtered_models[(l2, l1)])
@@ -90,6 +94,7 @@ class TrainMModel(Loggable):
         return precs_1, precs_2
 
     def _prec_eval_tar(self, prec_mode, l1, l2, T1, T1_inv, T2, T2_inv):
+        self.logger.info('Target space...')
         # To init
         # Translation models
         W_trans_l1 = None
@@ -109,8 +114,12 @@ class TrainMModel(Loggable):
             # Translated models
             m_l1 = self.train_data_model.filtered_models[(l1, l2)]
             m_l2 = self.train_data_model.filtered_models[(l2, l1)]
-            W_trans_l1 = np.dot(np.dot(m_l1.syn0, T1), T2_inv)
-            W_trans_l2 = np.dot(np.dot(m_l2.syn0, T2), T1_inv)
+            W_univ_l1 = np.dot(m_l1.syn0, T1)
+            W_univ_l1_n = W_univ_l1 / np.sqrt((W_univ_l1 ** 2).sum(1))[:, None]
+            W_univ_l2 = np.dot(m_l2.syn0, T2)
+            W_univ_l2_n = W_univ_l2 / np.sqrt((W_univ_l2 ** 2).sum(1))[:, None]
+            W_trans_l1 = np.dot(W_univ_l1_n, T1_inv)
+            W_trans_l2 = np.dot(W_univ_l2_n, T2_inv)
             i2w_trans_l1 = m_l1.index2word
             i2w_trans_l2 = m_l2.index2word
             # Dictionaries
@@ -120,6 +129,7 @@ class TrainMModel(Loggable):
             # Translated models
             m_l1 = self.valid_data_model.filtered_models[(l1, l2)]
             m_l2 = self.valid_data_model.filtered_models[(l2, l1)]
+            # Todo: normalize!!!
             W_trans_l1 = np.dot(np.dot(m_l1.syn0, T1), T2_inv)
             W_trans_l2 = np.dot(np.dot(m_l2.syn0, T2), T1_inv)
             i2w_trans_l1 = m_l1.index2word
@@ -154,21 +164,26 @@ class TrainMModel(Loggable):
                                       logger=self.logger)
         return precs_1, precs_2
 
-    def valid(self, l1, l2, T1, T1_inv, T2, T2_inv):
+    def valid(self, l1, l2, T1, T1_inv, T2, T2_inv, eval_space):
         precs_1 = 0.0
         precs_2 = 0.0
         prec_mode = self.train_config.prec_calc_strat
-        prec_eval_space = self.train_config.prec_eval_space
-        if prec_eval_space == 0:
+        if strings.EVAL_SPACE_UNIV == eval_space:
             precs_1, precs_2 = self._prec_eval_univ(prec_mode=prec_mode,
                                                     l1=l1, l2=l2,
                                                     T1=T1, T2=T2)
-        elif prec_eval_space == 1:
+        elif strings.EVAL_SPACE_TARGET == eval_space:
             precs_1, precs_2 = self._prec_eval_tar(prec_mode=prec_mode,
                                                    l1=l1, l2=l2,
                                                    T1=T1, T1_inv=T1_inv,
                                                    T2=T2, T2_inv=T2_inv)
         return precs_1, precs_2
+
+    def _log_loss_after_epoch(self, loss_arr, lc_arr, i, loss_type):
+        loss_np_arr = np.asarray(loss_arr)
+        loss_epoch_avg = np.average(loss_np_arr)
+        self.logger.info('epoch:\t{0}\tavg sims: {1}\t- {2}'.format(i, loss_epoch_avg, loss_type))
+        lc_arr.append([i, loss_epoch_avg])
 
     def train(self):
         nb_langs = len(self.langs)
@@ -184,8 +199,7 @@ class TrainMModel(Loggable):
             tf_idx_l1 = tf.placeholder(tf.int32)
             tf_idx_l2 = tf.placeholder(tf.int32)
             # Translation matrices
-            # Load pretrained model
-            if self.cont_model.cont:
+            if self.cont_model.cont:  # Load pretrained model
                 tf_T = tf.Variable(self.cont_model.T_loaded)
             else:
                 tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
@@ -197,11 +211,11 @@ class TrainMModel(Loggable):
             updated_2 = tf.assign(tf_T[tf_idx_l2], tf.matmul(tf_U2, tf_V2))
 
             # Loss
-            tf_T1 = tf.matmul(tf_w1, tf_T[tf_idx_l1])
-            tf_T2 = tf.matmul(tf_w2, tf_T[tf_idx_l2])
-            tf_T1_n = tf.nn.l2_normalize(tf_T1, dim=1)
-            tf_T2_n = tf.nn.l2_normalize(tf_T2, dim=1)
-            loss = tf.matmul(tf_T1_n, tf.transpose(tf_T2_n))
+            tf_w1_u = tf.matmul(tf_w1, tf_T[tf_idx_l1])
+            tf_w2_u = tf.matmul(tf_w2, tf_T[tf_idx_l2])
+            tf_w1_u_n = tf.nn.l2_normalize(tf_w1_u, dim=1)
+            tf_w2_u_n = tf.nn.l2_normalize(tf_w2_u, dim=1)
+            loss = tf.matmul(tf_w1_u_n, tf.transpose(tf_w2_u_n))
             loss = -loss
 
             # Applying optimizer, Todo: try different optimizers!!
@@ -211,73 +225,135 @@ class TrainMModel(Loggable):
         with tf.Session(graph=graph) as session:
             tf.global_variables_initializer().run()
 
-            j = 0
-            lc_arr = []
-            precs_arr = []
+            j_iters = 0
+            lc_u_arr = []
+            lc_l1_arr = []
+            lc_l2_arr = []
+            precs_dict = dict()
             for i in range(self.train_config.epochs):
-                loss_arr = []
+                loss_u_arr = []
+                loss_l2_arr = []
+                loss_l1_arr = []
+                j_lang = 0
                 for ((l1, l2), wp_l) in self.train_data_model.word_pairs_dict.items():
-                    loss_arr_l = []
+                    loss_U_arr_l = []
                     idx_l1 = self.langs.index(l1)
                     idx_l2 = self.langs.index(l2)
-                    k = 0
+                    j_wp = 0
                     for (w1, w2) in wp_l:
                         emb1 = self.train_embeddings[l1][w1].reshape((1, 300))
                         emb2 = self.train_embeddings[l2][w2].reshape((1, 300))
-                        if (self.train_config.svd_mode == 1 and i % self.train_config.svd_f == 0) or \
-                                (self.train_config.svd_mode == 2 and j == 0):
-                            _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
-                                                        feed_dict={tf_w1: emb1,
-                                                                   tf_w2: emb2,
-                                                                   tf_idx_l1: idx_l1,
-                                                                   tf_idx_l2: idx_l2})
-                        else:
+                        calculated = False
+                        if j_wp == 0:
+                            if (self.train_config.svd_mode == 1 and i % self.train_config.svd_f == 0) or \
+                                    (self.train_config.svd_mode == 2 and j_iters == 0):
+                                _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
+                                                            feed_dict={tf_w1: emb1,
+                                                                       tf_w2: emb2,
+                                                                       tf_idx_l1: idx_l1,
+                                                                       tf_idx_l2: idx_l2})
+                                calculated = True
+
+                        if not calculated:
                             _, l, T = session.run([optimizer, loss, tf_T],
                                                   feed_dict={tf_w1: emb1,
                                                              tf_w2: emb2,
                                                              tf_idx_l1: idx_l1,
                                                              tf_idx_l2: idx_l2})
-                        j += 1
-                        k += 1
-                        loss_arr.append(-l[0][0])
-                        loss_arr_l.append(-l[0][0])
-                        if self.train_config.iters is not None and j == self.train_config.iters:
+
+                        # Calculate target loss in target space
+                        if self.train_config.target_loss:
+                            # T
+                            T1 = T[idx_l1]
+                            T2 = T[idx_l2]
+                            # T inverses
+                            T1_inv = np.linalg.inv(T1)
+                            T2_inv = np.linalg.inv(T2)
+
+                            # Loss L2 space
+                            w1_u = np.dot(emb1, T1)
+                            w1_u_n = w1_u / np.linalg.norm(w1_u)
+                            w1_l2 = np.dot(w1_u_n, T2_inv)
+                            w1_l2_n = w1_l2 / np.linalg.norm(w1_l2)
+                            loss_l2 = np.dot(w1_l2_n, np.transpose(emb2))
+
+                            # Loss L1 space
+                            w2_u = np.dot(emb2, T2)
+                            w2_u_n = w2_u / np.linalg.norm(w2_u)
+                            w2_l1 = np.dot(w2_u_n, T1_inv)
+                            w2_l1_n = w2_l1 / np.linalg.norm(w2_l1)
+                            loss_l1 = tf.matmul(w2_l1_n, np.transpose(emb1))
+
+                            # Loss in target spaces
+                            loss_l1_arr.append(loss_l1[0][0])
+                            loss_l2_arr.append(loss_l2[0][0])
+
+                        j_iters += 1
+                        j_wp += 1
+                        loss_u_arr.append(-l[0][0])
+                        loss_U_arr_l.append(-l[0][0])
+
+                        if self.train_config.iters is not None and j_iters == self.train_config.iters:
                             break
-                    if self.train_config.iters is not None and j == self.train_config.iters:
+                    j_lang += 1
+                    if self.train_config.iters is not None and j_iters == self.train_config.iters:
                         break
 
                 # Monitoring for learning curve
-                loss_np_arr = np.asarray(loss_arr)
-                loss_epoch_avg = np.average(loss_np_arr)
-                self.logger.info('epoch:\t{0}\tavg sims: {1}'.format(i, loss_epoch_avg))
-                lc_arr.append([i, loss_epoch_avg])
+                self._log_loss_after_epoch(loss_arr=loss_u_arr, lc_arr=lc_u_arr, i=i, loss_type='universal space')
+                if self.train_config.target_loss:
+                    self._log_loss_after_epoch(loss_arr=loss_l1_arr, lc_arr=lc_l1_arr, i=i, loss_type='lang1 space')
+                    self._log_loss_after_epoch(loss_arr=loss_l2_arr, lc_arr=lc_l2_arr, i=i, loss_type='lang2 space')
 
+                for i, _ in enumerate(self.langs):
+                    limit = 0.1       # Todo: config paraméterbe
+                    T1 = T[i]
+                    T2 = T[i]
+                    get_smalls(T=T1, limit=limit, nb=i, logger=self.logger)
+                    get_smalls(T=T2, limit=limit, nb=i, logger=self.logger)
+
+
+                # Calculate precision
                 if self.train_config.do_prec_calc:
-                    # Calculate precision
-                    e_prec_l = []
-                    for ((l1, l2), _) in self.train_data_model.word_pairs_dict.items():
-                        self.logger.info('Calculating precision for {0}-{1}'.format(l1, l2))
-                        # Get translations matrices
-                        idx_l1 = self.langs.index(l1)
-                        idx_l2 = self.langs.index(l2)
-                        T1 = T[idx_l1]
-                        T2 = T[idx_l2]
-                        T1_inv = np.linalg.inv(T1)
-                        T2_inv = np.linalg.inv(T2)
+                    for eval_space in self.train_config.prec_eval_spaces:
+                        e_prec_l = []
+                        for ((l1, l2), _) in self.train_data_model.word_pairs_dict.items():
+                            self.logger.info('Calculating precision for {0}-{1}'.format(l1, l2))
+                            # Get translations matrices
+                            idx_l1 = self.langs.index(l1)
+                            idx_l2 = self.langs.index(l2)
+                            T1 = T[idx_l1]
+                            T2 = T[idx_l2]
+                            T1_inv = None
+                            T2_inv = None
+                            if strings.EVAL_SPACE_TARGET in self.train_config.prec_eval_spaces:
+                                T1_inv = np.linalg.inv(T1)
+                                T2_inv = np.linalg.inv(T2)
 
-                        precs_1, precs_2 = self.valid(l1=l1, l2=l2, T1=T1, T1_inv=T1_inv, T2=T2, T2_inv=T2_inv)
+                            precs_1, precs_2 = self.valid(l1=l1, l2=l2,
+                                                          T1=T1, T1_inv=T1_inv,
+                                                          T2=T2, T2_inv=T2_inv,
+                                                          eval_space=eval_space)
 
-                        e_prec_l.append(((l1, l2), precs_1))
-                        e_prec_l.append(((l2, l1), precs_2))
-                    self.logger.info(e_prec_l)
-                    precs_arr.append(e_prec_l)
+                            e_prec_l.append(((l1, l2), precs_1))
+                            e_prec_l.append(((l2, l1), precs_2))
+                        self.logger.info(e_prec_l)
+                        if eval_space not in precs_dict.keys():
+                            precs_dict[eval_space] = []
+                        precs_dict[eval_space].append(e_prec_l)
                 fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(i))
                 save_pickle(data=T, filename=fn)
-        return T, lc_arr, precs_arr
+        return T, (lc_u_arr, lc_l1_arr, lc_l2_arr), precs_dict
 
     def run(self):
-        T, lc_arr, precs_arr = self.train()
-        loss_fn = os.path.join(self.output_dir, strings.LOSS_LOG_FN)
-        prec_fn = os.path.join(self.output_dir, strings.PREC_LOG_FN)
-        list_to_csv(lc_arr, loss_fn)
-        save_pickle(precs_arr, prec_fn)
+        T, lc_arr, precs_dict = self.train()
+        loss_u_fn = os.path.join(self.output_dir, strings.LOSS_U_LOG_FN)
+        list_to_csv(lc_arr[0], loss_u_fn)
+        if self.train_config.target_loss:
+            loss_l1_fn = os.path.join(self.output_dir, strings.LOSS_L1_LOG_FN)
+            loss_l2_fn = os.path.join(self.output_dir, strings.LOSS_L2_LOG_FN)
+            list_to_csv(lc_arr[1], loss_l1_fn)
+            list_to_csv(lc_arr[2], loss_l2_fn)
+        for k in precs_dict:
+            prec_fn = os.path.join(self.output_dir, strings.PREC_LOG_FN, '_{}'.format(k))
+            save_pickle(precs_dict[k], prec_fn)

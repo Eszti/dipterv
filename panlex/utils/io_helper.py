@@ -1,10 +1,21 @@
 import csv
 import errno
 import pickle
+
+import sys
 from shutil import copyfile
 
 import os
 import json
+
+
+sys.path.insert(0, 'utils')
+
+def log_or_print(s, logger=False):
+    if not logger:
+        print(s)
+    else:
+        logger.info(s)
 
 def _checkdir(filename):
     if not os.path.exists(os.path.dirname(filename)):
