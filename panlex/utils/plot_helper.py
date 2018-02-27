@@ -8,7 +8,7 @@ import sys
 
 sys.path.insert(0, 'utils')
 import strings
-from io_helper import _checkdir
+from io_helper import checkdir
 
 def _log(logger, text):
     if logger is not None:
@@ -29,21 +29,21 @@ def _get_data_xy(fn):
 # Todo: only for en-it
 def plot_progress(input_folder, logger=None):
     _log(logger=logger, text='Plotting results...')
-    output_folder = os.path.join(input_folder, strings.PLOT_FOLDER_NAME)
+    output_folder = os.path.join(input_folder, strings.PLOT_OUTPUT_FOLDER_NAME)
     # Plot learning curve
-    loss_u_log_fn = os.path.join(input_folder, strings.TRAIN_FOLDER_NAME, strings.LOSS_U_LOG_FN)
+    loss_u_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.LOSS_U_LOG_FN)
     loss_plot_fn = os.path.join(output_folder, strings.LOSS_PLOT_FN)
-    _checkdir(loss_plot_fn)
+    checkdir(loss_plot_fn)
 
     data_x, data_y = _get_data_xy(loss_u_log_fn)
     _log(logger=logger, text='max avg cos_sim: {0} at {1}'.format(max(data_y), data_y.index(max(data_y))))
     plt.plot(data_x, data_y, c='r', label='univ')
 
-    loss_l1_log_fn = os.path.join(input_folder, strings.TRAIN_FOLDER_NAME, strings.LOSS_L1_LOG_FN)
+    loss_l1_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.LOSS_L1_LOG_FN)
     if os.path.exists(loss_l1_log_fn):
         data_x, data_y = _get_data_xy(loss_l1_log_fn)
         plt.plot(data_x, data_y, c='g', label='l1')
-    loss_l2_log_fn = os.path.join(input_folder, strings.TRAIN_FOLDER_NAME, strings.LOSS_L2_LOG_FN)
+    loss_l2_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.LOSS_L2_LOG_FN)
     if os.path.exists(loss_l2_log_fn):
         data_x, data_y = _get_data_xy(loss_l2_log_fn)
         plt.plot(data_x, data_y, c='b', label='l2')
@@ -66,7 +66,7 @@ def plot_progress(input_folder, logger=None):
         ax_2_1 = fig.add_subplot(212)
 
         prec_log_fn = os.path.join(
-            input_folder, strings.TRAIN_FOLDER_NAME, strings.PREC_LOG_FN, '_{}'.format(eval_space))
+            input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.PREC_LOG_FN, '_{}'.format(eval_space))
         if os.path.exists(prec_log_fn):
             logger.info('{} space'.format(eval_space))
             colors = ['b', 'g', 'y']

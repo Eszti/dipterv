@@ -84,6 +84,7 @@ class DataModelConfig(Configable):
         self.idx1 = self.get('idx1', type='int')
         self.idx2 = self.get('idx2', type='int')
         self.emb_dir = self.get_optional('emb_dir')
+        self.filtered_mod = self.get('filtered_mod', type='boolean')
 
 class DataWrapperConfig(Configable):
     def __init__(self, cfg):
@@ -105,9 +106,16 @@ class TrainingConfig(Configable):
         self.iters = self.get_optional('iters', type='int')
         self.svd_mode = self.get('svd_mode', type='int')
         self.svd_f = self.get('svd_f',  type='int')
+
+class ValidationConfig(Configable):
+    def __init__(self, cfg):
+        Configable.__init__(self, cfg)
+        self.cfg = cfg
+        self.name = strings.VALIDATION_CONFIG_NAME
+        self.do_valid_on = self.get('do_valid_on', type='int')
         self.do_prec_calc = self.get('do_prec_calc', type='boolean')
-        self.prec_calc_strat = self.get('prec_calc_strat', type='int')
         self.precs_to_calc = self.get_optional('precs_to_calc', type='intlist')
-        self.prec_eval_spaces = self.get('prec_eval_spaces', type='list')
-        self.target_loss = self.get('target_loss', type='boolean')
+        self.calc_valid_loss = self.get('calc_valid_loss', type='boolean')
+        self.calc_small_sing = self.get('calc_small_sing', type='boolean')
+        self.limit = self.get('limit', type='float')
 

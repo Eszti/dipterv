@@ -17,7 +17,7 @@ def log_or_print(s, logger=False):
     else:
         logger.info(s)
 
-def _checkdir(filename):
+def checkdir(filename):
     if not os.path.exists(os.path.dirname(filename)):
         try:
             os.makedirs(os.path.dirname(filename))
@@ -26,7 +26,7 @@ def _checkdir(filename):
                 raise OSError
 
 def save_pickle(data, filename):
-    _checkdir(filename)
+    checkdir(filename)
     with open(filename, 'wb') as f:
         pickle.dump(data, f)
 
@@ -36,12 +36,12 @@ def load_pickle(filename):
     return data
 
 def save_json(data, filename):
-    _checkdir(filename)
+    checkdir(filename)
     with open(filename, 'wt') as f:
         json.dump(data, f)
 
 def list_to_csv(data, filename):
-    _checkdir(filename)
+    checkdir(filename)
     with open(filename, 'wt') as f:
         wr = csv.writer(f, dialect='excel')
         wr.writerows(data)
@@ -51,7 +51,7 @@ def copy_files(output_dir, orig_files, logger=None):
         basename = os.path.basename(orig_fn)
         dest_fn = os.path.join(output_dir, basename)
         if i == 0:
-            _checkdir(dest_fn)
+            checkdir(dest_fn)
         copyfile(orig_fn, dest_fn)
         if logger is not None:
             logger.debug('{} is copied to {}'.format(orig_fn, dest_fn))

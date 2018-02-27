@@ -5,19 +5,19 @@ from sklearn.metrics.pairwise import cosine_similarity
 # model_src : source language embeddings (need to have syn0 and index2word properites) (after translation)
 # model_tar : target language embeddings (need to have syn0 and index2word properites) (can be don in orig or universal space)
 # dict_scr_2_tar : dictionary from source to target
-def calc_precision(precs, model_src, model_tar, dict_scr_2_tar, logger):
+def calc_precision_keyedvec(precs, model_src, model_tar, dict_scr_2_tar, logger):
     W_src = model_src.syn0
     W_tar = model_tar.syn0
     i2w_src = model_src.index2word
     i2w_tar = model_tar.index2word
 
-    return calc_precision_calc(W_src=W_src, i2w_src=i2w_src,
-                               W_tar=W_tar, i2w_tar=i2w_tar,
-                               precs=precs, dict_scr_2_tar=dict_scr_2_tar,
-                               logger=logger)
+    return calc_precision(W_src=W_src, i2w_src=i2w_src,
+                          W_tar=W_tar, i2w_tar=i2w_tar,
+                          precs=precs, dict_scr_2_tar=dict_scr_2_tar,
+                          logger=logger)
 
 
-def calc_precision_calc(W_src, i2w_src, W_tar, i2w_tar, precs, dict_scr_2_tar, logger):
+def calc_precision(W_src, i2w_src, W_tar, i2w_tar, precs, dict_scr_2_tar, logger):
     cos_mx = cosine_similarity(W_src, W_tar)
     sim_mx = np.argsort(-cos_mx, axis=1)
     max_prec = max(precs)
@@ -43,3 +43,10 @@ def calc_precision_calc(W_src, i2w_src, W_tar, i2w_tar, precs, dict_scr_2_tar, l
         prec_pcnts.append(pcnt)
     return prec_pcnts
 
+def calc_loss(M1, M2):
+     cos_mx = np.sum(np.multiply(M1, M2), axis=1)
+     avg = np.average(cos_mx)
+     return avg
+
+def gather(M, idxs):
+    return np.take(M, idxs, axis=0)

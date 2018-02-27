@@ -17,7 +17,7 @@ class ContModel(Loggable):
         self.cont = cont_config.cont
         if self.cont:
             self.logger.info('Continuing training...')
-            input_folder = os.path.join(cont_config.input_folder, strings.TRAIN_FOLDER_NAME)
+            input_folder = os.path.join(cont_config.input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME)
             epoch = cont_config.epoch
             if epoch is None:
                 list_of_files = os.listdir(input_folder)

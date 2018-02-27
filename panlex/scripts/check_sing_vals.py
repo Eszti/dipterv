@@ -2,9 +2,11 @@ import argparse
 import pickle
 import sys
 
+sys.path.insert(0, 'utils')
+
 import os
 
-sys.path.insert(0, 'utils')
+from debug_helper import get_smalls
 
 
 def get_sing_vals(output_folder, nbs, limit, logger=False):
@@ -14,7 +16,7 @@ def get_sing_vals(output_folder, nbs, limit, logger=False):
         with open(T_fn, 'rb') as f:
             T = pickle.load(f)
         T_en = T[0]
-        log('eng', logger)
+        print('eng', logger)
         get_smalls(T_en, limit, nb, logger)
         T_it = T[1]
         print('ita', logger)

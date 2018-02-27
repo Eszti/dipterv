@@ -21,23 +21,22 @@ class DataModel(Loggable):
         self.data_model_config = data_model_config
         # Initialize
         # lang1 - Lang2 : word pair list
-        self.word_pairs_dict = dict()
-        self.get_word_pairs_dict()
+        self.word_pairs_dict = self.get_word_pairs_dict()
         if data_model_config.emb_dir is not None:       # in case of we have saved training words embedding separately
             self.logger.info('embedding is read from : {}'.format(data_model_config.emb_dir))
-            self._read_filtered_embedding(data_model_config.emb_dir)
+            self.training_embeddings =  self._read_filtered_embedding(data_model_config.emb_dir)
             embeddings = self.training_embeddings
         else:
             self.logger.info('original embedding is used'.format(data_model_config.emb_dir))
             embeddings = embedding_model.embeddings
         # Lang1 - Lang2 : Lang1 - Lang2 dictionary
-        self.dictionaries = dict()
-        self.get_two_lang_dictionaries(embeddings)
-        # Lang : reduced amoung of word embeddings
-        self.filtered_models = dict()
-        self.get_filtered_models(embeddings, embedding_model.get_dim())
+        self.dictionaries, self.word_pairs_dict = self.get_two_lang_dictionaries(embeddings)
+        if self.data_model_config.filtered_mod:
+            # Lang : reduced amoung of word embeddings
+            self.filtered_models = self.get_filtered_models(embeddings, embedding_model.get_dim())
 
     def get_word_pairs_dict(self):
+        word_pairs_dict = dict()
         done = set()
         for lang1 in self.language_config.langs:
             for lang2 in self.language_config.langs:
@@ -50,8 +49,9 @@ class DataModel(Loggable):
                 fn = os.path.join(self.data_model_config.dir, '{0}_{1}.tsv'.format(l1, l2))
                 self.logger.info('Reading word pair file: {0}'.format(fn))
                 data = self._read_word_pairs_tsv(fn, self.data_model_config.idx1, self.data_model_config.idx2, False)
-                self.word_pairs_dict[lang_pair] = data
+                word_pairs_dict[lang_pair] = data
                 self.logger.info('Number of word pairs found: {0}'.format(len(data)))
+        return word_pairs_dict
 
     # Read word pairs from tsv
     def _read_word_pairs_tsv(self, fn, id1, id2, header=True):
@@ -61,12 +61,13 @@ class DataModel(Loggable):
         return data
 
     def _read_filtered_embedding(self, emb_dir):
-        self.training_embeddings = dict()
+        training_embeddings = dict()
         for l in self.language_config.langs:
             fn = os.path.join(emb_dir, '{}.pickle'.format(l))
             with open(fn, 'rb') as f:
                 data = pickle.load(f)
-            self.training_embeddings[l] = data
+            training_embeddings[l] = data
+        return training_embeddings
 
     def _get_not_found_list(self, vocab, embedding):
         nf_list = []
@@ -77,6 +78,7 @@ class DataModel(Loggable):
         return nf_list
 
     def get_two_lang_dictionaries(self, embeddings):
+        dictionaries = dict()
         updated_word_pairs = dict()
         for ((l1, l2), wp_l) in self.word_pairs_dict.items():
             self.logger.info('Processing {0}-{1}...'.format(l1, l2))
@@ -100,11 +102,11 @@ class DataModel(Loggable):
             # Create dictioary
             self.logger.info('Creating dictionary for: {0}-{1}'.format(l1, l2))
             l12, l21 = self._wp_list_2_dict(updated_wp_l)
-            self.dictionaries[(l1, l2)] = l12
-            self.dictionaries[(l2, l1)] = l21
+            dictionaries[(l1, l2)] = l12
+            dictionaries[(l2, l1)] = l21
             self.logger.info('# word in: {0}-{1}:\t{2}'.format(l1.upper(), l2, len(l12)))
             self.logger.info('# word in: {0}-{1}:\t{2}'.format(l2.upper(), l1, len(l21)))
-        self.word_pairs_dict = updated_word_pairs
+        return dictionaries, updated_word_pairs
 
     # Get dictionary fromm wordlist
     def _wp_list_2_dict(self, wp_l):
@@ -122,6 +124,7 @@ class DataModel(Loggable):
         return l12, l21
 
     def get_filtered_models(self, embeddings, dim):
+        filtered_mod_dict = dict()
         for ((l1, l2), d) in self.dictionaries.items():
             filtered_mod = KeyedVectors()
             filtered_mod.index2word = list(d.keys())
@@ -130,8 +133,9 @@ class DataModel(Loggable):
             for i, w in enumerate(filtered_mod.index2word):
                 filtered_mod.syn0[i, :] = embeddings[l1][w]
             self.logger.info('Filtered model: {0}-{1} contains {2} words'.
-                             format(l1.upper(), l2, len(filtered_mod.syn0)))
-            self.filtered_models[(l1, l2)] = filtered_mod
+                             format(l1.upper(), l2, len(list(d.keys()))))
+            filtered_mod_dict[(l1, l2)] = filtered_mod
+        return filtered_mod_dict
 
 class EmbeddingModel(Loggable):
     def __init__(self, language_config, embedding_config):
