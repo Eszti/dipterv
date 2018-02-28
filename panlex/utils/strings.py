@@ -24,13 +24,10 @@ VALID_OUTPUT_FOLDER_NAME = 'valid_mod'
 PLOT_OUTPUT_FOLDER_NAME = 'plots'
 
 # Output file names
-LOSS_U_LOG_FN = 'loss_u_output.csv'
-LOSS_L1_LOG_FN = 'loss_l1_output.csv'
-LOSS_L2_LOG_FN = 'loss_l2_output.csv'
+SIM_LOG_FN = 'train_sim'
 PREC_LOG_FN = 'precision_output'
-LOSS_PLOT_FN = 'loss.png'
+SIM_PLOT_FN = 'sim.png'
 PREC_PLOT_FN = 'precision'
-VALID_SIM_LANG_WISE_FN_BASE = 'valid_loss_'
-VALID_SIM_FN = 'valid_loss'
+VALID_SIM_FN = 'valid_sim'
 
 

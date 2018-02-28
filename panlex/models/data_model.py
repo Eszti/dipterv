@@ -31,7 +31,7 @@ class DataModel(Loggable):
             embeddings = embedding_model.embeddings
         # Lang1 - Lang2 : Lang1 - Lang2 dictionary
         self.dictionaries, self.word_pairs_dict = self.get_two_lang_dictionaries(embeddings)
-        if self.data_model_config.filtered_mod:
+        if self.data_model_config.filtered_model:
             # Lang : reduced amoung of word embeddings
             self.filtered_models = self.get_filtered_models(embeddings, embedding_model.get_dim())
 

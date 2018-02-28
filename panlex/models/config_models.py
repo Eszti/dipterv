@@ -84,7 +84,7 @@ class DataModelConfig(Configable):
         self.idx1 = self.get('idx1', type='int')
         self.idx2 = self.get('idx2', type='int')
         self.emb_dir = self.get_optional('emb_dir')
-        self.filtered_mod = self.get('filtered_mod', type='boolean')
+        self.filtered_model = self.get('filtered_model', type='boolean')
 
 class DataWrapperConfig(Configable):
     def __init__(self, cfg):

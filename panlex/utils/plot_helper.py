@@ -8,7 +8,8 @@ import sys
 
 sys.path.insert(0, 'utils')
 import strings
-from io_helper import checkdir
+from io_helper import checkdir, tsv_into_arrays, get_matching_files
+
 
 def _log(logger, text):
     if logger is not None:
@@ -16,94 +17,68 @@ def _log(logger, text):
     else:
         print(text)
 
-def _get_data_xy(fn):
-    data_x = []
-    data_y = []
-    with open(fn) as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=',')
-        for row in spamreader:
-            data_x.append(int(row[0]))
-            data_y.append(float(row[1]))
-    return data_x, data_y
-
-# Todo: only for en-it
 def plot_progress(input_folder, logger=None):
     _log(logger=logger, text='Plotting results...')
     output_folder = os.path.join(input_folder, strings.PLOT_OUTPUT_FOLDER_NAME)
+    delim = '\t'
+
     # Plot learning curve
-    loss_u_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.LOSS_U_LOG_FN)
-    loss_plot_fn = os.path.join(output_folder, strings.LOSS_PLOT_FN)
-    checkdir(loss_plot_fn)
-
-    data_x, data_y = _get_data_xy(loss_u_log_fn)
-    _log(logger=logger, text='max avg cos_sim: {0} at {1}'.format(max(data_y), data_y.index(max(data_y))))
-    plt.plot(data_x, data_y, c='r', label='univ')
-
-    loss_l1_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.LOSS_L1_LOG_FN)
-    if os.path.exists(loss_l1_log_fn):
-        data_x, data_y = _get_data_xy(loss_l1_log_fn)
-        plt.plot(data_x, data_y, c='g', label='l1')
-    loss_l2_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.LOSS_L2_LOG_FN)
-    if os.path.exists(loss_l2_log_fn):
-        data_x, data_y = _get_data_xy(loss_l2_log_fn)
-        plt.plot(data_x, data_y, c='b', label='l2')
-
+    sim_log_fn = os.path.join(input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.SIM_LOG_FN)
+    sim_plot_fn = os.path.join(output_folder, strings.SIM_PLOT_FN)
+    checkdir(sim_plot_fn)
+    plt.yscale('linear')
+    # Get train loss data
+    data = tsv_into_arrays(sim_log_fn, delim=delim)
+    max_val = max(data[1])
+    max_idx = data[1].index(max_val)
+    _log(logger=logger, text='max avg cos_sim (train): {0} at {1}'.format(max_val, data[0][max_idx]))
+    plt.plot(data[0], data[1], c='r', label='train')
+    # Get valid loss data
+    valid_sim_log_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, strings.VALID_SIM_FN)
+    if os.path.exists(valid_sim_log_fn):
+        data = tsv_into_arrays(valid_sim_log_fn, delim=delim)
+        max_val = max(data[1])
+        max_idx = data[1].index(max_val)
+        _log(logger=logger, text='max avg cos_sim (valid): {0} at {1}'.format(max_val, data[0][max_idx]))
+        plt.plot(data[0], data[1], c='g', label='valid')
+    # Plot
+    plt.legend()
     plt.title('Learning curve')
     plt.xlabel('Epochs')
     plt.ylabel('Avg sims')
+    plt.ylim(ymin=0.7)
     plt.grid()
-    plt.savefig(loss_plot_fn)
+    plt.savefig(sim_plot_fn)
+    plt.close()
 
     # Plot precision curves
-    def append_precs(var, data):
-        var[0].append(data[1][0])
-        var[1].append(data[1][1])
-        var[2].append(data[1][2])
+    COLORS_RGB = [
+        (228, 26, 28), (55, 126, 184), (77, 175, 74),
+        (152, 78, 163), (255, 127, 0), (255, 255, 51),
+        (166, 86, 40), (247, 129, 191), (153, 153, 153)
+    ]
+    colors = [(r / 255.0, g / 255.0, b / 255.0) for r, g, b in COLORS_RGB]
 
-    for eval_space in [strings.EVAL_SPACE_UNIV, strings.EVAL_SPACE_TARGET]:
-        fig = plt.figure(figsize=(8,10))
-        ax_1_2 = fig.add_subplot(211)
-        ax_2_1 = fig.add_subplot(212)
+    valid_dir = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME)
+    prec_files = get_matching_files(valid_dir, '{}*'.format(strings.PREC_LOG_FN))
 
-        prec_log_fn = os.path.join(
-            input_folder, strings.TRAIN_OUTPUT_FOLDER_NAME, strings.PREC_LOG_FN, '_{}'.format(eval_space))
-        if os.path.exists(prec_log_fn):
-            logger.info('{} space'.format(eval_space))
-            colors = ['b', 'g', 'y']
-            prec_nbs = [1, 5, 10]
-            prec_en_it = [[], [], []]
-            prec_it_en = [[], [], []]
-            prec_plot_fn = os.path.join(output_folder, '{0}_{1}.png'.format(strings.PREC_PLOT_FN, eval_space))
-            with open(prec_log_fn, 'rb') as picklefile:
-                precs = pickle.load(picklefile)
-            for i, ls in enumerate(precs):
-                en_it = ls[0]
-                it_en = ls[1]
-                append_precs(prec_en_it, en_it)
-                append_precs(prec_it_en, it_en)
-
-            nb = len(prec_en_it)
-            ax_1_2.set_title('Precision en-it')
-            ax_1_2.set_xlabel('Epochs')
-            ax_1_2.set_ylabel('Precision')
-            ax_1_2.grid()
-            logger.info('en-it')
-            for i in range(nb):
-                ax_1_2.plot(data_x, prec_en_it[i], c=colors[i], label='n={}'.format(prec_nbs[i]))
-                _log(logger=logger, text='max prec {0}: {1} at {2}'
-                     .format(prec_nbs[i], max(prec_en_it[i]), prec_en_it[i].index(max(prec_en_it[i]))))
-            ax_1_2.legend()
-
-            ax_2_1.set_title('Precision it-en')
-            ax_2_1.set_xlabel('Epochs')
-            ax_2_1.set_ylabel('Precision')
-            ax_2_1.grid()
-            logger.info('it-en')
-            for i in range(nb):
-                ax_2_1.plot(data_x, prec_it_en[i], c=colors[i], label='n={}'.format(prec_nbs[i]))
-                _log(logger=logger, text='max prec {0}: {1} at {2}'
-                     .format(prec_nbs[i], max(prec_it_en[i]), prec_it_en[i].index(max(prec_it_en[i]))))
-
-            ax_2_1.legend()
-
-            fig.savefig(prec_plot_fn)
+    for fn in prec_files:
+        parts = fn.split('_')
+        l1, l2 = parts[-2], parts[-1]
+        input_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, fn)
+        data = tsv_into_arrays(input_fn, delim=delim)
+        nb_precs = len(data) - 1
+        prec_plot_fn = os.path.join(output_folder, '{0}_{1}_{2}.png'.format(strings.PREC_PLOT_FN, l1, l2))
+        _log(logger, '{0}-{1}'.format(l1, l2))
+        for i in range(nb_precs):
+            max_val = max(data[i+1][1:])
+            max_idx = data[i+1].index(max_val)
+            _log(logger=logger, text='max prec {0}: {1} at {2}'.format(int(data[i+1][0]), max_val, data[0][max_idx]))
+            plt.plot(data[0][1:], data[i+1][1:], c=colors[i], label='{}'.format(data[i+1][0]))
+        plt.legend()
+        plt.title('Precision {0}-{1}'.format(l1, l2))
+        plt.xlabel('Epochs')
+        plt.ylabel('Precision')
+        plt.grid()
+        plt.savefig(prec_plot_fn)
+        plt.close()

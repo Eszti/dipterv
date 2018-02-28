@@ -20,29 +20,26 @@ class TrainModel(Loggable):
     def __init__(self, train_config, data_model_wrapper, language_config, output_dir, cont_model, validation_model):
         Loggable.__init__(self)
         self.train_config = train_config
-        self.data_model_wrapper = data_model_wrapper # Todo: delete
         self.langs = language_config.langs
         self.logger.info('Language order: {0}'.format([(i, l) for i, l in enumerate(self.langs)]))
         self.dim = data_model_wrapper.dim
-        self.train_data_model = self.data_model_wrapper.data_models[strings.TRAIN]
+        self.train_data_model = data_model_wrapper.data_models[strings.TRAIN]
         # Getting embeddings
-        self.train_embeddings = self.data_model_wrapper.training_embeddings
-        self.embeddings = self.data_model_wrapper.embedding_model.embeddings
+        self.train_embeddings = data_model_wrapper.training_embeddings
+        self.embeddings = data_model_wrapper.embedding_model.embeddings
         self.output_dir = os.path.join(output_dir, strings.TRAIN_OUTPUT_FOLDER_NAME)
         # Set continue params
         self.cont_model = cont_model
         # Validation model
         self.validation_model = validation_model
 
-
     def _log_loss_after_epoch(self, loss_arr, lc_arr, i, loss_type):
         loss_np_arr = np.asarray(loss_arr)
         loss_epoch_avg = np.average(loss_np_arr)
         self.logger.info('epoch:\t{0}\tavg sims: {1}\t- {2}'.format(i, loss_epoch_avg, loss_type))
         lc_arr.append([i, loss_epoch_avg])
-        loss_u_fn = os.path.join(self.output_dir, strings.LOSS_U_LOG_FN)
+        loss_u_fn = os.path.join(self.output_dir, strings.SIM_LOG_FN)
         list_to_csv(data=lc_arr, filename=loss_u_fn)
-
 
     def train(self):
         nb_langs = len(self.langs)

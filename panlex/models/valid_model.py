@@ -2,6 +2,8 @@ import sys
 
 import os
 
+from io_helper import list_to_csv
+
 sys.path.insert(0, 'utils')
 
 from debug_helper import get_smalls
@@ -42,26 +44,16 @@ class ValidModel(Loggable):
     def _save_valid_sim_lang_wise(self):
         for ((l1, l2), ls) in self.valid_sim_lang_wise.items():
             fn = os.path.join(self.output_dir, '{0}_{1}_{2}'.format(strings.VALID_SIM_FN, l1, l2))
-            with open(fn, 'wt') as f:
-                for (i, val) in ls:
-                    f.writelines('{0}\t{1}\n'.format(i, val))
+            list_to_csv(data=ls, filename=fn)
 
     def _save_valid_sim(self):
         fn = os.path.join(self.output_dir, strings.VALID_SIM_FN)
-        with open(fn, 'wt') as f:
-            for (i, val) in self.valid_sim_cumm:
-                f.writelines('{0}\t{1}\n'.format(i, val))
+        list_to_csv(data=self.valid_sim_cumm, filename=fn)
 
     def _save_precs(self):
         for ((l1, l2), ls) in self.precs_lang_wise.items():
             fn = os.path.join(self.output_dir, '{0}_{1}_{2}'.format(strings.PREC_LOG_FN, l1, l2))
-            with open(fn, 'wt') as f:
-                for (i, precs) in ls:
-                    line = '{}\t'.format(i)
-                    for e in precs:
-                        line += '{}\t'.format(e)
-                    line += '\n'
-                    f.writelines(line)
+            list_to_csv(data=ls, filename=fn)
 
     def do_validation(self, svd_done, epoch, T):
         if svd_done or epoch % self.valid_config.do_valid_on == 0:
@@ -119,11 +111,11 @@ class ValidModel(Loggable):
                     self.logger.info('Precs: {0}-{1}: {2}'.format(l2, l1, precs_2))
 
                     if (l1, l2) not in self.precs_lang_wise.keys():
-                        self.precs_lang_wise[(l1, l2)] = []
+                        self.precs_lang_wise[(l1, l2)] = [[0] + self.valid_config.precs_to_calc]
                     if (l2, l1) not in self.precs_lang_wise.keys():
-                        self.precs_lang_wise[(l2, l1)] = []
-                    self.precs_lang_wise[(l1, l2)].append((epoch, precs_1))
-                    self.precs_lang_wise[(l2, l1)].append((epoch, precs_2))
+                        self.precs_lang_wise[(l2, l1)] = [[0] + self.valid_config.precs_to_calc]
+                    self.precs_lang_wise[(l1, l2)].append([epoch] + precs_1)
+                    self.precs_lang_wise[(l2, l1)].append([epoch] + precs_2)
 
                 # Calculate small singular values
                 if self.valid_config.calc_small_sing:
