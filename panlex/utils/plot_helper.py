@@ -17,7 +17,7 @@ def _log(logger, text):
     else:
         print(text)
 
-def plot_progress(input_folder, logger=None):
+def plot_progress(input_folder, logger=None, ymin=0.7):
     _log(logger=logger, text='Plotting results...')
     output_folder = os.path.join(input_folder, strings.PLOT_OUTPUT_FOLDER_NAME)
     delim = '\t'
@@ -31,7 +31,7 @@ def plot_progress(input_folder, logger=None):
     data = tsv_into_arrays(sim_log_fn, delim=delim)
     max_val = max(data[1])
     max_idx = data[1].index(max_val)
-    _log(logger=logger, text='max avg cos_sim (train): {0} at {1}'.format(max_val, data[0][max_idx]))
+    _log(logger=logger, text='max avg cos_sim (train): {0} at {1}'.format(max_val, int(data[0][max_idx])))
     plt.plot(data[0], data[1], c='r', label='train')
     # Get valid loss data
     valid_sim_log_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, strings.VALID_SIM_FN)
@@ -39,14 +39,14 @@ def plot_progress(input_folder, logger=None):
         data = tsv_into_arrays(valid_sim_log_fn, delim=delim)
         max_val = max(data[1])
         max_idx = data[1].index(max_val)
-        _log(logger=logger, text='max avg cos_sim (valid): {0} at {1}'.format(max_val, data[0][max_idx]))
+        _log(logger=logger, text='max avg cos_sim (valid): {0} at {1}'.format(max_val, int(data[0][max_idx])))
         plt.plot(data[0], data[1], c='g', label='valid')
     # Plot
     plt.legend()
     plt.title('Learning curve')
     plt.xlabel('Epochs')
     plt.ylabel('Avg sims')
-    plt.ylim(ymin=0.7)
+    plt.ylim(ymin=ymin)
     plt.grid()
     plt.savefig(sim_plot_fn)
     plt.close()
@@ -73,7 +73,8 @@ def plot_progress(input_folder, logger=None):
         for i in range(nb_precs):
             max_val = max(data[i+1][1:])
             max_idx = data[i+1].index(max_val)
-            _log(logger=logger, text='max prec {0}: {1} at {2}'.format(int(data[i+1][0]), max_val, data[0][max_idx]))
+            _log(logger=logger, text='max prec {0}: {1} at {2}'
+                 .format(int(data[i+1][0]), max_val, int(data[0][max_idx])))
             plt.plot(data[0][1:], data[i+1][1:], c=colors[i], label='{}'.format(data[i+1][0]))
         plt.legend()
         plt.title('Precision {0}-{1}'.format(l1, l2))
