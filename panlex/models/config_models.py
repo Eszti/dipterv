@@ -106,6 +106,7 @@ class TrainingConfig(Configable):
         self.iters = self.get_optional('iters', type='int')
         self.svd_mode = self.get('svd_mode', type='int')
         self.svd_f = self.get('svd_f',  type='int')
+        self.batch_size = self.get('batch_size', type='int')
 
 class ValidationConfig(Configable):
     def __init__(self, cfg):

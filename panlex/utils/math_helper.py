@@ -48,5 +48,24 @@ def calc_loss(M1, M2):
      avg = np.average(cos_mx)
      return avg
 
+def get_indexes_of_wplist(wp_l, embeddings, l1, l2):
+    l1_idxs = []
+    l2_idxs = []
+    for w1, w2 in wp_l:
+        idx_w1 = embeddings[l1].index2word.index(w1)
+        idx_w2 = embeddings[l2].index2word.index(w2)
+        l1_idxs.append(idx_w1)
+        l2_idxs.append(idx_w2)
+    return l1_idxs, l2_idxs
+
+def get_embeddings_for_batch(emb_dict, wp_l, dim, l1, l2):
+    nb_rows = len(wp_l)
+    emb1 = np.ndarray(shape=(nb_rows, dim))
+    emb2 = np.ndarray(shape=(nb_rows, dim))
+    for (i, (w1, w2)) in enumerate(wp_l):
+        emb1[i, :] = emb_dict[l1][w1]
+        emb2[i, :] = emb_dict[l2][w2]
+    return emb1, emb2
+
 def gather(M, idxs):
     return np.take(M, idxs, axis=0)

@@ -8,7 +8,7 @@ from debug_helper import get_smalls
 sys.path.insert(0, 'utils')
 
 from io_helper import save_pickle, list_to_csv
-from math_helper import calc_precision_keyedvec, calc_precision
+from math_helper import calc_precision_keyedvec, calc_precision, get_indexes_of_wplist, gather, get_embeddings_for_batch
 
 import strings
 from base.loggable import Loggable
@@ -20,6 +20,7 @@ class TrainModel(Loggable):
     def __init__(self, train_config, data_model_wrapper, language_config, output_dir, cont_model, validation_model):
         Loggable.__init__(self)
         self.train_config = train_config
+        self.batch_size = self.train_config.batch_size
         self.langs = language_config.langs
         self.logger.info('Language order: {0}'.format([(i, l) for i, l in enumerate(self.langs)]))
         self.dim = data_model_wrapper.dim
@@ -71,7 +72,7 @@ class TrainModel(Loggable):
             tf_w2_u = tf.matmul(tf_w2, tf_T[tf_idx_l2])
             tf_w1_u_n = tf.nn.l2_normalize(tf_w1_u, dim=1)
             tf_w2_u_n = tf.nn.l2_normalize(tf_w2_u, dim=1)
-            loss = tf.matmul(tf_w1_u_n, tf.transpose(tf_w2_u_n))
+            loss = tf.reduce_mean(tf.reduce_sum(tf.multiply(tf_w1_u_n, tf_w2_u_n), axis=1))
             loss = -loss
 
             # Applying optimizer, Todo: try different optimizers!!
@@ -80,28 +81,26 @@ class TrainModel(Loggable):
 
         with tf.Session(graph=graph) as session:
             tf.global_variables_initializer().run()
-
-            j_iters = 0
-            lc_u_arr = []
-            for i in range(self.train_config.epochs):
+            sim_u_arr = []
+            for epoch in range(self.train_config.epochs):
                 svd_in_epoch = False
                 loss_u_arr = []
-                j_lang = 0
-                for ((l1, l2), wp_l) in self.train_data_model.word_pairs_dict.items():
+
+                for (j_lang, ((l1, l2), wp_l)) in enumerate(self.train_data_model.word_pairs_dict.items()):
                     loss_U_arr_l = []
                     idx_l1 = self.langs.index(l1)
                     idx_l2 = self.langs.index(l2)
-                    j_wp = 0
-                    for (w1, w2) in wp_l:
-                        emb1 = self.train_embeddings[l1][w1].reshape((1, 300))
-                        emb2 = self.train_embeddings[l2][w2].reshape((1, 300))
+                    for j_batch in range(int(round(1.0 * len(wp_l) / self.batch_size))):
+                        chosen_wps = wp_l[j_batch*self.batch_size : (j_batch+1)*self.batch_size]
+                        W1, W2 = get_embeddings_for_batch(emb_dict=self.train_embeddings, wp_l=chosen_wps,
+                                                          dim=self.dim, l1=l1, l2=l2)
                         svd_done = False
-                        if j_wp == 0:
-                            if (self.train_config.svd_mode == 1 and i % self.train_config.svd_f == 0) or \
-                                    (self.train_config.svd_mode == 2 and j_iters == 0):
+                        if j_batch == 0:
+                            if (self.train_config.svd_mode == 1 and epoch % self.train_config.svd_f == 0) or \
+                                    (self.train_config.svd_mode == 2 and epoch == 0):
                                 _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
-                                                            feed_dict={tf_w1: emb1,
-                                                                       tf_w2: emb2,
+                                                            feed_dict={tf_w1: W1,
+                                                                       tf_w2: W2,
                                                                        tf_idx_l1: idx_l1,
                                                                        tf_idx_l2: idx_l2})
                                 svd_done = True
@@ -109,29 +108,22 @@ class TrainModel(Loggable):
 
                         if not svd_done:
                             _, l, T = session.run([optimizer, loss, tf_T],
-                                                  feed_dict={tf_w1: emb1,
-                                                             tf_w2: emb2,
+                                                  feed_dict={tf_w1: W1,
+                                                             tf_w2: W2,
                                                              tf_idx_l1: idx_l1,
                                                              tf_idx_l2: idx_l2})
-                        j_iters += 1
-                        j_wp += 1
-                        loss_u_arr.append(-l[0][0])
-                        loss_U_arr_l.append(-l[0][0])
-
-                        if self.train_config.iters is not None and j_iters == self.train_config.iters:
-                            break
-                    j_lang += 1
-                    if self.train_config.iters is not None and j_iters == self.train_config.iters:
-                        break
+                        loss_u_arr.append(-l)
+                        loss_U_arr_l.append(-l)
+                        self.logger.debug('batch: {0} - loss: {1}'.format(j_batch, -l))
 
                 # Monitoring for learning curve
-                self._log_loss_after_epoch(loss_arr=loss_u_arr, lc_arr=lc_u_arr, i=i, loss_type='universal space')
+                self._log_loss_after_epoch(loss_arr=loss_u_arr, lc_arr=sim_u_arr, i=epoch, loss_type='universal space')
 
                 # Validate
-                self.validation_model.do_validation(svd_done=svd_in_epoch, epoch=i, T=T)
+                self.validation_model.do_validation(svd_done=svd_in_epoch, epoch=epoch, T=T)
 
                 # Save T matrix
-                fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(i))
+                fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(epoch))
                 save_pickle(data=T, filename=fn)
 
     def run(self):

@@ -7,7 +7,7 @@ from io_helper import list_to_csv
 sys.path.insert(0, 'utils')
 
 from debug_helper import get_smalls
-from math_helper import calc_precision, gather, calc_loss
+from math_helper import calc_precision, gather, calc_loss, get_indexes_of_wplist
 
 import strings
 from base.loggable import Loggable
@@ -31,13 +31,7 @@ class ValidModel(Loggable):
     def _create_gathered_embeddings_idices(self):
         gathered_embeddings_indices = dict()
         for ((l1, l2), wp_l) in self.valid_data_model.word_pairs_dict.items():
-            l1_idxs = []
-            l2_idxs = []
-            for w1, w2 in wp_l:
-                idx_w1 = self.embeddings[l1].index2word.index(w1)
-                idx_w2 = self.embeddings[l2].index2word.index(w2)
-                l1_idxs.append(idx_w1)
-                l2_idxs.append(idx_w2)
+            l1_idxs, l2_idxs = get_indexes_of_wplist(wp_l=wp_l, embeddings=self.embeddings, l1=l1, l2=l2)
             gathered_embeddings_indices[(l1, l2)] = [l1_idxs, l2_idxs]
         return gathered_embeddings_indices
 
