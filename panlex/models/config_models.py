@@ -107,6 +107,7 @@ class TrainingConfig(Configable):
         self.svd_mode = self.get('svd_mode', type='int')
         self.svd_f = self.get('svd_f',  type='int')
         self.batch_size = self.get('batch_size', type='int')
+        self.save_only_on_valid = self.get('save_only_on_valid',  type='boolean')
 
 class ValidationConfig(Configable):
     def __init__(self, cfg):

@@ -1,14 +1,11 @@
 import sys
 
-import copy
 import os
-
-from debug_helper import get_smalls
 
 sys.path.insert(0, 'utils')
 
 from io_helper import save_pickle, list_to_csv
-from math_helper import calc_precision_keyedvec, calc_precision, get_indexes_of_wplist, gather, get_embeddings_for_batch
+from math_helper import get_embeddings_for_batch
 
 import strings
 from base.loggable import Loggable
@@ -82,7 +79,10 @@ class TrainModel(Loggable):
         with tf.Session(graph=graph) as session:
             tf.global_variables_initializer().run()
             sim_u_arr = []
+            valid_done = False
+            T_saved = False
             for epoch in range(self.train_config.epochs):
+                T_saved = False
                 svd_in_epoch = False
                 loss_u_arr = []
 
@@ -120,10 +120,20 @@ class TrainModel(Loggable):
                 self._log_loss_after_epoch(loss_arr=loss_u_arr, lc_arr=sim_u_arr, i=epoch, loss_type='universal space')
 
                 # Validate
-                self.validation_model.do_validation(svd_done=svd_in_epoch, epoch=epoch, T=T)
+                valid_done = self.validation_model.do_validation(svd_done=svd_in_epoch, epoch=epoch, T=T)
 
                 # Save T matrix
-                fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(epoch))
+                if (not self.train_config.save_only_on_valid) or (self.train_config.save_only_on_valid and valid_done):
+                    fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(epoch))
+                    save_pickle(data=T, filename=fn)
+                    T_saved = True
+
+            # Valid after all
+            if not valid_done:
+                self.validation_model.do_validation(svd_done=True, epoch=self.train_config.epochs, T=T)
+            # Save after all
+            if not T_saved:
+                fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(self.train_config.epochs))
                 save_pickle(data=T, filename=fn)
 
     def run(self):

@@ -50,6 +50,7 @@ class ValidModel(Loggable):
             list_to_csv(data=ls, filename=fn)
 
     def do_validation(self, svd_done, epoch, T):
+        valid_done = False
         if svd_done or epoch % self.valid_config.do_valid_on == 0:
             epoch_valid_sim_cumm = []
             for ((l1, l2), [idxs1, idxs2]) in self.gathered_embeddings_indices.items():
@@ -127,3 +128,6 @@ class ValidModel(Loggable):
                 self._save_valid_sim()
             if self.valid_config.do_prec_calc:
                 self._save_precs()
+            valid_done = True
+
+        return valid_done
