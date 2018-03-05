@@ -22,18 +22,18 @@ class DataModel(Loggable):
         # Initialize
         # lang1 - Lang2 : word pair list
         self.word_pairs_dict = self.get_word_pairs_dict()
+        self.emb_dir = data_model_config.emb_dir is not None
         if data_model_config.emb_dir is not None:       # in case of we have saved training words embedding separately
             self.logger.info('embedding is read from : {}'.format(data_model_config.emb_dir))
-            self.training_embeddings =  self._read_filtered_embedding(data_model_config.emb_dir)
-            embeddings = self.training_embeddings
+            self.filtered_input_embeddings =  self._read_filtered_embedding(data_model_config.emb_dir)
+            embeddings = self.filtered_input_embeddings
         else:
             self.logger.info('original embedding is used'.format(data_model_config.emb_dir))
             embeddings = embedding_model.embeddings
         # Lang1 - Lang2 : Lang1 - Lang2 dictionary
         self.dictionaries, self.word_pairs_dict = self.get_two_lang_dictionaries(embeddings)
-        if self.data_model_config.filtered_model:
-            # Lang : reduced amoung of word embeddings
-            self.filtered_models = self.get_filtered_models(embeddings, embedding_model.get_dim())
+        # Lang : reduced amoung of word embeddings
+        self.filtered_models = self.get_filtered_models(embeddings, embedding_model.get_dim())
 
     def get_word_pairs_dict(self):
         word_pairs_dict = dict()
@@ -176,4 +176,3 @@ class DataModelWrapper(Loggable):
                                               embedding_model=self.embedding_model)
         self.dim = self.embedding_model.get_dim()
         self.logger.info('Vector dimension: {}'.format(self.dim))
-        self.training_embeddings = self.data_models[strings.TRAIN].training_embeddings

@@ -48,12 +48,12 @@ def calc_loss(M1, M2):
      avg = np.average(cos_mx)
      return avg
 
-def get_indexes_of_wplist(wp_l, embeddings, l1, l2):
+def get_indexes_of_wplist(wp_l, emb_l1, emb_l2):
     l1_idxs = []
     l2_idxs = []
     for w1, w2 in wp_l:
-        idx_w1 = embeddings[l1].index2word.index(w1)
-        idx_w2 = embeddings[l2].index2word.index(w2)
+        idx_w1 = emb_l1.index2word.index(w1)
+        idx_w2 = emb_l2.index2word.index(w2)
         l1_idxs.append(idx_w1)
         l2_idxs.append(idx_w2)
     return l1_idxs, l2_idxs

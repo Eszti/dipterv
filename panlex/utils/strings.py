@@ -7,7 +7,8 @@ DATA_WRAPPER_CONFIG_NAME = 'data'
 EMBEDDING_CONFIG_MAME = 'embedding'
 TRAINING_CONFIG_NAME = 'training_model'
 VALIDATION_CONFIG_NAME = 'validation_model'
-CONT_CONFIT_NAME = 'cont'
+TEST_CONFIG_NAME = 'test_model'
+CONT_CONFIG_NAME = 'cont'
 
 # Procedures
 TRAIN = 'train'
@@ -21,13 +22,13 @@ EVAL_SPACE_TARGET = 'target'
 # Output folder names
 TRAIN_OUTPUT_FOLDER_NAME = 'train_mod'
 VALID_OUTPUT_FOLDER_NAME = 'valid_mod'
+TEST_OUTPUT_FOLDER_NAME = 'test_mod'
 PLOT_OUTPUT_FOLDER_NAME = 'plots'
 
 # Output file names
-SIM_LOG_FN = 'train_sim'
+SIM_LOG_FN = 'sim'
 PREC_LOG_FN = 'precision_output'
 SIM_PLOT_FN = 'sim.png'
 PREC_PLOT_FN = 'precision'
-VALID_SIM_FN = 'valid_sim'
 
 

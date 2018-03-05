@@ -14,7 +14,8 @@ import numpy as np
 
 
 class TrainModel(Loggable):
-    def __init__(self, train_config, data_model_wrapper, language_config, output_dir, cont_model, validation_model):
+    def __init__(self, train_config, data_model_wrapper, language_config, output_dir,
+                 cont_model, validation_model, plot_model):
         Loggable.__init__(self)
         self.train_config = train_config
         self.batch_size = self.train_config.batch_size
@@ -26,7 +27,7 @@ class TrainModel(Loggable):
         if self.do_train:
             self.train_data_model = data_model_wrapper.data_models[strings.TRAIN]
             # Getting embeddings
-            self.train_embeddings = data_model_wrapper.training_embeddings
+            self.train_embeddings = self.train_data_model.filtered_input_embeddings
             self.embeddings = data_model_wrapper.embedding_model.embeddings
             self.output_dir = os.path.join(output_dir, strings.TRAIN_OUTPUT_FOLDER_NAME)
             # Set continue params
@@ -38,6 +39,7 @@ class TrainModel(Loggable):
                 self.validation_model = validation_model
             else:
                 self.logger.info('Validation will be skipped !!! - no validation process is required')
+            self.plot_model = plot_model
 
     def _log_loss_after_epoch(self, loss_arr, lc_arr, i, loss_type):
         loss_np_arr = np.asarray(loss_arr)
@@ -150,6 +152,7 @@ class TrainModel(Loggable):
     def run(self):
         if self.do_train:
             self.train()
+            self.plot_model.plot_progress()
         else:
             self.logger.info('Skipping training')
 

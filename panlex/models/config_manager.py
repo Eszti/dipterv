@@ -2,6 +2,7 @@ import sys
 
 from data_model import DataModelWrapper
 from continue_model import ContModel
+from plot_model import PlotModel
 from train_model import TrainModel
 from test_model import TestModel
 from valid_model import ValidModel
@@ -44,6 +45,7 @@ class ConfigManager:
         self.embedding_config = config_models.EmbeddingConfig(cfg=self.cfg)
         self.training_config = config_models.TrainingConfig(cfg=self.cfg)
         self.validation_config = config_models.ValidationConfig(cfg=self.cfg)
+        self.test_config = config_models.TestConfig(cfg=self.cfg)
         # Getting models
         self.cont_model = ContModel(cont_config=self.cont_config)
         self.data_model_wrapper = DataModelWrapper(data_wrapper_config=self.data_wrapper_config,
@@ -56,13 +58,21 @@ class ConfigManager:
                                                output_dir=self.output_dir)
         else:
             self.validation_model = None
+        self.plot_model = PlotModel(input_dir=self.output_dir)
         self.training_model = TrainModel(train_config=self.training_config,
                                          data_model_wrapper=self.data_model_wrapper,
                                          language_config=self.language_config,
                                          output_dir=self.output_dir,
                                          cont_model=self.cont_model,
-                                         validation_model=self.validation_model)
-        self.test_model = TestModel(input_dir=self.output_dir)
+                                         validation_model=self.validation_model,
+                                         plot_model=self.plot_model)
+        if strings.TEST in self.data_model_wrapper.data_models.keys():
+            self.test_model = TestModel(test_config=self.test_config,
+                                        data_model_wrapper=self.data_model_wrapper,
+                                        language_config=self.language_config,
+                                        output_dir=self.output_dir)
+        else:
+            self.test_model = None
 
     def _get_config(self, config_files_list):
         config_files = [fn for fn in config_files_list if fn is not None]

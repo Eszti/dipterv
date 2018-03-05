@@ -34,7 +34,7 @@ def plot_progress(input_folder, logger=None, ymin=0.7):
     _log(logger=logger, text='max avg cos_sim (train): {0} at {1}'.format(max_val, int(data[0][max_idx])))
     plt.plot(data[0], data[1], c='r', label='train')
     # Get valid loss data
-    valid_sim_log_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, strings.VALID_SIM_FN)
+    valid_sim_log_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, strings.SIM_LOG_FN)
     if os.path.exists(valid_sim_log_fn):
         data = tsv_into_arrays(valid_sim_log_fn, delim=delim)
         max_val = max(data[1])

@@ -59,7 +59,7 @@ class ContConfig(Configable):
     def __init__(self, cfg):
         Configable.__init__(self, cfg)
         self.config = cfg
-        self.name = strings.CONT_CONFIT_NAME
+        self.name = strings.CONT_CONFIG_NAME
         self.cont = self.get('continue', type='boolean')
         if self.cont:
             self.input_folder = self.get('input_folder')
@@ -84,7 +84,6 @@ class DataModelConfig(Configable):
         self.idx1 = self.get('idx1', type='int')
         self.idx2 = self.get('idx2', type='int')
         self.emb_dir = self.get_optional('emb_dir')
-        self.filtered_model = self.get('filtered_model', type='boolean')
 
 class DataWrapperConfig(Configable):
     def __init__(self, cfg):
@@ -114,10 +113,23 @@ class ValidationConfig(Configable):
         Configable.__init__(self, cfg)
         self.cfg = cfg
         self.name = strings.VALIDATION_CONFIG_NAME
-        self.do_valid_on = self.get('do_valid_on', type='int')
+        self.do_on = self.get('do_on', type='int')
         self.do_prec_calc = self.get('do_prec_calc', type='boolean')
         self.precs_to_calc = self.get_optional('precs_to_calc', type='intlist')
-        self.calc_valid_loss = self.get('calc_valid_loss', type='boolean')
+        self.calc_loss = self.get('calc_loss', type='boolean')
         self.calc_small_sing = self.get('calc_small_sing', type='boolean')
         self.limit = self.get('limit', type='float')
+
+class TestConfig(Configable):
+    def __init__(self, cfg):
+        Configable.__init__(self, cfg)
+        self.cfg = cfg
+        self.name = strings.TEST_CONFIG_NAME
+        self.do_prec_calc = self.get('do_prec_calc', type='boolean')
+        self.precs_to_calc = self.get_optional('precs_to_calc', type='intlist')
+        self.calc_loss = self.get('calc_loss', type='boolean')
+        self.calc_small_sing = self.get('calc_small_sing', type='boolean')
+        self.limit = self.get('limit', type='float')
+        self.epochs = self.get('epochs', type='list')
+        self.input_folder = self.get('input_folder')
 

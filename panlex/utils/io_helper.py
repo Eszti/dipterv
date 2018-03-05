@@ -10,6 +10,7 @@ from shutil import copyfile
 import os
 import json
 
+import strings
 
 sys.path.insert(0, 'utils')
 

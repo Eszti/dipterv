@@ -11,14 +11,14 @@ def main(config_files, output_folder):
     # Get config manager
     config_manager = ConfigManager(config_files=config_files,
                                    output_folder=output_folder)
-    # Get logger
-    logger = config_manager.logger
 
     train_model = config_manager.training_model
-    train_model.run()
+    if train_model is not None:
+        train_model.run()
 
     test_model = config_manager.test_model
-    test_model.plot_progress()
+    if test_model is not None:
+        test_model.run()
 
 
 if __name__ == '__main__':
