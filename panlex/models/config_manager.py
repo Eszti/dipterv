@@ -49,10 +49,13 @@ class ConfigManager:
         self.data_model_wrapper = DataModelWrapper(data_wrapper_config=self.data_wrapper_config,
                                                    embedding_config=self.embedding_config,
                                                    language_config=self.language_config)
-        self.validation_model = ValidModel(valid_config=self.validation_config,
-                                           data_model_wrapper=self.data_model_wrapper,
-                                           language_config=self.language_config,
-                                           output_dir=self.output_dir)
+        if strings.VALID in self.data_model_wrapper.data_models.keys():
+            self.validation_model = ValidModel(valid_config=self.validation_config,
+                                               data_model_wrapper=self.data_model_wrapper,
+                                               language_config=self.language_config,
+                                               output_dir=self.output_dir)
+        else:
+            self.validation_model = None
         self.training_model = TrainModel(train_config=self.training_config,
                                          data_model_wrapper=self.data_model_wrapper,
                                          language_config=self.language_config,

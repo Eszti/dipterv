@@ -21,15 +21,23 @@ class TrainModel(Loggable):
         self.langs = language_config.langs
         self.logger.info('Language order: {0}'.format([(i, l) for i, l in enumerate(self.langs)]))
         self.dim = data_model_wrapper.dim
-        self.train_data_model = data_model_wrapper.data_models[strings.TRAIN]
-        # Getting embeddings
-        self.train_embeddings = data_model_wrapper.training_embeddings
-        self.embeddings = data_model_wrapper.embedding_model.embeddings
-        self.output_dir = os.path.join(output_dir, strings.TRAIN_OUTPUT_FOLDER_NAME)
-        # Set continue params
-        self.cont_model = cont_model
-        # Validation model
-        self.validation_model = validation_model
+        # Train setup
+        self.do_train = strings.TRAIN in data_model_wrapper.data_models.keys()
+        if self.do_train:
+            self.train_data_model = data_model_wrapper.data_models[strings.TRAIN]
+            # Getting embeddings
+            self.train_embeddings = data_model_wrapper.training_embeddings
+            self.embeddings = data_model_wrapper.embedding_model.embeddings
+            self.output_dir = os.path.join(output_dir, strings.TRAIN_OUTPUT_FOLDER_NAME)
+            # Set continue params
+            self.cont_model = cont_model
+            # Valid setup
+            self.do_valid = validation_model is not None
+            if self.do_valid:
+                # Validation model
+                self.validation_model = validation_model
+            else:
+                self.logger.info('Validation will be skipped !!! - no validation process is required')
 
     def _log_loss_after_epoch(self, loss_arr, lc_arr, i, loss_type):
         loss_np_arr = np.asarray(loss_arr)
@@ -92,6 +100,7 @@ class TrainModel(Loggable):
                     idx_l2 = self.langs.index(l2)
                     for j_batch in range(int(round(1.0 * len(wp_l) / self.batch_size))):
                         chosen_wps = wp_l[j_batch*self.batch_size : (j_batch+1)*self.batch_size]
+
                         W1, W2 = get_embeddings_for_batch(emb_dict=self.train_embeddings, wp_l=chosen_wps,
                                                           dim=self.dim, l1=l1, l2=l2)
                         svd_done = False
@@ -105,7 +114,6 @@ class TrainModel(Loggable):
                                                                        tf_idx_l2: idx_l2})
                                 svd_done = True
                                 svd_in_epoch = True
-
                         if not svd_done:
                             _, l, T = session.run([optimizer, loss, tf_T],
                                                   feed_dict={tf_w1: W1,
@@ -117,10 +125,12 @@ class TrainModel(Loggable):
                         self.logger.debug('batch: {0} - loss: {1}'.format(j_batch, -l))
 
                 # Monitoring for learning curve
-                self._log_loss_after_epoch(loss_arr=loss_u_arr, lc_arr=sim_u_arr, i=epoch, loss_type='universal space')
-
-                # Validate
-                valid_done = self.validation_model.do_validation(svd_done=svd_in_epoch, epoch=epoch, T=T)
+                self._log_loss_after_epoch(loss_arr=loss_u_arr,
+                                           lc_arr=sim_u_arr, i=epoch,
+                                           loss_type='universal space')
+                if self.do_valid:
+                    # Validate
+                    valid_done = self.validation_model.do_validation(svd_done=svd_in_epoch, epoch=epoch, T=T)
 
                 # Save T matrix
                 if (not self.train_config.save_only_on_valid) or (self.train_config.save_only_on_valid and valid_done):
@@ -128,15 +138,19 @@ class TrainModel(Loggable):
                     save_pickle(data=T, filename=fn)
                     T_saved = True
 
-            # Valid after all
-            if not valid_done:
-                self.validation_model.do_validation(svd_done=True, epoch=self.train_config.epochs, T=T)
+            if self.do_valid:
+                # Valid after all
+                if not valid_done:
+                    self.validation_model.do_validation(svd_done=True, epoch=self.train_config.epochs, T=T)
             # Save after all
             if not T_saved:
                 fn = os.path.join(self.output_dir, 'T_{0}.pickle'.format(self.train_config.epochs))
                 save_pickle(data=T, filename=fn)
 
     def run(self):
-        self.train()
+        if self.do_train:
+            self.train()
+        else:
+            self.logger.info('Skipping training')
 
 

@@ -60,26 +60,27 @@ def plot_progress(input_folder, logger=None, ymin=0.7):
     colors = [(r / 255.0, g / 255.0, b / 255.0) for r, g, b in COLORS_RGB]
 
     valid_dir = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME)
-    prec_files = get_matching_files(valid_dir, '{}*'.format(strings.PREC_LOG_FN))
+    if os.path.exists(valid_dir):
+        prec_files = get_matching_files(valid_dir, '{}*'.format(strings.PREC_LOG_FN))
 
-    for fn in prec_files:
-        parts = fn.split('_')
-        l1, l2 = parts[-2], parts[-1]
-        input_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, fn)
-        data = tsv_into_arrays(input_fn, delim=delim)
-        nb_precs = len(data) - 1
-        prec_plot_fn = os.path.join(output_folder, '{0}_{1}_{2}.png'.format(strings.PREC_PLOT_FN, l1, l2))
-        _log(logger, '{0}-{1}'.format(l1, l2))
-        for i in range(nb_precs):
-            max_val = max(data[i+1][1:])
-            max_idx = data[i+1].index(max_val)
-            _log(logger=logger, text='max prec {0}: {1} at {2}'
-                 .format(int(data[i+1][0]), max_val, int(data[0][max_idx])))
-            plt.plot(data[0][1:], data[i+1][1:], c=colors[i], label='{}'.format(data[i+1][0]))
-        plt.legend()
-        plt.title('Precision {0}-{1}'.format(l1, l2))
-        plt.xlabel('Epochs')
-        plt.ylabel('Precision')
-        plt.grid()
-        plt.savefig(prec_plot_fn)
-        plt.close()
+        for fn in prec_files:
+            parts = fn.split('_')
+            l1, l2 = parts[-2], parts[-1]
+            input_fn = os.path.join(input_folder, strings.VALID_OUTPUT_FOLDER_NAME, fn)
+            data = tsv_into_arrays(input_fn, delim=delim)
+            nb_precs = len(data) - 1
+            prec_plot_fn = os.path.join(output_folder, '{0}_{1}_{2}.png'.format(strings.PREC_PLOT_FN, l1, l2))
+            _log(logger, '{0}-{1}'.format(l1, l2))
+            for i in range(nb_precs):
+                max_val = max(data[i+1][1:])
+                max_idx = data[i+1].index(max_val)
+                _log(logger=logger, text='max prec {0}: {1} at {2}'
+                     .format(int(data[i+1][0]), max_val, int(data[0][max_idx])))
+                plt.plot(data[0][1:], data[i+1][1:], c=colors[i], label='{}'.format(data[i+1][0]))
+            plt.legend()
+            plt.title('Precision {0}-{1}'.format(l1, l2))
+            plt.xlabel('Epochs')
+            plt.ylabel('Precision')
+            plt.grid()
+            plt.savefig(prec_plot_fn)
+            plt.close()
