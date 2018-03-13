@@ -46,7 +46,7 @@ def save_json(data, filename):
 def list_to_csv(data, filename, delim='\t'):
     checkdir(filename)
     with open(filename, 'wt') as f:
-        wr = csv.writer(f, dialect='excel', delimiter =delim)
+        wr = csv.writer(f, dialect='excel', delimiter=delim)
         wr.writerows(data)
 
 def copy_files(output_dir, orig_files, logger=None):

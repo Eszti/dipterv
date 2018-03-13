@@ -69,3 +69,57 @@ def get_embeddings_for_batch(emb_dict, wp_l, dim, l1, l2):
 
 def gather(M, idxs):
     return np.take(M, idxs, axis=0)
+
+def prec_at(ranks, cut):
+    return len([r for r in ranks if r <= cut])/float(len(ranks))
+
+def get_rank(nn, gold):
+    for idx,word in enumerate(nn):
+        if word in gold:
+            return idx + 1
+    return idx + 1
+
+def score(sp1, sp2, gold, additional):
+    sim_mat = -sp2.syn0 * sp1.syn0.T
+
+    if additional:
+        # for each element, computes its rank in the ranked list of
+        # similarites. sorting done on the opposite axis (inverse querying)
+        srtd_idx = np.argsort(np.argsort(sim_mat, axis=1), axis=1)
+
+        # for each element, the resulting rank is combined with cosine scores.
+        # the effect will be of breaking the ties, because cosines are smaller
+        # than 1. sorting done on the standard axis (regular NN querying)
+        srtd_idx = np.argsort(srtd_idx + sim_mat, axis=0)
+    else:
+        srtd_idx = np.argsort(sim_mat, axis=0)
+
+    ranks = []
+    for i, el1 in enumerate(gold.keys()):
+
+        sp1_idx = sp1.row2id[el1]
+
+        # print the top 5 translations
+        translations = []
+        for j in range(5):
+            sp2_idx = srtd_idx[j, sp1_idx]
+            word, score = sp2.id2row[sp2_idx], -sim_mat[sp2_idx, sp1_idx]
+            translations.append("\t\t%s:%.3f" % (word, score))
+
+        translations = "\n".join(translations)
+
+        # get the rank of the (highest-ranked) translation
+        rnk = get_rank(srtd_idx[:, sp1_idx].A.ravel(),
+                       [sp2.row2id[el] for el in gold[el1]])
+        ranks.append(rnk)
+
+        print("\nId: %d Source: %s \n\tTranslation:\n%s \n\tGold: %s \n\tRank: %d" %
+              (len(ranks), el1, translations, gold[el1], rnk))
+
+    print('Corrected: %s' % str(additional))
+
+    if additional:
+        print('Total extra elements, Test(%d) + Additional:%d' % (len(gold.keys()),
+                                                            sp1.mat.shape[0]))
+    for k in [1, 5, 10]:
+        print('Prec@%d: %.3f' % (k, prec_at(ranks, k)))

@@ -11,9 +11,10 @@ import strings
 
 
 class TestModel(TestBaseModel):
-    def __init__(self, test_config, data_model_wrapper, language_config, output_dir):
-        TestBaseModel.__init__(self, model_config=test_config, data_model_wrapper=data_model_wrapper,
-                               language_config=language_config, output_dir=output_dir, type=strings.TEST)
+    def __init__(self, test_config, language_config, output_dir):
+        TestBaseModel.__init__(self, model_config=test_config,
+                               language_config=language_config,
+                               output_dir=output_dir, type=strings.TEST)
 
     def do_test(self):
         for epoch in self.model_config.epochs:

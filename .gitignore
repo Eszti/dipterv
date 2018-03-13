@@ -3,3 +3,4 @@ not_used/
 data/
 .idea/
 __pycache__/
+experiments/

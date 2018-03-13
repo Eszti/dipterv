@@ -1,41 +1,31 @@
-import json
-import pickle
-
-import numpy as np
+import collections
 import os
 import sys
-from gensim.models import KeyedVectors
+import numpy as np
 
 sys.path.insert(0, 'utils')
 sys.path.insert(0, 'base')
 
-import strings
 from loggable import Loggable
+from embedding_models import EmbeddingModelWrapper, EmbeddingModel
 
 
 class DataModel(Loggable):
-    def __init__(self, language_config, data_model_config, embedding_model):
+    def __init__(self, language_config, data_model_config, embedding_model_wrapper):
         Loggable.__init__(self)
         # Configs
         self.language_config = language_config
         self.data_model_config = data_model_config
-        # Initialize
-        # lang1 - Lang2 : word pair list
-        self.word_pairs_dict = self.get_word_pairs_dict()
-        self.emb_dir = data_model_config.emb_dir is not None
-        if data_model_config.emb_dir is not None:       # in case of we have saved training words embedding separately
-            self.logger.info('embedding is read from : {}'.format(data_model_config.emb_dir))
-            self.filtered_input_embeddings =  self._read_filtered_embedding(data_model_config.emb_dir)
-            embeddings = self.filtered_input_embeddings
+        if self.data_model_config.emb is not None:
+            own_embedding_model_wrapper = EmbeddingModelWrapper(
+                language_config=language_config, embedding_config=self.data_model_config.embedding_config)
+            self.embeddings = own_embedding_model_wrapper.embeddings
         else:
-            self.logger.info('original embedding is used'.format(data_model_config.emb_dir))
-            embeddings = embedding_model.embeddings
-        # Lang1 - Lang2 : Lang1 - Lang2 dictionary
-        self.dictionaries, self.word_pairs_dict = self.get_two_lang_dictionaries(embeddings)
-        # Lang : reduced amoung of word embeddings
-        self.filtered_models = self.get_filtered_models(embeddings, embedding_model.get_dim())
+            self.embeddings = embedding_model_wrapper.embeddings
+        # { (l1, l2) : [(w1, w2)] }
+        self.word_pairs_dict = self._get_word_pairs_dict(self.embeddings)
 
-    def get_word_pairs_dict(self):
+    def _get_word_pairs_dict(self, emb_dict):
         word_pairs_dict = dict()
         done = set()
         for lang1 in self.language_config.langs:
@@ -46,133 +36,87 @@ class DataModel(Loggable):
                 done.add(lang_pair)
                 l1 = lang_pair[0]
                 l2 = lang_pair[1]
+                # Read tsv files
                 fn = os.path.join(self.data_model_config.dir, '{0}_{1}.tsv'.format(l1, l2))
                 self.logger.info('Reading word pair file: {0}'.format(fn))
-                data = self._read_word_pairs_tsv(fn, self.data_model_config.idx1, self.data_model_config.idx2, False)
-                word_pairs_dict[lang_pair] = data
-                self.logger.info('Number of word pairs found: {0}'.format(len(data)))
+                header = False
+                with open(fn) as f:
+                    lines = f.readlines()
+                    data = [(line.split()[ self.data_model_config.idx1], line.split()[ self.data_model_config.idx2])
+                            for i, line in enumerate(lines) if i > 0 or header == False]
+                self.logger.info('Number of word pairs: {0}'.format(len(data)))
+                # Get valid data
+                emb1 = emb_dict[l1]
+                emb2 = emb_dict[l2]
+                valid_data = [(w1, w2) for (w1, w2) in data if w1 in emb1.index2word and w2 in emb2.index2word]
+                self.logger.info('Number of valid word pairs: {0}'.format(len(valid_data)))
+                word_pairs_dict[(l1, l2)] = valid_data
         return word_pairs_dict
 
-    # Read word pairs from tsv
-    def _read_word_pairs_tsv(self, fn, id1, id2, header=True):
-        with open(fn) as f:
-            lines = f.readlines()
-            data = [(line.split()[id1], line.split()[id2]) for i, line in enumerate(lines) if i > 0 or header == False]
-        return data
+    def get_gold_dictionary(self):
+        gold_dict = dict()
+        done = set()
+        for lang1 in self.language_config.langs:
+            for lang2 in self.language_config.langs:
+                lang_pair = tuple(sorted([lang1, lang2]))
+                if lang1 == lang2 or lang_pair in done:
+                    continue
+                done.add(lang_pair)
+                gold_l1 = collections.defaultdict(set)
+                gold_l2 = collections.defaultdict(set)
+                for (w1, w2) in self.word_pairs_dict[(lang1, lang2)]:
+                    gold_l1[w1].add(w2)
+                    gold_l2[w2].add(w1)
+                # lang1 -> [lang2]
+                gold_dict[(lang1, lang2)] = gold_l1
+                gold_dict[(lang2, lang1)] = gold_l2
+        return gold_dict
 
-    def _read_filtered_embedding(self, emb_dir):
-        training_embeddings = dict()
-        for l in self.language_config.langs:
-            fn = os.path.join(emb_dir, '{}.pickle'.format(l))
-            with open(fn, 'rb') as f:
-                data = pickle.load(f)
-            training_embeddings[l] = data
-        return training_embeddings
+    def get_embeddings_for_batch(self, wp_l, dim, l1, l2):
+        nb_rows = len(wp_l)
+        emb1 = np.ndarray(shape=(nb_rows, dim))
+        emb2 = np.ndarray(shape=(nb_rows, dim))
+        for (i, (w1, w2)) in enumerate(wp_l):
+            emb1[i, :] = self.embeddings[l1].get(w1)
+            emb2[i, :] = self.embeddings[l2].get(w2)
+        return emb1, emb2
 
-    def _get_not_found_list(self, vocab, embedding):
-        nf_list = []
-        for i, w in enumerate(vocab):
-            # Check if there's an embedding to the word
-            if w not in embedding:
-                nf_list.append(w)
-        return nf_list
+    def _get_emb(self, words, lang):
+        W = np.ndarray(shape=(len(words), self.embeddings[lang].syn0[0].shape[0]))
+        for i, w in enumerate(words):
+            W[i, :] = self.embeddings[lang].get(w)
+        emb = EmbeddingModel()
+        emb.index2word = words
+        emb.syn0 = W
+        return emb
 
-    def get_two_lang_dictionaries(self, embeddings):
-        dictionaries = dict()
-        updated_word_pairs = dict()
-        for ((l1, l2), wp_l) in self.word_pairs_dict.items():
-            self.logger.info('Processing {0}-{1}...'.format(l1, l2))
-            # Find words without embeddings
-            [l1_vocab, l2_vocab] = zip( *wp_l)
-            l1_vocab = list(set(l1_vocab))
-            l2_vocab = list(set(l2_vocab))
-            self.logger.info('Words in {0}: {1}'.format(l1, len(l1_vocab)))
-            self.logger.info('Words in {0}: {1}'.format(l2, len(l2_vocab)))
-            nf_l1 = self._get_not_found_list(vocab=l1_vocab, embedding=embeddings[l1])
-            self.logger.info('Words not found in embedding {0}: {1}'.format(l1, len(nf_l1)))
-            self.logger.debug(nf_l1)
-            nf_l2 = self._get_not_found_list(vocab=l2_vocab, embedding=embeddings[l2])
-            self.logger.info('Words not found in embedding {0}: {1}'.format(l2, len(nf_l2)))
-            self.logger.debug(nf_l2)
-            # Update word list
-            self.logger.info('Updating word pair list {0}-{1}'.format(l1, l2))
-            updated_wp_l = [(w1, w2) for (w1, w2) in wp_l if w1 not in nf_l1 and w2 not in nf_l2]
-            self.logger.info('Word pairs list legth: {0} ->  {1} '.format(len(wp_l), len(updated_wp_l)))
-            updated_word_pairs[(l1, l2)] = updated_wp_l
-            # Create dictioary
-            self.logger.info('Creating dictionary for: {0}-{1}'.format(l1, l2))
-            l12, l21 = self._wp_list_2_dict(updated_wp_l)
-            dictionaries[(l1, l2)] = l12
-            dictionaries[(l2, l1)] = l21
-            self.logger.info('# word in: {0}-{1}:\t{2}'.format(l1.upper(), l2, len(l12)))
-            self.logger.info('# word in: {0}-{1}:\t{2}'.format(l2.upper(), l1, len(l21)))
-        return dictionaries, updated_word_pairs
-
-    # Get dictionary fromm wordlist
-    def _wp_list_2_dict(self, wp_l):
-        l12 = dict()
-        l21 = dict()
-        for (w1, w2) in wp_l:
-            if w1 not in l12:
-                l12[w1] = [w2]
-            else:
-                l12[w1].append(w2)
-            if w2 not in l21:
-                l21[w2] = [w1]
-            else:
-                l21[w2].append(w1)
-        return l12, l21
-
-    def get_filtered_models(self, embeddings, dim):
-        filtered_mod_dict = dict()
-        for ((l1, l2), d) in self.dictionaries.items():
-            filtered_mod = KeyedVectors()
-            filtered_mod.index2word = list(d.keys())
-            filtered_mod.syn0 = np.ndarray(shape=(len(filtered_mod.index2word), dim), dtype=np.float32)
-            # Adding embedding to train model
-            for i, w in enumerate(filtered_mod.index2word):
-                filtered_mod.syn0[i, :] = embeddings[l1][w]
-            self.logger.info('Filtered model: {0}-{1} contains {2} words'.
-                             format(l1.upper(), l2, len(list(d.keys()))))
-            filtered_mod_dict[(l1, l2)] = filtered_mod
-        return filtered_mod_dict
-
-class EmbeddingModel(Loggable):
-    def __init__(self, language_config, embedding_config):
-        Loggable.__init__(self)
-        self.language_config = language_config
-        self.embedding_config = embedding_config
-        self._get_sil2fb_map()
-        self._read_embeddings()
-
-    def get_dim(self):
-        for (_, e) in self.embeddings.items():
-            return e.vector_size
-
-    def _get_sil2fb_map(self):
-        with open(self.embedding_config.sil2fb_path) as f:
-            self.sil2fb = json.load(f)
-
-    def _read_embeddings(self):
-        self.embeddings = dict()
-        for sil in self.language_config.langs:
-            fb = self.sil2fb[sil]
-            fn = self.embedding_config.path.replace('*', fb)
-            self.logger.info('Reading embedding from {}'.format(fn))
-            model = KeyedVectors.load_word2vec_format(fn, binary=False, limit=self.embedding_config.limit)
-            model.syn0 /= np.sqrt((model.syn0 ** 2).sum(1))[:, None]
-            self.embeddings[sil] = model
-            self.logger.info('# word:\t{}'.format(len(model.syn0)))
+    def get_filtered_models_dict(self):
+        filtered_models_dict = dict()
+        done = set()
+        for lang1 in self.language_config.langs:
+            for lang2 in self.language_config.langs:
+                lang_pair = tuple(sorted([lang1, lang2]))
+                if lang1 == lang2 or lang_pair in done:
+                    continue
+                done.add(lang_pair)
+                words1, words2 = zip(*self.word_pairs_dict[(lang1, lang2)])
+                words1 = list(set(words1))
+                words2 = list(set(words2))
+                emb_l1 = self._get_emb(words1, lang1)
+                emb_l2 = self._get_emb(words2, lang2)
+                filtered_models_dict[(lang1, lang2)] = emb_l1
+                filtered_models_dict[(lang2, lang1)] = emb_l2
+        return filtered_models_dict
 
 class DataModelWrapper(Loggable):
     def __init__(self, data_wrapper_config, embedding_config, language_config):
         Loggable.__init__(self)
         self.data_models = dict()
-        self.embedding_model = EmbeddingModel(language_config=language_config, embedding_config=embedding_config)
+        embedding_model_wrapper = EmbeddingModelWrapper(language_config=language_config,
+                                                             embedding_config=embedding_config)
         for (key, data_model_config) in data_wrapper_config.data_configs.items():
             self.logger.info('Creating data model for {} ...'.format(key.upper()))
             self.data_models[key] = DataModel(language_config=language_config,
                                               data_model_config=data_model_config,
-                                              embedding_model=self.embedding_model)
-        self.dim = self.embedding_model.get_dim()
-        self.logger.info('Vector dimension: {}'.format(self.dim))
+                                              embedding_model_wrapper=embedding_model_wrapper)
+        self.dim = embedding_model_wrapper.get_dim()

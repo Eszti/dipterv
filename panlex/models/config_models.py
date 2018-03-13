@@ -39,13 +39,16 @@ class Configable(Loggable):
         self._log_cfg(section, cfg_key, value)
         return value
 
-    def get_optional(self, cfg_key, type=None, section=None):
+    def get_optional(self, cfg_key, type=None, section=None, default=None):
         if section is None:
             section = self.name
         if self.config.has_option(section, cfg_key):
             return self.get(cfg_key, type, section)
         else:
             self.logger.debug('No option is found: {0} - {1}'.format(section, cfg_key))
+            if default is not None:
+                self.logger.debug('Default value is used: {}'.format(default))
+                return default
             return None
 
 class LanguageConfig(Configable):
@@ -66,13 +69,16 @@ class ContConfig(Configable):
             self.epoch = self.get_optional('epoch', 'int')
 
 class EmbeddingConfig(Configable):
-    def __init__(self, cfg):
+    def __init__(self, cfg, name=strings.EMBEDDING_CONFIG_MAME):
         Configable.__init__(self, cfg)
         self.config = cfg
-        self.name = strings.EMBEDDING_CONFIG_MAME
+        self.name = name
+        self.langcode_type = self.get('langcode_type')
         self.sil2fb_path = self.get('sil2fb_path')
         self.path = self.get('path')
         self.limit = self.get_optional('limit', type='int')
+        self.format = self.get('format')
+        self.encoding = self.get_optional('encoding', default='utf-8')
 
 class DataModelConfig(Configable):
     def __init__(self, cfg, typestr):
@@ -83,7 +89,9 @@ class DataModelConfig(Configable):
         self.header = self.get('header', type='boolean')
         self.idx1 = self.get('idx1', type='int')
         self.idx2 = self.get('idx2', type='int')
-        self.emb_dir = self.get_optional('emb_dir')
+        self.emb = self.get_optional('emb')
+        if self.emb is not None:
+            self.embedding_config = EmbeddingConfig(cfg=cfg, name=self.emb)
 
 class DataWrapperConfig(Configable):
     def __init__(self, cfg):

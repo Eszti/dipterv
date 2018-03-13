@@ -3,40 +3,39 @@ import sys
 import os
 
 sys.path.insert(0, 'utils')
+sys.path.insert(0, 'base')
 
 from io_helper import save_pickle, list_to_csv
-from math_helper import get_embeddings_for_batch
 
 import strings
-from base.loggable import Loggable
+from loggable import Loggable
 import tensorflow as tf
 import numpy as np
 
 
 class TrainModel(Loggable):
-    def __init__(self, train_config, data_model_wrapper, language_config, output_dir,
-                 cont_model, validation_model, plot_model):
+    def __init__(self, train_config,
+                 data_model_wrapper,
+                 language_config, output_dir,
+                 validation_model, plot_model):
         Loggable.__init__(self)
         self.train_config = train_config
-        self.batch_size = self.train_config.batch_size
         self.langs = language_config.langs
         self.logger.info('Language order: {0}'.format([(i, l) for i, l in enumerate(self.langs)]))
-        self.dim = data_model_wrapper.dim
+
         # Train setup
         self.do_train = strings.TRAIN in data_model_wrapper.data_models.keys()
         if self.do_train:
-            self.train_data_model = data_model_wrapper.data_models[strings.TRAIN]
-            # Getting embeddings
-            self.train_embeddings = self.train_data_model.filtered_input_embeddings
-            self.embeddings = data_model_wrapper.embedding_model.embeddings
             self.output_dir = os.path.join(output_dir, strings.TRAIN_OUTPUT_FOLDER_NAME)
-            # Set continue params
-            self.cont_model = cont_model
+            self.dim = data_model_wrapper.dim
+            # Word pairs
+            self.train_data_model = data_model_wrapper.data_models[strings.TRAIN]
             # Valid setup
             self.do_valid = validation_model is not None
             if self.do_valid:
                 # Validation model
                 self.validation_model = validation_model
+                self.validation_model.set_datamodel(data_model_wrapper.data_models[strings.VALID])
             else:
                 self.logger.info('Validation will be skipped !!! - no validation process is required')
             self.plot_model = plot_model
@@ -51,6 +50,7 @@ class TrainModel(Loggable):
 
     def train(self):
         nb_langs = len(self.langs)
+        batch_size = self.train_config.batch_size
 
         # Init graphs
         graph = tf.Graph()
@@ -63,10 +63,7 @@ class TrainModel(Loggable):
             tf_idx_l1 = tf.placeholder(tf.int32)
             tf_idx_l2 = tf.placeholder(tf.int32)
             # Translation matrices
-            if self.cont_model.cont:  # Load pretrained model
-                tf_T = tf.Variable(self.cont_model.T_loaded)
-            else:
-                tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
+            tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
 
             # SVD reguralization
             tf_s1, tf_U1, tf_V1 = tf.svd(tf_T[tf_idx_l1], full_matrices=True, compute_uv=True)
@@ -100,11 +97,12 @@ class TrainModel(Loggable):
                     loss_U_arr_l = []
                     idx_l1 = self.langs.index(l1)
                     idx_l2 = self.langs.index(l2)
-                    for j_batch in range(int(round(1.0 * len(wp_l) / self.batch_size))):
-                        chosen_wps = wp_l[j_batch*self.batch_size : (j_batch+1)*self.batch_size]
+                    for j_batch in range(int(round(1.0 * len(wp_l) / batch_size))):
+                        chosen_wps = wp_l[j_batch*batch_size : (j_batch+1)*batch_size]
 
-                        W1, W2 = get_embeddings_for_batch(emb_dict=self.train_embeddings, wp_l=chosen_wps,
-                                                          dim=self.dim, l1=l1, l2=l2)
+                        W1, W2 = self.train_data_model.get_embeddings_for_batch( wp_l=chosen_wps,
+                                                                                 dim=self.dim,
+                                                                                 l1=l1, l2=l2)
                         svd_done = False
                         if j_batch == 0:
                             if (self.train_config.svd_mode == 1 and epoch % self.train_config.svd_f == 0) or \

@@ -9,9 +9,10 @@ import strings
 
 
 class ValidModel(TestBaseModel):
-    def __init__(self, valid_config, data_model_wrapper, language_config, output_dir):
-        TestBaseModel.__init__(self, model_config=valid_config, data_model_wrapper=data_model_wrapper,
-                               language_config=language_config, output_dir=output_dir, type=strings.VALID)
+    def __init__(self, valid_config, language_config, output_dir):
+        TestBaseModel.__init__(self, model_config=valid_config,
+                               language_config=language_config,
+                               output_dir=output_dir, type=strings.VALID)
 
     def do_validation(self, svd_done, epoch, T):
         valid_done = False
