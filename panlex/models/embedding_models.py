@@ -51,8 +51,13 @@ class KeyedVectorEmbedding(EmbeddingModel):
     def __init__(self):
         EmbeddingModel.__init__(self)
 
+    def get(self, word):
+        print('keyedvec')
+        return self.model[word]
+
     def _read(self, fn, limit=None, lexicon=None, encoding='utf-8'):
         model = KeyedVectors.load_word2vec_format(fn, binary=False, limit=limit, encoding=encoding)
+        self.model = model
         self.syn0 = model.syn0
         self.index2word = model.index2word
 
@@ -64,7 +69,7 @@ class TextEmbedding(EmbeddingModel):
         id2row = []
         def filter_lines(f):
             for i,line in enumerate(f):
-                if i > limit:
+                if limit is not None and i > limit:
                     break
                 word = line.split()[0]
                 if i != 0 and (lexicon is None or word in lexicon):
