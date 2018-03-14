@@ -1,4 +1,0 @@
-Kronleuchter	chandelier	
-Kronleuchter	luster
-Hund	canine	dog	hound
-Himmel	sky	heaven
