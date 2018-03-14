@@ -17,6 +17,14 @@ class EmbeddingModel(Loggable):
         self.syn0 = None
         self.index2word = None
 
+    def filter_nans(self):
+        nans = np.where(np.isnan(self.syn0).any(axis=1))[0]
+        self.logger.info('# of nan: {0}, nan indices: {1}'.format(len(nans), nans))
+        if len(nans) > 0:
+            self.syn0 = np.delete(self.syn0, nans, axis=0)
+            self.index2word = [w for i, w in enumerate(self.index2word) if i not in nans]
+            self.logger.info('New lenght: syn0={0}\tindex2word={1}'.format(len(self.syn0), len(self.index2word)))
+
     def normalize(self):
         self.syn0 /= np.sqrt((self.syn0 ** 2).sum(1))[:, None]
         self.logger.info('normalized, # > 0.001: {}'.format(
@@ -29,6 +37,7 @@ class EmbeddingModel(Loggable):
         self.logger.info('Reading embedding from {}'.format(fn))
         self._read(fn, limit, lexicon, encoding)
         self.normalize()
+        self.filter_nans()
         self.logger.info('Syn0 size: {0}'.format(self.syn0.shape))
 
     def get(self, word):
