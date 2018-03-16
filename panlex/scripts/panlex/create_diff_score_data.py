@@ -27,17 +27,17 @@ full_tsv_fn = os.path.join(working_dir, '{0}_{1}.tsv'.format(lang1, lang2))
 id1 = 2
 id2 = 3
 score_id = 4
-lines = None
+lines = 1000
 
 # Variables for splitting (eng - ita: 1-9)
-score_min = 7
-score_max = 7
+score_min = 8
+score_max = 8
 tr_rat = 7
 
 # Valiables for reading embeddings
 lang1_emb_path = '/mnt/permanent/Language/Multi/FB/wiki.en/wiki.en.vec'
 lang2_emb_path = '/mnt/permanent/Language/Multi/FB/wiki.it/wiki.it.vec'
-limit = 1000
+limit = None
 
 # Read embeddings
 print('Reading embeddings...')
