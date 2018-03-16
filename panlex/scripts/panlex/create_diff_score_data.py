@@ -1,5 +1,6 @@
 import collections
 import csv
+import datetime
 import pickle
 
 import errno
@@ -27,17 +28,17 @@ full_tsv_fn = os.path.join(working_dir, '{0}_{1}.tsv'.format(lang1, lang2))
 id1 = 2
 id2 = 3
 score_id = 4
-lines = 1000
+lines = None
 
 # Variables for splitting (eng - ita: 1-9)
-score_min = 8
-score_max = 8
+score_min = 0
+score_max = 9
 tr_rat = 7
 
 # Valiables for reading embeddings
 lang1_emb_path = '/mnt/permanent/Language/Multi/FB/wiki.en/wiki.en.vec'
 lang2_emb_path = '/mnt/permanent/Language/Multi/FB/wiki.it/wiki.it.vec'
-limit = None
+limit = 200000
 
 # Read embeddings
 print('Reading embeddings...')
@@ -63,11 +64,12 @@ with open(full_tsv_fn) as f:
 print('# all word pairs: {}'.format(len(all_word_pairs)))
 
 gold_l1 = collections.defaultdict(set)
-gold_l2 = collections.defaultdict(set)
 act_wps = []
 
 for score in range(score_max, score_min-1, -1):
-    print('\n======== Score {} ========'.format(score))
+    print('\n')
+    print(datetime.datetime.now())
+    print('======== Score {} ========'.format(score))
     score_dir = os.path.join(working_dir, '{}'.format(score))
 
     # Filter word pair list (only score)
@@ -79,10 +81,15 @@ for score in range(score_max, score_min-1, -1):
     print('# wp filtered - until score {0}: {1}'.format(score, len(act_wps)))
 
     # Create dictionary (append)
+    print(datetime.datetime.now())
     print('Splitting...')
     for (w1, w2) in fil_act_score_wps:
         gold_l1[w1].add(w2)
-        gold_l2[w2].add(w1)
+
+    for (k, vals) in gold_l1.items():
+        wp_s = []
+        for v in vals:
+            wp_s.append((k, v))
 
     # Split data (from the start)
     i = 0
@@ -100,34 +107,6 @@ for score in range(score_max, score_min-1, -1):
     print('# train: {}'.format(len(tr)))
     print('# test: {}'.format(len(te)))
 
-    # Save embeddings of training data (new)
-    print('Getting embeddings...')
-    def get_filtered_embedding(emb, wl, fn=None):
-        to_save = []
-        not_found = []
-        for w in wl:
-            if w in emb.index2word:
-                to_save.append([w, emb[w], emb.index2word.index(w)])
-            else:
-                not_found.append(w)
-                if debug:
-                    print('not found: {}'.format(w))
-        to_save.sort(key=lambda x: x[2])
-        dim = 300
-        vocab = [l[0] for l in to_save]
-        print('# words: {}'.format(len(wl)))
-        print('# not found: {}'.format(len(not_found)))
-        print('# vocab: {}'.format(len(vocab)))
-        filtered_mod = np.ndarray(shape=(len(vocab), dim))
-        for i, w in enumerate(vocab):
-            filtered_mod[i, :] = emb[w]
-        if fn is not None:
-            print('Saving embedding to {}'.format(fn))
-            checkdir(fn)
-            with open(fn, 'wb') as f:
-                pickle.dump(file=f, obj=(filtered_mod, vocab))
-        return filtered_mod, vocab
-
     # Save embeddings
     # All
     print('--------all--------')
@@ -135,9 +114,8 @@ for score in range(score_max, score_min-1, -1):
     words1 = set(words1)
     words2 = set(words2)
     print('{}'.format(lang1))
-    get_filtered_embedding(emb1, words1)
-    print('{}'.format(lang2))
-    get_filtered_embedding(emb2, words2)
+    print('{0} len: {1}'.format(lang1, len(words1)))
+    print('{0} len: {1}'.format(lang2, len(words2)))
     # Train
     print('--------train--------')
     tr_1_fn = os.path.join(score_dir, '{}.pickle'.format(lang1))
@@ -146,18 +124,16 @@ for score in range(score_max, score_min-1, -1):
     tr_words1 = set(tr_words1)
     tr_words2 = set(tr_words2)
     print('{}'.format(lang1))
-    en_syn0, en_i2w = get_filtered_embedding(emb1, tr_words1, tr_1_fn)
-    print('{}'.format(lang2))
-    it_syn0, it_i2r = get_filtered_embedding(emb2, tr_words2, tr_2_fn)
+    print('{0} len: {1}'.format(lang1, len(tr_words1)))
+    print('{0} len: {1}'.format(lang2, len(tr_words2)))
     # Test
     print('--------test--------')
     te_words1, te_words2 = zip(*te)
     te_words1 = set(te_words1)
     te_words2 = set(te_words2)
     print('{}'.format(lang1))
-    get_filtered_embedding(emb1, te_words1)
-    print('{}'.format(lang2))
-    get_filtered_embedding(emb2, te_words2)
+    print('{0} len: {1}'.format(lang1, len(te_words1)))
+    print('{0} len: {1}'.format(lang2, len(te_words2)))
 
     # Train - Test overlap
     overlap_1 = set(tr_words1) & set(te_words1)
