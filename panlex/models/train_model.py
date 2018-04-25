@@ -17,7 +17,8 @@ class TrainModel(Loggable):
     def __init__(self, train_config,
                  data_model_wrapper,
                  language_config, output_dir,
-                 validation_model, plot_model):
+                 validation_model, plot_model,
+                 cont_model):
         Loggable.__init__(self)
         self.train_config = train_config
         self.langs = language_config.langs
@@ -39,6 +40,7 @@ class TrainModel(Loggable):
             else:
                 self.logger.info('Validation will be skipped !!! - no validation process is required')
             self.plot_model = plot_model
+            self.cont_model = cont_model
 
     def _log_loss_after_epoch(self, loss_arr, lc_arr, i, loss_type):
         loss_np_arr = np.asarray(loss_arr)
@@ -64,6 +66,10 @@ class TrainModel(Loggable):
             tf_idx_l2 = tf.placeholder(tf.int32)
             # Translation matrices
             tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
+             # Load pretrained model
+            if self.cont_model.cont:
+                for i, l in enumerate(self.langs):
+                    tf_T[i] = self.cont_model.T_loaded[i]
 
             # SVD reguralization
             tf_s1, tf_U1, tf_V1 = tf.svd(tf_T[tf_idx_l1], full_matrices=True, compute_uv=True)
