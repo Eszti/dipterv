@@ -128,11 +128,11 @@ class TestBaseModel(Loggable):
                 self.precs_lang_wise[(l1, l2)].append([epoch] + precs_1)
                 self.precs_lang_wise[(l2, l1)].append([epoch] + precs_2)
 
-            # Calculate small singular values
-            if self.model_config.calc_small_sing:
-                for i, _ in enumerate(self.langs):
-                    T1 = T[i]
-                    get_smalls(T=T1, limit=self.model_config.limit, nb=i, logger=self.logger)
+        # Calculate small singular values
+        if self.model_config.calc_small_sing:
+            for i, _ in enumerate(self.langs):
+                T1 = T[i]
+                get_smalls(T=T1, limit=self.model_config.limit, nb=i, logger=self.logger)
 
         # Calculate average similarity over all the languages
         epoch_valid_sim_cumm_avg = np.average(np.asanyarray(epoch_valid_sim_cumm))

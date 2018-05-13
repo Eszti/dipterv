@@ -61,7 +61,6 @@ class KeyedVectorEmbedding(EmbeddingModel):
         EmbeddingModel.__init__(self)
 
     def get(self, word):
-        print('keyedvec')
         return self.model[word]
 
     def _read(self, fn, limit=None, lexicon=None, encoding='utf-8'):

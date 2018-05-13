@@ -42,6 +42,7 @@ class DataModel(Loggable):
                 header = False
                 with open(fn) as f:
                     lines = f.readlines()
+                    print(len(lines))
                     data = [(line.split()[ self.data_model_config.idx1], line.split()[ self.data_model_config.idx2])
                             for i, line in enumerate(lines) if i > 0 or header == False]
                 self.logger.info('Number of word pairs: {0}'.format(len(data)))

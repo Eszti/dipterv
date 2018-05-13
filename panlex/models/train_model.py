@@ -42,13 +42,26 @@ class TrainModel(Loggable):
             self.plot_model = plot_model
             self.cont_model = cont_model
 
-    def _log_loss_after_epoch(self, loss_arr, lc_arr, i, loss_type):
-        loss_np_arr = np.asarray(loss_arr)
-        loss_epoch_avg = np.average(loss_np_arr)
-        self.logger.info('epoch:\t{0}\tavg sims: {1}\t- {2}'.format(i, loss_epoch_avg, loss_type))
-        lc_arr.append([i, loss_epoch_avg])
-        loss_u_fn = os.path.join(self.output_dir, strings.SIM_LOG_FN)
-        list_to_csv(data=lc_arr, filename=loss_u_fn)
+    def _log_loss_after_epoch(self, sims, avg_sims, epoch_sims, i, loss_type):
+        epoch_avg_ls = []
+        for ((lang_pair), ls) in epoch_sims.items():
+            lang_avg_arr = np.asarray(ls)
+            lang_avg = np.average(lang_avg_arr)
+            sims[lang_pair].append((i, lang_avg))
+            epoch_avg_ls.append(lang_avg)
+            self.logger.info('epoch:\t{0}\t{1}\tavg sims: {2}\t'.format(i, lang_pair, lang_avg))
+
+            lang_sims_fn = os.path.join(self.output_dir, '{0}_{1}_{2}'
+                                        .format(strings.SIM_LOG_FN, lang_pair[0], lang_pair[1]))
+            list_to_csv(data=sims[lang_pair], filename=lang_sims_fn)
+
+        epoch_avg_arr = np.asarray(epoch_avg_ls)
+        epoch_avg = np.average(epoch_avg_arr)
+        avg_sims.append((i, epoch_avg))
+        self.logger.info('epoch:\t{0}\tavg sims: {1}\t- {2}'.format(i, epoch_avg, loss_type))
+
+        avg_sims_fn = os.path.join(self.output_dir, strings.SIM_LOG_FN)
+        list_to_csv(data=avg_sims, filename=avg_sims_fn)
 
     def train(self):
         nb_langs = len(self.langs)
@@ -68,8 +81,7 @@ class TrainModel(Loggable):
             tf_T = tf.Variable(tf.truncated_normal([nb_langs, self.dim, self.dim]))
              # Load pretrained model
             if self.cont_model.cont:
-                for i, l in enumerate(self.langs):
-                    tf_T[i] = self.cont_model.T_loaded[i]
+                tf_T = tf.Variable(self.cont_model.T_loaded)
 
             # SVD reguralization
             tf_s1, tf_U1, tf_V1 = tf.svd(tf_T[tf_idx_l1], full_matrices=True, compute_uv=True)
@@ -91,48 +103,74 @@ class TrainModel(Loggable):
 
         with tf.Session(graph=graph) as session:
             tf.global_variables_initializer().run()
-            sim_u_arr = []
+            sims = dict()
+            avg_sims = []
             valid_done = False
             T_saved = False
+            nb_train = len(self.train_data_model.word_pairs_dict[self.langs[0], self.langs[1]])
+            print(nb_train)
+
+            # Init
+            done = []
+            for l1 in self.langs:
+                for l2 in self.langs:
+                    lang_pair = tuple(sorted([l1, l2]))
+                    if l1 == l2 or lang_pair in done:
+                        continue
+                    else:
+                        sims[lang_pair] = []
+
             for epoch in range(self.train_config.epochs):
                 T_saved = False
                 svd_in_epoch = False
-                loss_u_arr = []
+                epoch_sims = dict()
 
-                for (j_lang, ((l1, l2), wp_l)) in enumerate(self.train_data_model.word_pairs_dict.items()):
-                    loss_U_arr_l = []
-                    idx_l1 = self.langs.index(l1)
-                    idx_l2 = self.langs.index(l2)
-                    for j_batch in range(int(round(1.0 * len(wp_l) / batch_size))):
-                        chosen_wps = wp_l[j_batch*batch_size : (j_batch+1)*batch_size]
+                for j_batch in range(int(round(1.0 * nb_train / batch_size))):
+                    done = []
+                    for l1 in self.langs:
+                        for l2 in self.langs:
+                            lang_pair = tuple(sorted([l1, l2]))
+                            if l1 == l2 or lang_pair in done:
+                                continue
+                            if j_batch == 0:
+                                epoch_sims[lang_pair] = []
 
-                        W1, W2 = self.train_data_model.get_embeddings_for_batch( wp_l=chosen_wps,
-                                                                                 dim=self.dim,
-                                                                                 l1=l1, l2=l2)
-                        svd_done = False
-                        if j_batch == 0:
-                            if (self.train_config.svd_mode == 1 and epoch % self.train_config.svd_f == 0) or \
-                                    (self.train_config.svd_mode == 2 and epoch == 0):
-                                _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
-                                                            feed_dict={tf_w1: W1,
-                                                                       tf_w2: W2,
-                                                                       tf_idx_l1: idx_l1,
-                                                                       tf_idx_l2: idx_l2})
-                                svd_done = True
-                                svd_in_epoch = True
-                        if not svd_done:
-                            _, l, T = session.run([optimizer, loss, tf_T],
-                                                  feed_dict={tf_w1: W1,
-                                                             tf_w2: W2,
-                                                             tf_idx_l1: idx_l1,
-                                                             tf_idx_l2: idx_l2})
-                        loss_u_arr.append(-l)
-                        loss_U_arr_l.append(-l)
-                        self.logger.debug('batch: {0} - loss: {1}'.format(j_batch, -l))
+                            idx_l1 = self.langs.index(l1)
+                            idx_l2 = self.langs.index(l2)
+
+                            wp_l = self.train_data_model.word_pairs_dict[l1, l2]
+                            chosen_wps = wp_l[j_batch*batch_size : (j_batch+1)*batch_size]
+
+                            W1, W2 = self.train_data_model.get_embeddings_for_batch( wp_l=chosen_wps,
+                                                                                     dim=self.dim,
+                                                                                     l1=l1, l2=l2)
+                            svd_done = False
+                            if j_batch == 0:
+                                if (self.train_config.svd_mode == 1 and epoch % self.train_config.svd_f == 0) or \
+                                        (self.train_config.svd_mode == 2 and epoch == 0):
+                                    _, l, _, _, T = session.run([optimizer, loss, updated_1, updated_2, tf_T],
+                                                                feed_dict={tf_w1: W1,
+                                                                           tf_w2: W2,
+                                                                           tf_idx_l1: idx_l1,
+                                                                           tf_idx_l2: idx_l2})
+                                    svd_done = True
+                                    svd_in_epoch = True
+                            if not svd_done:
+                                _, l, T = session.run([optimizer, loss, tf_T],
+                                                      feed_dict={tf_w1: W1,
+                                                                 tf_w2: W2,
+                                                                 tf_idx_l1: idx_l1,
+                                                                 tf_idx_l2: idx_l2})
+                            epoch_sims[lang_pair].append(-l)
+                            self.logger.debug('batch: {0} - loss: {1}'.format(j_batch, -l))
+                            # print('batch: {0} - loss: {1} - lang: {2}'.format(j_batch, -l, lang_pair))
+                            done.append(lang_pair)
 
                 # Monitoring for learning curve
-                self._log_loss_after_epoch(loss_arr=loss_u_arr,
-                                           lc_arr=sim_u_arr, i=epoch,
+                self._log_loss_after_epoch(sims=sims,
+                                           avg_sims=avg_sims,
+                                           epoch_sims=epoch_sims,
+                                           i=epoch,
                                            loss_type='universal space')
                 if self.do_valid:
                     # Validate

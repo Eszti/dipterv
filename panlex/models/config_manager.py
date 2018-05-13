@@ -63,11 +63,13 @@ class ConfigManager:
                                          language_config=self.language_config,
                                          output_dir=self.output_dir,
                                          validation_model=self.validation_model,
-                                         plot_model=self.plot_model)
+                                         plot_model=self.plot_model,
+                                         cont_model=self.cont_model)
         if strings.TEST in self.data_model_wrapper.data_models.keys():
             self.test_model = TestModel(test_config=self.test_config,
                                         language_config=self.language_config,
                                         output_dir=self.output_dir)
+            self.test_model.set_datamodel(self.data_model_wrapper.data_models[strings.TEST])
         else:
             self.test_model = None
 
